@@ -32,7 +32,7 @@ pageSections:
         linkText: View Offer
         formAction: ""
     formText: To take advantage of this promotion, kindly complete the form below.
-    formAction: ""
+    formAction: "https://tnt-adder.herokuapp.com/submit/78dc1827-7994-485c-9255-a0510dcc8663"
   - _component: page-sections/homepage-blocks/index-split
     id: ''
     heading: The Tahquitz Dental Experience

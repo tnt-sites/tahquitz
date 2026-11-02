@@ -15,7 +15,7 @@ pageSections:
     id: specials
     heading: "Specials"
     formText: "To take advantage of this promotion, kindly complete the form below."
-    formAction: ""
+    formAction: "https://tnt-adder.herokuapp.com/submit/78dc1827-7994-485c-9255-a0510dcc8663"
     offers:
       - amount: "$600 Off"
         treatment: "Dental Implants"

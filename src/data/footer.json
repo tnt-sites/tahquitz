@@ -24,6 +24,6 @@
     }
   ],
   "formHeading": "Ask Us a Question",
-  "formAction": "",
+  "formAction": "https://tnt-adder.herokuapp.com/submit/78dc1827-7994-485c-9255-a0510dcc8663",
   "consentText": "I agree to receive marketing messaging from Tahquitz Dental Group Palm Springs at the phone number provided above. I understand I will receive 2 messages a month, data rates may apply, reply STOP to opt out. (Required)"
 }
