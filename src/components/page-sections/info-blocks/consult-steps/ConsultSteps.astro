@@ -1,0 +1,99 @@
+---
+// Numbered steps (e.g. "How a Virtual Consult Works"): light blue band, number circle, heading and text.
+const {
+  id = "",
+  heading = "",
+  steps = [],
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section class:list={["consult-steps", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    <ol class="block lg:flex justify-center">
+      {
+        steps.map((step: any, index: number) => (
+          <li>
+            <span class="number" aria-hidden="true">
+              {index + 1}
+            </span>
+            <h3>{step.heading}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .consult-steps {
+    background-color: var(--color-brand);
+    padding: 60px 20px;
+  }
+
+  .consult-steps > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  h2 {
+    font-size: 32px;
+    margin: 0 0 40px;
+  }
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+  }
+
+  li {
+    margin: 0 auto 40px;
+    max-width: 340px;
+  }
+
+  .number {
+    align-items: center;
+    background-color: var(--color-bg-dark);
+    border-radius: 50%;
+    color: #fff;
+    display: inline-flex;
+    font-size: 40px;
+    font-weight: var(--font-weight-light);
+    height: 80px;
+    justify-content: center;
+    width: 80px;
+  }
+
+  h3 {
+    font-size: 20px;
+    margin: 20px 0 10px;
+  }
+
+  p {
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (min-width: 1025px) {
+    .consult-steps {
+      padding: 80px 20px;
+    }
+
+    h2 {
+      font-size: 55px;
+      margin-bottom: 50px;
+    }
+
+    li {
+      flex: 0 1 340px;
+      margin: 0 20px;
+    }
+  }
+</style>

@@ -1,0 +1,14 @@
+label: Interior Banner
+icon: web_asset
+description: Internal page banner with a photo on the left and the H1, heading and intro on a navy panel.
+value:
+  _component: page-sections/heroes/interior-banner
+  id: ""
+  eyebrow: Service Palm Springs
+  heading: Banner heading
+  text: Intro text.
+  imageSource: ""
+  imageAlt: ""
+  buttonSections: []
+_inputs_from_glob:
+  - /src/components/page-sections/heroes/interior-banner/interior-banner.cloudcannon.inputs.yml

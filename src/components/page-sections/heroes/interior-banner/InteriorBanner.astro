@@ -1,0 +1,141 @@
+---
+import bgTriangles from "@assets/images/bg-triangles.webp";
+import Image from "@core-elements/image/Image.astro";
+import Text from "@core-elements/text/Text.astro";
+import ButtonGroup from "@wrappers/button-group/ButtonGroup.astro";
+
+// Internal page banner: photo on the left, navy panel with the H1 eyebrow, heading, intro and optional buttons on the right.
+const {
+  id = "",
+  eyebrow = "",
+  heading = "",
+  text = "",
+  imageSource = "",
+  imageAlt = "",
+  buttonSections = [],
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section
+  class:list={["interior-banner", className]}
+  id={id || undefined}
+  style={`background-image: url(${bgTriangles.src})`}
+  {...htmlAttributes}
+>
+  <div class="block lg:flex">
+    <figure>
+      <Image
+        source={imageSource}
+        alt={imageAlt}
+        priority={true}
+        data-prop-src="imageSource"
+        data-prop-alt="imageAlt"
+      />
+    </figure>
+    <article>
+      {eyebrow && <h1 data-prop="eyebrow">{eyebrow}</h1>}
+      {heading && <h2 data-prop="heading">{heading}</h2>}
+      <Text text={text} data-prop="text" />
+      {
+        buttonSections.length > 0 && (
+          <ButtonGroup buttonSections={buttonSections} width="content" alignX="start" />
+        )
+      }
+    </article>
+  </div>
+</section>
+
+<style>
+  /* Faint triangle pattern behind the navy panel (the photo covers the left half) */
+  .interior-banner {
+    background-color: var(--color-bg-dark);
+    background-position: right center;
+    background-size: cover;
+    color: #fff;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  figure :global(img) {
+    aspect-ratio: 4 / 3;
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  article {
+    padding: 40px 20px 45px;
+  }
+
+  h1 {
+    color: #fff;
+    font-family: var(--font-accent);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    margin: 0 0 15px;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  article :global(.text) {
+    margin: 20px 0 0;
+  }
+
+  article :global(.text p) {
+    color: #fff;
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  article :global(.text > * + *) {
+    margin-top: 20px;
+  }
+
+  article :global(.button-group) {
+    margin-top: 30px;
+  }
+
+  article :global(.text a) {
+    color: var(--color-brand);
+  }
+
+  @media (min-width: 1024px) {
+    figure {
+      width: 50%;
+    }
+
+    figure :global(img) {
+      aspect-ratio: auto;
+      min-height: 620px;
+    }
+
+    article {
+      max-width: 700px;
+      padding: 50px 50px 50px 70px;
+      width: 50%;
+    }
+
+    h1 {
+      font-size: 17px;
+    }
+
+    h2 {
+      font-size: 55px;
+    }
+  }
+</style>

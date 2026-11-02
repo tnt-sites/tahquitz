@@ -1,0 +1,93 @@
+---
+import Text from "@core-elements/text/Text.astro";
+import Video from "@core-elements/video/Video.astro";
+
+// Heading and text followed by a row of videos (YouTube, Vimeo or an MP4 file), two across on desktop.
+const {
+  id = "",
+  heading = "",
+  text = "",
+  videos = [],
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section class:list={["media-videos", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    {text && <Text text={text} data-prop="text" />}
+    <ul class="block lg:flex justify-center no-check">
+      {
+        videos.map((video: any) => (
+          <li>
+            <Video
+              type={video.type}
+              id={video.videoId}
+              source={video.source}
+              thumbnail={video.poster}
+              title={video.title}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .media-videos {
+    padding: 60px 20px;
+  }
+
+  .media-videos > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  h2 {
+    font-size: 32px;
+    margin: 0 0 20px;
+  }
+
+  div > :global(.text) {
+    margin: 0 auto 40px;
+    max-width: 800px;
+    text-align: inherit;
+  }
+
+  ul {
+    flex-wrap: wrap;
+  }
+
+  li {
+    margin: 0 0 25px;
+  }
+
+  li :global(.video) {
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    margin: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 1025px) {
+    .media-videos {
+      padding: 80px 20px;
+    }
+
+    h2 {
+      font-size: 55px;
+    }
+
+    ul {
+      gap: 30px;
+    }
+
+    li {
+      flex: 0 0 560px;
+      margin: 0;
+    }
+  }
+</style>

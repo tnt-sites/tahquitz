@@ -1,0 +1,108 @@
+---
+import Video from "@core-elements/video/Video.astro";
+import Text from "@core-elements/text/Text.astro";
+
+// Doctor bio text, followed by an optional heading and video (e.g. "Recognized for Award-Winning Care").
+// The video's id (videoAnchor) is what the Doctor Banner play button scrolls to in "scroll" mode.
+const {
+  id = "",
+  text = "",
+  heading = "",
+  videoType = "mp4",
+  videoSource = "",
+  youtubeId = "",
+  videoPoster = "",
+  videoTitle = "",
+  videoAnchor = "award-video",
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+
+const hasVideo = videoType === "youtube" ? youtubeId : videoSource;
+---
+
+<section class:list={["doctor-bio", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    <article>
+      <Text text={text} data-prop="text" />
+    </article>
+    {
+      (heading || hasVideo) && (
+        <figure id={videoAnchor || undefined}>
+          {heading && <h2 data-prop="heading">{heading}</h2>}
+          {hasVideo && (
+            <Video
+              type={videoType}
+              id={youtubeId}
+              source={videoSource}
+              thumbnail={videoPoster}
+              title={videoTitle}
+            />
+          )}
+        </figure>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .doctor-bio {
+    padding: 45px 20px 0;
+  }
+
+  .doctor-bio > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  article {
+    text-align: left;
+  }
+
+  article :global(.text) {
+    margin: 0;
+  }
+
+  article :global(.text p) {
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  article :global(.text > * + *) {
+    margin-top: 25px;
+  }
+
+  figure {
+    margin: 50px 0 0;
+    scroll-margin-top: var(--site-header-height, 0);
+  }
+
+  h2 {
+    font-size: 32px;
+    line-height: 1.1;
+    margin: 0 0 30px;
+  }
+
+  figure :global(.video) {
+    height: auto;
+    margin: 0 auto;
+    max-width: 980px;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .doctor-bio {
+      padding-top: 60px;
+    }
+
+    figure {
+      margin-top: 70px;
+    }
+
+    h2 {
+      font-size: 55px;
+      margin-bottom: 45px;
+    }
+  }
+</style>

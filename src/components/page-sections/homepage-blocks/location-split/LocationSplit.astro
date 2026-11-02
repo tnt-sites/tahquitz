@@ -1,0 +1,137 @@
+---
+import siteInfoData from "@data/siteInfo.json";
+import Text from "@core-elements/text/Text.astro";
+
+// Homepage "Located on Tahquitz Canyon Way": Google map beside a heading and a check-mark list of nearby
+// landmarks. The map uses siteInfo's embed unless the section sets its own. Text only on phones, as in the design.
+const {
+  id = "",
+  heading = "",
+  text = "",
+  mapEmbedUrl = "",
+  mapTitle = "",
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+
+const mapSrc = mapEmbedUrl || (siteInfoData as any).mapEmbedUrl || "";
+---
+
+<section class:list={["location-split", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    {
+      mapSrc && (
+        <figure>
+          <iframe
+            src={mapSrc}
+            title={mapTitle || `Map to ${(siteInfoData as any).siteName || "our office"}`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          />
+        </figure>
+      )
+    }
+    <article>
+      {heading && <h2 data-prop="heading">{heading}</h2>}
+      <Text text={text} data-prop="text" />
+    </article>
+  </div>
+</section>
+
+<style>
+  .location-split {
+    padding: 70px 20px;
+  }
+
+  .location-split > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  /* The design leaves the map off on phones and tablets */
+  figure {
+    display: none;
+    margin: 0;
+  }
+
+  iframe {
+    border: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  article {
+    display: inline-block;
+    text-align: left;
+  }
+
+  h2 {
+    font-size: 45px;
+    line-height: 1.1;
+    margin: 0 0 25px;
+    text-align: center;
+  }
+
+  article :global(.text) {
+    margin: 0;
+  }
+
+  article :global(.text ul) {
+    margin: 0;
+  }
+
+  article :global(.text li) {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 0 0 15px;
+    padding-left: 35px;
+  }
+
+  /* Light blue check marks (fontello icon-ok-1) in place of the site's default bullets */
+  article :global(.text li::before) {
+    color: var(--color-brand);
+    content: "\e832";
+    font-family: fontello, sans-serif;
+    font-size: 18px;
+    line-height: 1;
+    top: 2px;
+  }
+
+  @media (min-width: 1025px) {
+    .location-split {
+      padding: 90px 20px;
+    }
+
+    .location-split > div {
+      align-items: center;
+      display: flex;
+      gap: 60px;
+    }
+
+    figure {
+      display: block;
+      flex: 0 1 575px;
+      height: 410px;
+    }
+
+    /* The map gives up width first on narrow desktops */
+    article {
+      flex: 0 0 450px;
+    }
+
+    h2 {
+      font-size: 55px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    article :global(.text li) {
+      font-size: 19px;
+      margin-bottom: 5px;
+    }
+  }
+</style>

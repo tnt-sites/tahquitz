@@ -174,7 +174,7 @@ _structures:
         _inputs:
           imageSource:
             type: image
-            comment: Card image for this service category.
+            comment: Line icon shown in the gap in the card's top border (SVG, about 60px tall).
             options:
               paths:
                 uploads: src/assets/images
@@ -184,7 +184,7 @@ _structures:
             comment: Alt text for the card image.
           title:
             type: markdown
-            comment: Card heading text.
+            comment: Card heading text. Use <br> to choose where the heading breaks onto a second line.
           href:
             type: url
             comment: URL for the card heading link.

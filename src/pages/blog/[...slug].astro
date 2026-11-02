@@ -161,6 +161,60 @@ const date = post.data.date.toLocaleDateString("en-US", {
     margin-block: var(--spacing-xl);
   }
 
+  /* Post body: space between blocks, smaller headings than page sections, readable tables and images */
+  .post > :global(p),
+  .post > :global(ul),
+  .post > :global(ol),
+  .post > :global(table) {
+    margin: 0 0 20px;
+  }
+
+  .post > :global(p),
+  .post :global(li) {
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .post > :global(h2) {
+    font-size: 36px;
+    line-height: 1.15;
+    margin: 40px 0 15px;
+  }
+
+  .post > :global(h3) {
+    font-size: 22px;
+    margin: 30px 0 10px;
+  }
+
+  .post > :global(h4),
+  .post > :global(h5) {
+    font-size: 18px;
+    margin: 25px 0 10px;
+  }
+
+  .post :global(p > img) {
+    display: block;
+    height: auto;
+    margin: 10px 0;
+    max-width: 100%;
+  }
+
+  .post > :global(table) {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .post :global(th),
+  .post :global(td) {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    text-align: left;
+  }
+
+  .post :global(th) {
+    background-color: #e1f6ff;
+  }
+
   .post-image {
     margin-top: var(--spacing-xl);
   }

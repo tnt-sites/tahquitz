@@ -1,6 +1,6 @@
 {
-  "logoSource": "/images/logo.svg",
-  "logoAlt": "Logo",
+  "logoSource": "/src/assets/images/logo-tahquitz.webp",
+  "logoAlt": "Tahquitz Dental Group",
   "navData": [
     {
       "name": "Home",
@@ -8,80 +8,346 @@
       "children": []
     },
     {
-      "name": "Our Services",
-      "path": "/our-services",
+      "name": "About Us",
+      "path": "/about-us/",
       "children": [
         {
-          "name": "Preventive Dentistry",
-          "path": "/preventive-dentistry",
+          "name": "What Sets Us Apart",
+          "path": "/about-us/",
+          "children": []
+        },
+        {
+          "name": "Meet the Dentists",
+          "path": "/meet-our-doctors/",
           "children": [
             {
-              "name": "Checkups",
-              "path": "/preventive-dentistry#checkups"
+              "name": "Dr. Manpreet Dev",
+              "path": "/meet-our-doctors/meet-dr-manpreet-dev/",
+              "children": []
+            },
+            {
+              "name": "Dr. Olawale Fowobaje",
+              "path": "/meet-our-doctors/meet-dr-olawale-fowobaje/",
+              "children": []
             }
           ]
         },
         {
-          "name": "Dental Implants",
-          "path": "/dental-implants",
+          "name": "Smile Gallery",
+          "path": "/smile-gallery/",
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Our Services",
+      "path": "/services/",
+      "children": [
+        {
+          "name": "I Need a Checkup & Cleaning",
+          "path": "/palm-springs-ca/preventive-dentistry/",
           "children": [
             {
-              "name": "More Implants",
-              "path": "/dental-implants"
+              "name": "Dental Cleanings",
+              "path": "/palm-springs-ca/dental-cleaning/"
+            },
+            {
+              "name": "Dental Exams",
+              "path": "/palm-springs-ca/dental-exam/"
+            },
+            {
+              "name": "Dental X-Rays",
+              "path": "/palm-springs-ca/dental-x-rays/"
+            },
+            {
+              "name": "Gum Disease Treatment",
+              "path": "/palm-springs-ca/gum-disease/"
+            },
+            {
+              "name": "Custom Mouthguards",
+              "path": "/palm-springs-ca/customized-mouth-guards/"
+            }
+          ]
+        },
+        {
+          "name": "I am Looking for a Dentist for My Child",
+          "path": "/palm-springs-ca/pediatric-dentistry/",
+          "children": [
+            {
+              "name": "Your Child’s First Dental Visit",
+              "path": "/palm-springs-ca/first-visit/"
+            },
+            {
+              "name": "Fluoride Treatment",
+              "path": "/palm-springs-ca/fluoride/"
+            },
+            {
+              "name": "Dental Sealants",
+              "path": "/palm-springs-ca/sealants/"
+            },
+            {
+              "name": "Space Maintainers",
+              "path": "/palm-springs-ca/space-maintainer/"
+            },
+            {
+              "name": "Thumb Sucking",
+              "path": "/palm-springs-ca/thumb-sucking/"
+            }
+          ]
+        },
+        {
+          "name": "I Have a Cavity or Broken Tooth",
+          "path": "/palm-springs-ca/restoration-dentistry/",
+          "children": [
+            {
+              "name": "Tooth-Colored Fillings",
+              "path": "/palm-springs-ca/dental-fillings/"
+            },
+            {
+              "name": "Dental Crowns",
+              "path": "/palm-springs-ca/dental-crowns/"
+            },
+            {
+              "name": "Inlays & Overlays",
+              "path": "/palm-springs-ca/inlays-overlays-and-crowns/"
+            }
+          ]
+        },
+        {
+          "name": "I am Missing One or More Teeth",
+          "path": "/palm-springs-ca/missing-teeth/",
+          "children": [
+            {
+              "name": "Dental Bridges",
+              "path": "/palm-springs-ca/dental-bridges/"
+            },
+            {
+              "name": "Dental Implants",
+              "path": "/palm-springs-ca/dental-implants/"
+            },
+            {
+              "name": "All-on-4® Dental Implants",
+              "path": "/palm-springs-ca/implant-dentures-all-on-4/"
+            },
+            {
+              "name": "Snap-On Dentures",
+              "path": "/palm-springs-ca/implant-supported-dentures/"
+            },
+            {
+              "name": "Full Mouth Reconstruction",
+              "path": "/palm-springs-ca/full-mouth-restoration/"
+            }
+          ]
+        },
+        {
+          "name": "I Want to Enhance My Smile",
+          "path": "/palm-springs-ca/cosmetic-dentistry/",
+          "children": [
+            {
+              "name": "Veneers",
+              "path": "/palm-springs-ca/dental-veneers/"
+            },
+            {
+              "name": "Snap-On Smile",
+              "path": "/palm-springs-ca/snap-on-smiles/"
+            },
+            {
+              "name": "Teeth Whitening",
+              "path": "/palm-springs-ca/teeth-whitening/"
+            },
+            {
+              "name": "Dental Bonding",
+              "path": "/palm-springs-ca/tooth-bonding/"
+            },
+            {
+              "name": "Tooth Contouring",
+              "path": "/palm-springs-ca/tooth-contouring/"
+            },
+            {
+              "name": "Gum Recontouring",
+              "path": "/palm-springs-ca/gummy-smile/"
+            }
+          ]
+        },
+        {
+          "name": "I Want a Straighter Smile",
+          "path": "/palm-springs-ca/orthodontics/",
+          "children": [
+            {
+              "name": "SureSmile Clear Aligners",
+              "path": "/palm-springs-ca/suresmile-clear-braces/"
+            }
+          ]
+        },
+        {
+          "name": "I am Scared of the Dentist",
+          "path": "/palm-springs-ca/sedation-dentistry/",
+          "children": []
+        },
+        {
+          "name": "I Have Jaw Pain",
+          "path": "/palm-springs-ca/tmj/",
+          "children": [
+            {
+              "name": "BOTOX® for TMJ Treatment",
+              "path": "/palm-springs-ca/botox-for-tmj-treatment/"
+            }
+          ]
+        },
+        {
+          "name": "I am Worried About Sleep Apnea",
+          "path": "/palm-springs-ca/sleep-apnea/",
+          "children": []
+        },
+        {
+          "name": "I Need Oral Surgery",
+          "path": "/palm-springs-ca/oral-surgery/",
+          "children": [
+            {
+              "name": "Tooth Extractions",
+              "path": "/palm-springs-ca/dental-extraction/"
+            },
+            {
+              "name": "Wisdom Tooth Extraction",
+              "path": "/palm-springs-ca/wisdom-tooth-extraction/"
+            },
+            {
+              "name": "Impacted Canine Treatment",
+              "path": "/palm-springs-ca/impacted-canines/"
+            },
+            {
+              "name": "Endodontics",
+              "path": "/palm-springs-ca/endodontics/"
+            },
+            {
+              "name": "Onlay Bone Grafts",
+              "path": "/palm-springs-ca/onlay-grafts/"
+            },
+            {
+              "name": "Palate Repair",
+              "path": "/palm-springs-ca/palate-repair/"
+            },
+            {
+              "name": "Oral Disease",
+              "path": "/palm-springs-ca/oral-disease/"
+            }
+          ]
+        },
+        {
+          "name": "I Have a Dental Emergency",
+          "path": "/palm-springs-ca/emergency-dentistry/",
+          "children": [
+            {
+              "name": "Severe Toothache",
+              "path": "/palm-springs-ca/toothache/"
+            },
+            {
+              "name": "Dental Trauma",
+              "path": "/palm-springs-ca/dental-trauma/"
+            },
+            {
+              "name": "Gum Injury",
+              "path": "/palm-springs-ca/gum-injury/"
+            },
+            {
+              "name": "Orthodontic Injury",
+              "path": "/palm-springs-ca/orthodontic-injury/"
             }
           ]
         }
       ]
     },
     {
-      "name": "Why",
-      "path": "/why/",
-      "children": []
+      "name": "For Patients",
+      "path": "/for-patients/",
+      "children": [
+        {
+          "name": "Dental Financing",
+          "path": "/for-patients/#financing",
+          "children": []
+        },
+        {
+          "name": "In-House Membership Plan",
+          "path": "/for-patients/membership-plan/",
+          "children": []
+        },
+        {
+          "name": "Special Offers",
+          "path": "/promotions/",
+          "children": []
+        }
+      ]
     },
     {
-      "name": "Blog",
-      "path": "/blog/",
-      "children": []
-    }
-  ],
-  "buttonSections": [
+      "name": "Reviews",
+      "path": "/about-us/testimonials/",
+      "children": [
+        {
+          "name": "Written Reviews",
+          "path": "/about-us/testimonials/",
+          "children": []
+        }
+      ]
+    },
     {
-      "_component": "building-blocks/core-elements/button",
-      "id": "",
-      "text": "Search",
-      "hideText": true,
-      "link": "/search/",
-      "modalTarget": "",
-      "iconName": "magnifying-glass",
-      "iconPosition": "before",
-      "variant": "ghost",
-      "size": "lg",
-      "width": "none",
-      "borderRadius": "default",
-      "borderWidth": "default",
-      "borderColor": "default",
-      "textColor": "default",
-      "uppercase": false
+      "name": "Contact",
+      "path": "/contact-us/",
+      "children": [
+        {
+          "name": "Office Info",
+          "path": "/contact-us/",
+          "children": []
+        },
+        {
+          "name": "Request an Appointment",
+          "path": "/contact-us/request-an-appointment/",
+          "children": []
+        },
+        {
+          "name": "Virtual Consultations",
+          "path": "/contact-us/virtual-consult/",
+          "children": []
+        }
+      ]
     }
   ],
+  "buttonSections": [],
   "pageButtons": [
     {
       "_component": "building-blocks/core-elements/button",
       "id": "",
-      "text": "Request an Appointment",
+      "text": "Book Online",
       "hideText": false,
-      "link": "/request-an-appointment/",
+      "link": "/contact-us/request-an-appointment/",
       "modalTarget": "",
-      "iconName": "",
+      "iconName": "calendar-days",
       "iconPosition": "before",
       "variant": "primary",
       "size": "md",
-      "width": "md",
-      "borderRadius": "default",
+      "width": "none",
+      "borderRadius": "none",
       "borderWidth": "default",
       "borderColor": "default",
       "textColor": "default",
-      "uppercase": false
+      "uppercase": true
+    },
+    {
+      "_component": "building-blocks/core-elements/button",
+      "id": "",
+      "text": "Virtual Consultation",
+      "hideText": false,
+      "link": "/contact-us/virtual-consult/",
+      "modalTarget": "",
+      "iconName": "video-camera",
+      "iconPosition": "before",
+      "variant": "primary",
+      "size": "md",
+      "width": "none",
+      "borderRadius": "none",
+      "borderWidth": "default",
+      "borderColor": "default",
+      "textColor": "default",
+      "uppercase": true
     }
   ]
 }

@@ -1,0 +1,50 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+text:
+  type: markdown
+  comment: Bio paragraphs.
+  options:
+    bold: true
+    italic: true
+    link: true
+heading:
+  type: text
+  comment: Heading above the video (e.g. "Recognized for Award-Winning Care"). Leave empty to hide.
+videoType:
+  type: select
+  comment: Uploaded MP4 file or a YouTube video.
+  options:
+    allow_empty: false
+    values:
+      - id: mp4
+        name: MP4 file
+      - id: youtube
+        name: YouTube
+    value_key: id
+    preview:
+      text:
+        - key: name
+videoSource:
+  type: file
+  comment: MP4 only. The video file.
+  options:
+    paths:
+      uploads: public/videos
+      static: public
+youtubeId:
+  type: text
+  comment: 'YouTube only. The ID from the YouTube link, e.g. "pjfmw_lhUcE".'
+videoPoster:
+  type: image
+  comment: MP4 only. Still image shown before the video plays.
+  options:
+    paths:
+      uploads: public/images
+      static: public
+videoTitle:
+  type: text
+  comment: Video title for screen readers.
+videoAnchor:
+  type: text
+  comment: 'Id for the video, so the Doctor Banner play button can scroll to it (default "award-video").'

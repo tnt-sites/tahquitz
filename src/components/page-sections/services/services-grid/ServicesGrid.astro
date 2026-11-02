@@ -1,5 +1,6 @@
 ---
 import CustomSection from "@builders/custom-section/CustomSection.astro";
+import Icon from "@core-elements/icon/Icon.astro";
 import ServicesGridItem from "./ServicesGridItem.astro";
 
 type ServiceLink = {
@@ -25,6 +26,7 @@ type ServicesGridCta = {
   href?: string;
   heading?: string;
   buttonText?: string;
+  iconName?: string;
   wide?: boolean | string;
 };
 
@@ -94,6 +96,7 @@ const normalizedCtaCard = {
       ? stripP(rawCtaCard.heading)
       : "Get Started Now",
   buttonText: cleanText(rawCtaCard.buttonText, "Request an Appointment"),
+  iconName: cleanText(rawCtaCard.iconName),
   wide: rawCtaCard.wide === undefined ? true : isTrue(rawCtaCard.wide),
 };
 
@@ -157,6 +160,9 @@ const htmlAttributes = Object.fromEntries(
                 <Fragment set:html={normalizedCtaCard.heading} />
               </div>
               <div class="services-grid-cta-button btn btn-white">
+                {normalizedCtaCard.iconName && (
+                  <Icon name={normalizedCtaCard.iconName} size="none" aria-hidden="true" />
+                )}
                 {normalizedCtaCard.buttonText}
               </div>
             </a>
@@ -172,63 +178,82 @@ const htmlAttributes = Object.fromEntries(
     .services-grid {
       position: relative;
 
-      .services-grid-heading {
-        margin-top: 0;
-      }
-
       .services-grid-items {
         align-items: stretch;
         display: flex;
         flex-wrap: wrap;
+        gap: 40px 15px;
         justify-content: center;
-        gap: 20px;
-        margin: 40px auto 0;
+        margin: 0 auto;
       }
 
       .services-grid-items > editable-array-item,
       .services-grid-items > .services-grid-item {
-        background-color: #fff;
-        box-shadow: 0 3px 6px rgb(0 0 0 / 60%);
         display: flex;
-        flex-direction: column;
         flex: 0 1 360px;
-        overflow: hidden;
+        flex-direction: column;
       }
 
-      .services-grid-items > editable-array-item.is-wide,
-      .services-grid-items > .services-grid-item.is-wide {
-        flex: 1 1 min(100%, 820px);
+      .services-grid-item .services-grid-item {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
       }
 
+      /* Top border with a gap for the icon: two lines either side, 20px up from the icon's bottom */
       .services-grid-figure {
+        align-items: flex-end;
+        display: flex;
         margin: 0;
-        transition: 0.4s all;
 
-        img {
-          display: block;
-          width: 100%;
+        &::before,
+        &::after {
+          border-top: 1px solid var(--color-text);
+          content: "";
+          flex: 1;
+          height: 20px;
         }
 
-        .image{margin-top: 0;}
+        &::before {
+          border-left: 1px solid var(--color-text);
+        }
+
+        &::after {
+          border-right: 1px solid var(--color-text);
+        }
+
+        .image {
+          margin: 0;
+          padding: 0 25px;
+        }
+
+        /* 60px tall; wide icons (e.g. the row of teeth) shrink to fit 100px and sit on the border line */
+        img {
+          display: block;
+          height: 60px;
+          max-width: 100px;
+          object-fit: contain;
+          object-position: center bottom;
+          width: auto;
+        }
       }
 
       .services-grid-content {
-        padding: 0 20px 20px;
+        border: 1px solid var(--color-text);
+        border-top: none;
+        flex: 1;
+        padding: 15px 20px 30px;
       }
 
       .services-grid-title {
-        display: block;
-        font-family: var(--font-heading);
-        font-size: clamp(1.75rem, 2.8vw, 1.875rem);
+        font-family: var(--font-accent);
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
         line-height: 1.2;
-        margin: 20px 0 0;
+        margin: 0;
         text-align: center;
-        text-transform: none;
-
-        span {
-          display: block;
-          font-size: 18px;
-        }
+        text-transform: uppercase;
 
         a {
           color: var(--color-text);
@@ -238,18 +263,33 @@ const htmlAttributes = Object.fromEntries(
 
       .services-grid-title:hover a,
       .services-grid-title:focus-within a {
-        color: var(--color-brand);
+        color: var(--color-brand-secondary);
       }
 
       .services-grid-links {
-        display: table;
-        margin: 20px auto;
-       
+        margin: 20px 0 0;
+        padding: 0;
 
         editable-array-item {
-          display: list-item;
+          display: block;
+          font-size: 17px;
+          font-weight: 600;
           line-height: 1.2;
-          margin: 10px auto;
+          margin: 0 0 10px;
+          padding-left: 35px;
+          position: relative;
+        }
+
+        /* Navy check mark (fontello icon-ok-1) */
+        editable-array-item::before {
+          color: var(--color-text);
+          content: "\e832";
+          font-family: fontello, sans-serif;
+          font-size: 21px;
+          left: 0;
+          line-height: 1;
+          position: absolute;
+          top: 0;
         }
 
         a {
@@ -259,97 +299,59 @@ const htmlAttributes = Object.fromEntries(
       }
 
       .services-grid-links editable-array-item:hover a,
-      .services-grid-links editable-array-item:focus-within a,
-      .services-grid-links li:hover a,
-      .services-grid-links li:focus-within a {
-        color: var(--color-brand-muted);
+      .services-grid-links editable-array-item:focus-within a {
+        color: var(--color-brand-secondary);
       }
 
-      .services-grid-cta,
-      #all {
+      /* "Ready to get started?" tile: starts level with the cards' top border */
+      .services-grid-cta {
         align-items: center;
-        background-color: var(--color-brand);
+        background-color: var(--color-bg-dark);
         display: flex;
-        flex: 0 1 400px;
-        flex-direction: column;
         justify-content: center;
-        max-width: 100%;
-        min-height: 250px;
+        margin-top: 40px;
+        min-height: 300px;
         text-align: center;
-        transition: 0.4s all;
-
-        &.is-wide {
-          flex: 0 1 62%;
-        }
 
         a {
-          color: #fff;
+          align-items: center;
           display: flex;
           flex-direction: column;
-          gap: 0.625rem;
-          justify-content: center;
-          min-height: 100%;
-          padding: 1.25rem;
+          gap: 20px;
+          padding: 30px 20px;
           text-decoration: none;
-          width: 100%;
         }
       }
 
-      .services-grid-cta-heading,
-      #all .h2 {
+      .services-grid-cta-heading {
         color: #fff;
-        font-family: var(--font-heading);
-        font-size: clamp(2rem, 4.6vw, 3.3125rem);
-        font-weight: 700;
-        line-height: 1.05;
-        padding: 10px;
+        font-size: 45px;
+        font-weight: var(--font-weight-light);
+        letter-spacing: 0.05em;
+        line-height: 1.1;
+        text-transform: uppercase;
       }
 
-      .services-grid-cta-button,
-      #all .btn {
-        background-color: #fff;
-        border: 0;
-        color: var(--color-brand);
-        display: inline-block;
-        font-size: var(--font-size-body-sm);
-        font-weight: 600;
-        line-height: 1.2;
-        padding: 0.65rem 1.1rem;
+      .services-grid-cta-button {
+        align-items: center;
+        background-color: var(--color-brand);
+        color: var(--color-text);
+        display: inline-flex;
+        font-family: var(--font-accent);
+        font-size: 20px;
+        gap: 10px;
+        padding: 10px 25px;
+        text-transform: uppercase;
+        transition: background-color var(--animation-normal) ease-in-out;
+
+        .icon {
+          width: 25px;
+        }
       }
 
       .services-grid-cta:hover .services-grid-cta-button,
-      .services-grid-cta:focus-within .services-grid-cta-button,
-      #all:hover .btn,
-      #all:focus-within .btn {
+      .services-grid-cta:focus-within .services-grid-cta-button {
         background-color: var(--color-brand-muted);
-        color: #fff;
-      }
-
-      @media (max-width: 1200px) {
-        .services-grid-items > editable-array-item,
-        .services-grid-items > .services-grid-item {
-          flex-basis: calc(50% - 10px);
-        }
-
-        .services-grid-items > editable-array-item.is-wide,
-        .services-grid-items > .services-grid-item.is-wide,
-        .services-grid-cta.is-wide,
-        #all.is-wide {
-          flex-basis: 100%;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .services-grid-items > editable-array-item,
-        .services-grid-items > .services-grid-item,
-        .services-grid-items > editable-array-item.is-wide,
-        .services-grid-items > .services-grid-item.is-wide,
-        .services-grid-cta,
-        #all,
-        .services-grid-cta.is-wide,
-        #all.is-wide {
-          flex-basis: 100%;
-        }
       }
     }
   }

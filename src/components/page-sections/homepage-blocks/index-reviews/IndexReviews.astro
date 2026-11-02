@@ -1,228 +1,277 @@
 ---
-import CustomSection from "@builders/custom-section/CustomSection.astro";
-import Heading from "@core-elements/heading/Heading.astro";
+import quoteMarks from "@assets/images/quote-marks.svg";
+import Image from "@core-elements/image/Image.astro";
+import ButtonGroup from "@wrappers/button-group/ButtonGroup.astro";
 import Carousel from "@wrappers/carousel/Carousel.astro";
 import CarouselSlide from "@wrappers/carousel/CarouselSlide.astro";
-import { Icon as AstroIcon } from "astro-icon/components";
 
-interface ReviewItem {
-  text: string;
-  authorName: string;
-  socialIcon?: string;
-  reviewerImage?: string;
-}
-
+// Homepage reviews slider: heading, then one review per slide (quote marks, italic review, reviewer photo,
+// name and stars) with outlined arrows either side and a "View More Reviews" button. On desktop the dots sit
+// to the right of the button; on phones the arrows and dots share a row above it.
 const {
-  heading = "",
-  reviews = [] as ReviewItem[],
-  showQuoteIcon = false,
-  backgroundColor = "base",
   id = "",
-  backgroundImage,
-  backgroundGradient = "",
+  heading = "",
+  reviews = [],
+  buttonSections = [],
   class: className,
-  editable = true,
-  ...rest
+  _component,
+  ...htmlAttributes
 } = Astro.props;
 
-const htmlAttributes = Object.fromEntries(
-  Object.entries(rest).filter(([key]) => key !== "_component")
-);
-
-// In peek mode the carousel is edge-to-edge with slides capped at 600px.
-// Embla measures offsetWidth at init so max-width must be in CSS before init.
-const isPeek = String(className ?? "")
-  .split(" ")
-  .includes("peek");
+const starPath = "M10 1l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 14.5 4.6 17.5l1.2-6L1.3 7.3l6.1-.7z";
 ---
 
-<CustomSection
-  class:list={["index-reviews", className]}
-  maxContentWidth={isPeek ? undefined : "2xl"}
-  paddingHorizontal="lg"
-  paddingVertical="4xl"
-  colorScheme="default"
-  backgroundColor={backgroundColor}
-  backgroundImage={backgroundImage}
-  backgroundGradient={backgroundGradient}
+<section
+  class:list={["index-reviews", { single: reviews.length < 2 }, className]}
+  id={id || undefined}
   {...htmlAttributes}
 >
-  {heading && <Heading level="h2" size="lg" alignX="center" text={heading} data-prop="heading" />}
-
-  {
-    reviews.length > 0 ? (
-      <Carousel
-        editable={false}
-        class="index-reviews-carousel"
-        maxSlideWidth={isPeek ? 600 : 0}
-        {...(isPeek ? { "data-no-contain-scroll": true, "data-slides-to-scroll": "1" } : {})}
-      >
-        {reviews.map((review: ReviewItem) => {
-          const hasMeta = !!(review.reviewerImage || review.socialIcon);
-          return (
-            <CarouselSlide>
-              <div class="review-slide">
-                {showQuoteIcon && <i class="icon-quote quote-icon" aria-hidden="true" />}
-                <p class="review-text">{review.text}</p>
-                <div class:list={["review-author", { "has-meta": hasMeta }]}>
-                  {review.reviewerImage && (
-                    <img class="reviewer-img" src={review.reviewerImage} alt={review.authorName} />
-                  )}
-                  {!review.reviewerImage && review.socialIcon && (
-                    <AstroIcon name={review.socialIcon} class="social-icon" />
-                  )}
-                  <div class="author-details">
-                    <span class="stars" aria-label="5 out of 5 stars">
-                      ★★★★★
-                    </span>
-                    <span class="author-name">{review.authorName}</span>
-                  </div>
-                </div>
-              </div>
-            </CarouselSlide>
-          );
-        })}
-      </Carousel>
-    ) : (
-      <p class="empty-state">No reviews added yet.</p>
-    )
-  }
-</CustomSection>
+  <div class="block text-center">
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    <Carousel label={heading || "Patient reviews"} editable={false}>
+      {
+        reviews.map((review: any, index: number) => (
+          <CarouselSlide aria-label={`Review ${index + 1} of ${reviews.length}`}>
+            <figure>
+              <img src={quoteMarks.src} alt="" width="47" height="32" class="quote" />
+              <blockquote>{review.text}</blockquote>
+              <figcaption>
+                {review.reviewerImage && (
+                  <Image source={review.reviewerImage} alt="" widths={[80, 160]} sizes="40px" />
+                )}
+                <span>
+                  <strong>{review.authorName}</strong>
+                  <span class="stars" role="img" aria-label="5 out of 5 stars">
+                    {[1, 2, 3, 4, 5].map(() => (
+                      <svg viewBox="0 0 20 19" aria-hidden="true">
+                        <path d={starPath} />
+                      </svg>
+                    ))}
+                  </span>
+                </span>
+              </figcaption>
+            </figure>
+          </CarouselSlide>
+        ))
+      }
+      <svg slot="prev-arrow" viewBox="0 0 70 56" aria-hidden="true">
+        <rect x="38" y="2" width="27" height="52"></rect>
+        <path d="M2 28h53M13 17L2 28l11 11"></path>
+      </svg>
+      <svg slot="next-arrow" viewBox="0 0 70 56" aria-hidden="true">
+        <rect x="5" y="2" width="27" height="52"></rect>
+        <path d="M15 28h53M57 17l11 11-11 11"></path>
+      </svg>
+    </Carousel>
+    {
+      buttonSections.length > 0 && (
+        <ButtonGroup buttonSections={buttonSections} width="content" alignX="center" />
+      )
+    }
+  </div>
+</section>
 
 <style>
-  .review-slide {
-    padding: 0 var(--spacing-md);
-    position: relative;
-    text-align: center;
+  .index-reviews {
+    padding: 60px 20px;
   }
 
-  .quote-icon {
-    color: currentcolor;
+  .index-reviews > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  h2 {
+    font-size: 40px;
+    line-height: 1.1;
+    margin: 0 0 30px;
+  }
+
+  figure {
+    margin: 0 auto;
+    max-width: 560px;
+  }
+
+  .quote {
     display: block;
-    font-size: 6rem;
-    line-height: 0.8;
-    opacity: 0.15;
-    transform: rotate(180deg);
+    height: auto;
+    margin: 0 auto 15px;
+    width: 47px;
   }
 
-  .review-text {
-    font-size: clamp(1rem, 2.5vw, 1.375rem);
-    line-height: 1.3;
-    margin: 0 auto var(--spacing-md);
-    max-width: 500px;
+  /* Drop the starter's default blockquote border */
+  blockquote {
+    border: 0;
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
   }
 
-  .review-author {
+  figcaption {
     align-items: center;
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: 15px;
     justify-content: center;
-    margin-bottom: var(--spacing-md);
-  }
-
-  .review-author.has-meta {
-    flex-direction: row;
-    gap: var(--spacing-sm);
+    margin-top: 20px;
     text-align: left;
   }
 
-  .author-details {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-  }
-
-  .reviewer-img {
-    border-radius: var(--radius-full, 50%);
-    flex-shrink: 0;
-    height: 3.5rem;
+  figcaption :global(img) {
+    border-radius: 50%;
+    display: block;
+    height: 40px;
     object-fit: cover;
-    width: 3.5rem;
+    width: 40px;
   }
 
-  .social-icon {
-    flex-shrink: 0;
-    height: 2.5rem;
-    width: 2.5rem;
-  }
-
-  :global(.social-icon[data-icon="social/google"]) {
-    color: var(--color-social-google);
-  }
-  :global(.social-icon[data-icon="social/facebook"]) {
-    color: var(--color-social-facebook);
-  }
-  :global(.social-icon[data-icon="social/yelp"]) {
-    color: var(--color-social-yelp);
-  }
-  :global(.social-icon[data-icon="social/instagram"]) {
-    color: var(--color-social-instagram);
-  }
-  :global(.social-icon[data-icon="social/x"]) {
-    color: var(--color-social-twitter);
-  }
-  :global(.social-icon[data-icon="social/youtube"]) {
-    color: var(--color-social-youtube);
-  }
-  :global(.social-icon[data-icon="social/tiktok"]) {
-    color: var(--color-social-tiktok);
-  }
-  :global(.social-icon[data-icon="social/bluesky"]) {
-    color: var(--color-social-bluesky);
-  }
-
-  .stars {
-    color: var(--color-star, #febb21);
-    font-size: 1.25rem;
+  figcaption strong {
+    display: block;
+    font-family: var(--font-accent);
+    font-size: 15px;
+    font-weight: 600;
     letter-spacing: 0.1em;
-  }
-
-  .author-name {
-    font-size: 1.375rem;
-    font-weight: normal;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
   }
 
-  .empty-state {
-    opacity: 0.6;
-    padding: var(--spacing-2xl);
-    text-align: center;
+  .stars {
+    display: flex;
+    gap: 5px;
+    margin-top: 2px;
   }
 
-  /*
-    PEEK LAYOUT 
-    Toggle by adding class "peek" to IndexReviews in index.md:
-      class: peek
-   
-    Shows adjacent slides peeking in from the sides at half opacity.
-    Slide width is set at render time via slideWidthPercent (see isPeek above).
-    The ClassNames plugin (embla-carousel-class-names) adds "is-snapped" to
-    the selected slide, which drives the opacity.
-   */
-
-  /* Break carousel out of the padded content wrapper so it's truly full-width.
-     The heading retains its padding via the parent. */
-  :global(.index-reviews.peek .index-reviews-carousel) {
-    margin-inline: calc(-1 * var(--spacing-lg));
-    width: calc(100% + 2 * var(--spacing-lg));
+  .stars svg {
+    fill: var(--color-star, #febb21);
+    height: 17px;
+    width: 18px;
   }
 
-  :global(.index-reviews.peek) {
-    overflow: hidden;
+  /* Carousel controls: outlined arrows with the dots between them, above the button */
+  .index-reviews :global(.carousel) {
+    margin: 0;
   }
 
-  :global(.index-reviews.peek .index-reviews-carousel > .viewport) {
-    overflow: visible;
+  .index-reviews :global(.carousel > .controls-wrapper) {
+    gap: 30px;
+    margin: 30px 0 0;
   }
 
-  :global(.index-reviews.peek .slide) {
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
+  .index-reviews :global(.carousel > .controls-wrapper > .prev),
+  .index-reviews :global(.carousel > .controls-wrapper > .next) {
+    border-radius: 0;
+    padding: 0;
   }
 
-  :global(.index-reviews.peek .slide.is-snapped) {
-    opacity: 1;
+  /* The carousel flips its default prev arrow; ours is already drawn pointing left */
+  .index-reviews :global(.carousel > .controls-wrapper > .prev svg) {
+    transform: none;
+  }
+
+  .index-reviews :global(.carousel > .controls-wrapper svg) {
+    display: block;
+    height: 55px;
+    width: 70px;
+  }
+
+  .index-reviews :global(.carousel > .controls-wrapper svg rect) {
+    fill: none;
+    stroke: #8a8a8a;
+    stroke-width: 1.5;
+    transition: stroke var(--animation-normal) ease-in-out;
+  }
+
+  .index-reviews :global(.carousel > .controls-wrapper svg path) {
+    fill: none;
+    stroke: var(--color-text);
+    stroke-width: 2;
+  }
+
+  .index-reviews :global(.carousel > .controls-wrapper button:hover svg rect) {
+    stroke: var(--color-brand-muted);
+  }
+
+  .index-reviews :global(.carousel .indicators) {
+    display: flex;
+    gap: 10px;
+  }
+
+  .index-reviews :global(.carousel .indicator) {
+    background-color: transparent;
+    border: 1px solid var(--color-text);
+    border-radius: 50%;
+    height: 8px;
+    padding: 0;
+    width: 8px;
+  }
+
+  .index-reviews :global(.carousel .indicator[data-selected="true"]) {
+    background-color: var(--color-text);
+    transform: none;
+  }
+
+  /* Nothing to slide between with one review */
+  .single :global(.carousel > .controls-wrapper) {
+    display: none;
+  }
+
+  div > :global(.button-group) {
+    margin: 30px auto 0;
+  }
+
+  div > :global(.button-group .button) {
+    font-size: 17px;
+    justify-content: center;
+    min-width: 275px;
+    padding: 15px 20px;
+  }
+
+  @media (min-width: 1025px) {
+    .index-reviews {
+      padding: 100px 20px 65px;
+    }
+
+    h2 {
+      font-size: 55px;
+      margin-bottom: 40px;
+    }
+
+    blockquote {
+      font-size: 21px;
+      line-height: 1.3;
+    }
+
+    /* Arrows at the edges of the content column, level with the review; dots to the right of the button
+       (button half-width plus a 55px gap, centered on its 51px height) */
+    .index-reviews :global(.carousel > .controls-wrapper) {
+      margin: 0;
+    }
+
+    .index-reviews :global(.carousel > .controls-wrapper > .prev),
+    .index-reviews :global(.carousel > .controls-wrapper > .next) {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .index-reviews :global(.carousel > .controls-wrapper > .prev) {
+      left: 0;
+    }
+
+    .index-reviews :global(.carousel > .controls-wrapper > .next) {
+      right: 0;
+    }
+
+    .index-reviews :global(.carousel .indicators) {
+      left: 50%;
+      margin: 55px 0 0 190px;
+      position: absolute;
+      top: 100%;
+    }
+
+    div > :global(.button-group) {
+      margin-top: 35px;
+    }
   }
 </style>

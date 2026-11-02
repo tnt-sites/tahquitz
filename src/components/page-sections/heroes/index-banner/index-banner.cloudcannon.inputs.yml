@@ -1,0 +1,59 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+eyebrow:
+  type: text
+  comment: Small line above the heading. This is the page's H1 (e.g. "Dentist in Palm Springs").
+heading:
+  type: text
+  comment: Large heading over the photo.
+text:
+  type: markdown
+  comment: Intro text below the heading.
+  options:
+    bold: true
+    italic: true
+    link: true
+imageSource:
+  type: image
+  comment: Background photo. Shown on desktop, and on phones when there's no video.
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+imageAlt:
+  type: text
+  comment: Alt text for the photo.
+videoSource:
+  type: file
+  comment: Optional looping video (MP4) that plays behind the text on phones and tablets. Leave empty to use the photo everywhere.
+  options:
+    paths:
+      uploads: public/videos
+      static: public
+videoPoster:
+  type: image
+  comment: Still frame shown while the video loads.
+  options:
+    paths:
+      uploads: public/images
+      static: public
+offersHeading:
+  type: text
+  comment: Label on the Special Offers bar.
+offers:
+  type: array
+  comment: Offers along the bottom of the banner.
+  options:
+    preview:
+      text:
+        - key: text
+"offers[*].text":
+  type: text
+  comment: The offer (e.g. "$600 Off Dental Implants").
+"offers[*].link":
+  type: url
+  comment: Where the link goes. /promotions/#specials-offer-1 opens the first offer's form on the Special Offers page, -offer-2 the second, and so on.
+"offers[*].linkText":
+  type: text
+  comment: Link text. Defaults to "View Offer".

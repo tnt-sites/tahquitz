@@ -1,0 +1,52 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: e.g. "Media Coverage".
+text:
+  type: markdown
+  comment: Text above the videos.
+videos:
+  type: array
+  options:
+    preview:
+      text:
+        - key: title
+      subtext:
+        - key: type
+"videos[*].type":
+  type: select
+  options:
+    allow_empty: false
+    values:
+      - id: youtube
+        name: YouTube
+      - id: vimeo
+        name: Vimeo
+      - id: mp4
+        name: MP4 file
+    value_key: id
+    preview:
+      text:
+        - key: name
+"videos[*].videoId":
+  type: text
+  comment: 'YouTube or Vimeo only. The ID from the link, e.g. "AVL2HpgRHhs" or "890220545".'
+"videos[*].source":
+  type: file
+  comment: MP4 only. The video file.
+  options:
+    paths:
+      uploads: public/videos
+      static: public
+"videos[*].poster":
+  type: image
+  comment: MP4 only. Still image shown before the video plays.
+  options:
+    paths:
+      uploads: public/images
+      static: public
+"videos[*].title":
+  type: text
+  comment: Video title for screen readers.

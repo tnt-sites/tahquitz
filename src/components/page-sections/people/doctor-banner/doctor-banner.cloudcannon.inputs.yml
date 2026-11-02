@@ -1,0 +1,51 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+eyebrow:
+  type: text
+  comment: Small line above the name. This is the page's H1 (e.g. "Experienced Dentist in Palm Springs").
+heading:
+  type: text
+  comment: Large heading in the navy panel (e.g. "Get to Know Manpreet Dev, DDS").
+text:
+  type: markdown
+  comment: Intro text below the heading.
+  options:
+    bold: true
+    italic: true
+    link: true
+imageSource:
+  type: image
+  comment: Doctor photo on the left.
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+imageAlt:
+  type: text
+  comment: Alt text for the photo.
+videoAction:
+  type: select
+  comment: What the play button on the photo does.
+  options:
+    allow_empty: false
+    values:
+      - id: modal
+        name: Open a YouTube video in a popup
+      - id: scroll
+        name: Scroll down to a video on this page
+      - id: none
+        name: Hide the play button
+    value_key: id
+    preview:
+      text:
+        - key: name
+youtubeId:
+  type: text
+  comment: 'Popup only. The ID from the YouTube link, e.g. "pjfmw_lhUcE" from youtube.com/watch?v=pjfmw_lhUcE.'
+videoTitle:
+  type: text
+  comment: Popup only. Video title for screen readers.
+scrollTarget:
+  type: text
+  comment: 'Scroll only. The "Video Anchor" set on the Doctor Bio section below (default "award-video").'

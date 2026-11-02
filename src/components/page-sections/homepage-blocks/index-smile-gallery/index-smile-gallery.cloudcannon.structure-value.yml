@@ -1,0 +1,21 @@
+label: Index Smile Gallery
+icon: compare
+description: For the homepage. Heading, intro, a row of before & after photos, and a button.
+value:
+  _component: page-sections/homepage-blocks/index-smile-gallery
+  id: ""
+  heading: Heading text
+  text: Intro text.
+  cases: []
+  buttonSections: []
+preview:
+  text:
+    - Index Smile Gallery
+  subtext:
+    - key: heading
+  icon: compare
+picker_preview:
+  text: Index Smile Gallery
+  subtext: Row of before & after photos.
+_inputs_from_glob:
+  - /src/components/page-sections/homepage-blocks/index-smile-gallery/index-smile-gallery.cloudcannon.inputs.yml

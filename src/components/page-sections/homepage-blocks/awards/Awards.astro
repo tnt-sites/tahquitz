@@ -1,0 +1,120 @@
+---
+import Image from "@core-elements/image/Image.astro";
+import { externalLinkAttrs } from "@component-utils/externalLink";
+
+// Small "Awards & Recognition" label over a row of award badges (two per row on phones),
+// with an optional thin line underneath to separate it from the next section.
+const {
+  id = "",
+  heading = "",
+  awards = [],
+  divider = true,
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section class:list={["awards", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    <ul class="no-check">
+      {
+        awards.map((award: any) => (
+          <li>
+            {award.link ? (
+              <a href={award.link} {...externalLinkAttrs(award.link)}>
+                <Image source={award.imageSource} alt={award.imageAlt} />
+              </a>
+            ) : (
+              <Image source={award.imageSource} alt={award.imageAlt} />
+            )}
+          </li>
+        ))
+      }
+    </ul>
+    {divider && <hr />}
+  </div>
+</section>
+
+<style>
+  .awards {
+    padding: 50px 20px 0;
+  }
+
+  .awards > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  h2 {
+    font-family: var(--font-accent);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    margin: 0 0 25px;
+  }
+
+  /* The starter's list styles left-align every list in main */
+  ul {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: 50%;
+  }
+
+  li :global(img) {
+    display: block;
+    height: auto;
+    max-height: 110px;
+    max-width: 100%;
+    object-fit: contain;
+    width: auto;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 40px 0 0;
+  }
+
+  @media (min-width: 1025px) {
+    .awards {
+      padding-top: 55px;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+    }
+
+    ul {
+      flex-wrap: nowrap;
+      gap: 75px;
+    }
+
+    li {
+      padding: 0;
+      width: auto;
+    }
+
+    li :global(img) {
+      max-height: 140px;
+      max-width: 200px;
+    }
+
+    hr {
+      margin-top: 45px;
+    }
+  }
+</style>

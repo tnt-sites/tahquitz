@@ -1,0 +1,55 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: e.g. "Membership Plan".
+plans:
+  type: array
+  comment: One card per plan.
+  options:
+    preview:
+      text:
+        - key: name
+      subtext:
+        - key: price
+"plans[*].name":
+  type: text
+  comment: e.g. "Adult Membership".
+"plans[*].subtitle":
+  type: text
+  comment: Small line under the name (e.g. "13 and Older").
+"plans[*].price":
+  type: text
+  comment: Monthly price including the $ (e.g. "$40"). "/mo." is added automatically.
+"plans[*].theme":
+  type: select
+  comment: Header colours.
+  options:
+    allow_empty: false
+    values:
+      - id: light
+        name: Light blue
+      - id: dark
+        name: Navy
+    value_key: id
+    preview:
+      text:
+        - key: name
+"plans[*].items":
+  type: array
+  comment: What's included (check list).
+"plans[*].items[*]":
+  type: text
+"plans[*].note":
+  type: textarea
+  comment: Who the plan is for, shown under the list.
+"plans[*].buttonText":
+  type: text
+  comment: e.g. "Sign Up". Leave empty to hide the button.
+"plans[*].buttonLink":
+  type: url
+  comment: Sign-up page for this plan. Links to other sites open in a new tab.
+footnote:
+  type: markdown
+  comment: Optional small print under the cards (e.g. "* As determined by your dentist.").

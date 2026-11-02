@@ -1,0 +1,39 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+tabText:
+  type: text
+  comment: Label on the tab at the top of the photo (desktop only), e.g. "Meet Our Dental Experts".
+imageSource:
+  type: image
+  comment: Wide photo of the dentists. The cards overlap its bottom edge on desktop.
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+imageAlt:
+  type: text
+  comment: Alt text for the photo.
+dentists:
+  type: array
+  comment: One navy card per dentist.
+  options:
+    preview:
+      text:
+        - key: name
+"dentists[*].name":
+  type: text
+  comment: e.g. "Dr. Manpreet Dev".
+"dentists[*].bio":
+  type: markdown
+  comment: Short bio.
+  options:
+    bold: true
+    italic: true
+    link: true
+"dentists[*].buttonText":
+  type: text
+  comment: e.g. "Read Dr. Dev's Bio". Leave empty to hide the button.
+"dentists[*].link":
+  type: url
+  comment: The dentist's bio page.

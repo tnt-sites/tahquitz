@@ -1,0 +1,19 @@
+label: Index Booking
+icon: event_available
+description: For the homepage. Light blue band with outlined cards for each way to book.
+value:
+  _component: page-sections/homepage-blocks/index-booking
+  id: ""
+  heading: 3 Easy Ways to Book Your Visit
+  ways: []
+preview:
+  text:
+    - Index Booking
+  subtext:
+    - key: heading
+  icon: event_available
+picker_preview:
+  text: Index Booking
+  subtext: Outlined cards for each way to book.
+_inputs_from_glob:
+  - /src/components/page-sections/homepage-blocks/index-booking/index-booking.cloudcannon.inputs.yml

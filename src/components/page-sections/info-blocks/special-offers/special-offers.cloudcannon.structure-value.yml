@@ -1,0 +1,16 @@
+label: Special Offers
+icon: sell
+description: Navy offer cards; each Redeem Offer button opens a popup with that offer's own form.
+value:
+  _component: page-sections/info-blocks/special-offers
+  id: ""
+  heading: Specials
+  formText: ""
+  formAction: ""
+  offers:
+    - amount: $0 Off
+      treatment: Treatment
+      buttonText: Redeem Offer
+      formAction: ""
+_inputs_from_glob:
+  - /src/components/page-sections/info-blocks/special-offers/special-offers.cloudcannon.inputs.yml

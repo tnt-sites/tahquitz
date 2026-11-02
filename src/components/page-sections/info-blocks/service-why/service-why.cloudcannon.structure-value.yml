@@ -1,0 +1,13 @@
+label: Service Why
+icon: verified
+description: Light blue band with "Why choose us" heading and three reasons, for service pages.
+value:
+  _component: page-sections/info-blocks/service-why
+  id: ""
+  heading: Why Choose Tahquitz Dental Group?
+  items:
+    - Reason one
+    - Reason two
+    - Reason three
+_inputs_from_glob:
+  - /src/components/page-sections/info-blocks/service-why/service-why.cloudcannon.inputs.yml

@@ -14,8 +14,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "build:no-library": "DISABLE_COMPONENT_LIBRARY=true astro build",
+    "build": "DISABLE_COMPONENT_LIBRARY=true astro build",
+    "build:with-library": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "generate:structures": "node structuresGenerator.js",

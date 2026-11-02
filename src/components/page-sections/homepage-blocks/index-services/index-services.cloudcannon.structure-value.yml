@@ -1,0 +1,21 @@
+label: Index Services
+icon: medical_services
+description: For the homepage. Navy section with a heading, intro, photo tiles linking to services, and a button.
+value:
+  _component: page-sections/homepage-blocks/index-services
+  id: ""
+  heading: Heading text
+  text: Intro text.
+  services: []
+  buttonSections: []
+preview:
+  text:
+    - Index Services
+  subtext:
+    - key: heading
+  icon: medical_services
+picker_preview:
+  text: Index Services
+  subtext: Photo tiles linking to services.
+_inputs_from_glob:
+  - /src/components/page-sections/homepage-blocks/index-services/index-services.cloudcannon.inputs.yml

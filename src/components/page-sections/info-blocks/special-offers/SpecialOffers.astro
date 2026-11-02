@@ -1,0 +1,294 @@
+---
+import bgTriangles from "@assets/images/bg-triangles.webp";
+import Form from "@forms/form/Form.astro";
+import Icon from "@core-elements/icon/Icon.astro";
+
+// Special offer cards (styleguide "Specials"): navy card with the discount, light blue band with the
+// treatment, and a Redeem Offer button on the bottom edge that opens that offer's own form in a popup.
+// Each form sends the offer name in a hidden "promotion" field, and can post to its own form address.
+const {
+  id = "",
+  heading = "",
+  formText = "",
+  formAction = "",
+  offers = [],
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+
+const sectionId = id || "special-offers";
+
+const offerForm = (offer: any) => [
+  {
+    _component: "building-blocks/forms/input",
+    label: "Name",
+    name: "name",
+    type: "text",
+    placeholder: "Name",
+    required: true,
+  },
+  {
+    _component: "building-blocks/forms/input",
+    label: "Email",
+    name: "email",
+    type: "email",
+    placeholder: "Email",
+    required: true,
+  },
+  {
+    _component: "building-blocks/forms/input",
+    label: "Phone",
+    name: "phone",
+    type: "tel",
+    placeholder: "Phone",
+    required: true,
+  },
+  {
+    _component: "building-blocks/forms/textarea",
+    label: "Comments",
+    name: "comments",
+    placeholder: "Comments",
+    required: false,
+  },
+  {
+    _component: "building-blocks/forms/hidden",
+    name: "promotion",
+    value: `${offer.amount} ${offer.treatment}`,
+  },
+  {
+    _component: "building-blocks/forms/submit",
+    text: "Redeem Offer",
+    borderRadius: "none",
+    uppercase: true,
+  },
+];
+---
+
+<section class:list={["special-offers", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    <div class="offers block lg:flex justify-center">
+      {
+        offers.map((offer: any, index: number) => (
+          <article style={`background-image: url(${bgTriangles.src})`}>
+            <strong>{offer.amount}</strong>
+            <span class="treatment">{offer.treatment}</span>
+            {offer.buttonText && (
+              <button
+                type="button"
+                class="redeem"
+                data-offer-open={`${sectionId}-offer-${index + 1}`}
+              >
+                {offer.buttonText}
+              </button>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+  {
+    offers.map((offer: any, index: number) => (
+      <dialog
+        id={`${sectionId}-offer-${index + 1}`}
+        class="offer-modal"
+        aria-label={`${offer.amount} ${offer.treatment}`}
+      >
+        <button type="button" class="close" data-offer-close aria-label="Close">
+          <Icon name="x-mark" size="none" aria-hidden="true" />
+        </button>
+        <h3>
+          {offer.amount} <span>{offer.treatment}</span>
+        </h3>
+        {formText && <p>{formText}</p>}
+        <Form
+          action={offer.formAction || formAction}
+          formBlocks={offerForm(offer)}
+          editable={false}
+        />
+      </dialog>
+    ))
+  }
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-offer-open]").forEach((button) => {
+    const dialog = document.getElementById(
+      button.dataset.offerOpen || ""
+    ) as HTMLDialogElement | null;
+    if (!dialog) return;
+    button.addEventListener("click", () => dialog.showModal());
+    dialog.querySelector("[data-offer-close]")?.addEventListener("click", () => dialog.close());
+    // Clicking the dark backdrop closes it too
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    // Links like /promotions/#specials-offer-1 (the homepage banner's "View Offer") open that offer's form
+    if (location.hash === `#${dialog.id}`) {
+      button.scrollIntoView({ block: "center" });
+      dialog.showModal();
+    }
+  });
+</script>
+
+<style>
+  .special-offers {
+    padding: 60px 20px;
+  }
+
+  .special-offers > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  h2 {
+    font-size: 32px;
+    margin: 0 0 40px;
+  }
+
+  .offers {
+    gap: 15px;
+  }
+
+  article {
+    background-color: var(--color-bg-dark);
+    background-position: center;
+    background-size: cover;
+    border-radius: 15px;
+    margin: 0 auto 50px;
+    max-width: 375px;
+    padding: 30px 0 60px;
+    position: relative;
+  }
+
+  strong {
+    color: #fff;
+    display: block;
+    font-family: var(--font-accent);
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .treatment {
+    background-color: var(--color-brand);
+    display: block;
+    font-family: var(--font-accent);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-top: 15px;
+    padding: 8px 10px 5px;
+    text-transform: uppercase;
+  }
+
+  /* Sits on the card's bottom edge */
+  .redeem {
+    background-color: var(--color-brand);
+    border: 2px solid var(--color-text);
+    bottom: -25px;
+    color: var(--color-text);
+    cursor: pointer;
+    font-family: var(--font-accent);
+    font-size: 16px;
+    left: 50%;
+    padding: 12px 0;
+    position: absolute;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    transition: background-color var(--animation-normal) ease-in-out;
+    width: 275px;
+  }
+
+  .redeem:hover {
+    background-color: var(--color-brand-muted);
+  }
+
+  .offer-modal {
+    border: none;
+    margin: auto;
+    max-width: 600px;
+    padding: 45px 25px 35px;
+    text-align: center;
+    width: 90%;
+  }
+
+  .offer-modal::backdrop {
+    background-color: rgb(16 29 38 / 85%);
+  }
+
+  .offer-modal h3 {
+    font-family: var(--font-accent);
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .offer-modal h3 span {
+    display: block;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    margin-top: 5px;
+  }
+
+  .offer-modal p {
+    font-size: 17px;
+    margin: 15px 0 0;
+  }
+
+  .offer-modal :global(.form) {
+    margin-top: 20px;
+    text-align: left;
+  }
+
+  .offer-modal :global(.form > * + *) {
+    margin-top: 15px;
+  }
+
+  .offer-modal :global(.submit) {
+    display: block;
+    margin: 25px auto 0;
+  }
+
+  .close {
+    background-color: transparent;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    height: 45px;
+    padding: 10px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 45px;
+  }
+
+  @media (min-width: 1025px) {
+    .special-offers {
+      padding: 80px 20px 90px;
+    }
+
+    h2 {
+      font-size: 55px;
+      margin-bottom: 50px;
+    }
+
+    .offer-modal {
+      padding: 50px 50px 40px;
+    }
+
+    article {
+      flex: 0 1 375px;
+      margin: 0;
+    }
+
+    strong {
+      font-size: 50px;
+    }
+  }
+</style>

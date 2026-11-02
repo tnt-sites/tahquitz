@@ -1,0 +1,20 @@
+label: Awards
+icon: emoji_events
+description: Small label over a row of award badges.
+value:
+  _component: page-sections/homepage-blocks/awards
+  id: ""
+  heading: Awards & Recognition
+  awards: []
+  divider: true
+preview:
+  text:
+    - Awards
+  subtext:
+    - key: heading
+  icon: emoji_events
+picker_preview:
+  text: Awards
+  subtext: Small label over a row of award badges.
+_inputs_from_glob:
+  - /src/components/page-sections/homepage-blocks/awards/awards.cloudcannon.inputs.yml

@@ -1,0 +1,20 @@
+label: Membership Plans
+icon: card_membership
+description: In-house membership plan cards with price, included services and a sign-up button.
+value:
+  _component: page-sections/info-blocks/membership-plans
+  id: ""
+  heading: Membership Plan
+  plans:
+    - name: Plan name
+      subtitle: ""
+      price: $0
+      theme: light
+      items:
+        - Included service
+      note: ""
+      buttonText: Sign Up
+      buttonLink: ""
+  footnote: ""
+_inputs_from_glob:
+  - /src/components/page-sections/info-blocks/membership-plans/membership-plans.cloudcannon.inputs.yml

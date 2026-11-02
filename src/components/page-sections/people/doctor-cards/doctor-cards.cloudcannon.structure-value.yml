@@ -1,0 +1,14 @@
+label: Doctor Cards
+icon: groups
+description: Headshot cards for each doctor, linking to their bio pages.
+value:
+  _component: page-sections/people/doctor-cards
+  id: ""
+  doctors:
+    - name: Dr. Name
+      imageSource: ""
+      imageAlt: ""
+      link: ""
+      buttonText: Read Bio
+_inputs_from_glob:
+  - /src/components/page-sections/people/doctor-cards/doctor-cards.cloudcannon.inputs.yml

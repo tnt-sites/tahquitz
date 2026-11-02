@@ -1,0 +1,31 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: Optional heading above the slider (e.g. "Smile Gallery").
+text:
+  type: markdown
+  comment: Optional text above the slider.
+slides:
+  type: array
+  comment: One before & after photo per slide.
+  options:
+    preview:
+      text:
+        - key: imageAlt
+        - Slide
+      image:
+        - key: imageSource
+"slides[*].imageSource":
+  type: image
+  comment: Before & after photo (one image showing both).
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+"slides[*].imageAlt":
+  type: text
+"slides[*].caption":
+  type: textarea
+  comment: Optional italic caption under the photos (e.g. the treatment).

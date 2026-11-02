@@ -1,0 +1,21 @@
+label: Location Split
+icon: map
+description: For the homepage. Google map beside a heading and a check-mark list of nearby landmarks.
+value:
+  _component: page-sections/homepage-blocks/location-split
+  id: find
+  heading: Heading text
+  text: ""
+  mapEmbedUrl: ""
+  mapTitle: ""
+preview:
+  text:
+    - Location Split
+  subtext:
+    - key: heading
+  icon: map
+picker_preview:
+  text: Location Split
+  subtext: Map beside a list of nearby landmarks.
+_inputs_from_glob:
+  - /src/components/page-sections/homepage-blocks/location-split/location-split.cloudcannon.inputs.yml

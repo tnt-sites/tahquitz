@@ -1,8 +1,8 @@
 {
-  "name": "Astro Component Starter",
-  "url": "https://example.com",
-  "description": "",
-  "logoSource": "/images/logo.svg",
-  "titleFormat": "{title} | Astro Component Starter",
-  "twitterHandle": "@yourusername"
+  "name": "Tahquitz Dental Group",
+  "url": "https://palmspringsdentalgroup.com",
+  "description": "Tahquitz Dental Group offers checkups, cleanings, dental implants and cosmetic dentistry in Palm Springs, CA, all in a comfortable, caring environment.",
+  "logoSource": "/images/share.jpg",
+  "titleFormat": "{title} | Tahquitz Dental Group",
+  "twitterHandle": ""
 }

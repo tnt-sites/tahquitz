@@ -1,0 +1,12 @@
+label: Consult Steps
+icon: format_list_numbered
+description: Light blue band with numbered steps, each with a heading and short text.
+value:
+  _component: page-sections/info-blocks/consult-steps
+  id: ""
+  heading: How It Works
+  steps:
+    - heading: Step one
+      text: ""
+_inputs_from_glob:
+  - /src/components/page-sections/info-blocks/consult-steps/consult-steps.cloudcannon.inputs.yml

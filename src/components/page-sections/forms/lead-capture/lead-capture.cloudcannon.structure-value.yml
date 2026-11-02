@@ -1,0 +1,17 @@
+label: Lead Capture (Implant Smiles)
+icon: assignment
+description: Implant Smiles lead capture form or survey with magazine image, text and tracking phone number.
+value:
+  _component: page-sections/forms/lead-capture
+  id: ""
+  embedType: form
+  embedId: ""
+  embedTitle: ""
+  heading: ""
+  text: ""
+  phone: ""
+  imageSource: ""
+  imageAlt: ""
+  reverse: false
+_inputs_from_glob:
+  - /src/components/page-sections/forms/lead-capture/lead-capture.cloudcannon.inputs.yml

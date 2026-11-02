@@ -2,17 +2,15 @@
 _schema: default
 title: Blog
 pageSections:
-  - _component: page-sections/heroes/hero-center
-    eyebrow: ""
-    heading: All posts
-    subtext: >-
-      This paginated blog index displays a grid of article cards, each waiting
-      to be populated with genuine posts once your content strategy moves beyond
-      placeholder text.
+  - _component: page-sections/heroes/interior-banner
+    eyebrow: "Tahquitz Dental Group Blog"
+    heading: "Smile Tips & Dental News"
+    text: |-
+      Explore our blog for dental care tips, answers to common questions about treatments like dental implants and Invisalign, and the latest advancements in dentistry from our Palm Springs team.
+    imageSource: "/src/assets/images/home/team.webp"
+    imageAlt: "The Tahquitz Dental Group team outside the Palm Springs office"
     buttonSections: []
-    colorScheme: default
-    backgroundColor: "var(--color-bg)"
 description: >-
-  Read our latest articles and insights on web development, design, and
-  technology.
+  Explore our blogs at Tahquitz Dental Group in Palm Springs for orthodontic
+  services, dental care tips, and the latest advancements in dental treatments.
 ---

@@ -7,10 +7,6 @@
       "path": "/"
     },
     {
-      "name": "Why",
-      "path": "/why/"
-    },
-    {
       "name": "Blog",
       "path": "/blog/"
     }
@@ -20,11 +16,14 @@
   "legalLinks": [
     {
       "name": "Sitemap",
-      "path": "/sitemap"
+      "path": "/sitemap/"
     },
     {
       "name": "Privacy Policy",
-      "path": "/privacy-policy"
+      "path": "/privacy-policy/"
     }
-  ]
+  ],
+  "formHeading": "Ask Us a Question",
+  "formAction": "",
+  "consentText": "I agree to receive marketing messaging from Tahquitz Dental Group Palm Springs at the phone number provided above. I understand I will receive 2 messages a month, data rates may apply, reply STOP to opt out. (Required)"
 }

@@ -1,0 +1,17 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: e.g. "How a Virtual Consult Works".
+steps:
+  type: array
+  comment: Numbered automatically in order.
+  options:
+    preview:
+      text:
+        - key: heading
+"steps[*].heading":
+  type: text
+"steps[*].text":
+  type: textarea

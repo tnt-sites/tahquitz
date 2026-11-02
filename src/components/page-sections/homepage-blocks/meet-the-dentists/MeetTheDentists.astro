@@ -1,0 +1,183 @@
+---
+import bgTriangles from "@assets/images/bg-triangles.webp";
+import Button from "@core-elements/button/Button.astro";
+import Image from "@core-elements/image/Image.astro";
+import Text from "@core-elements/text/Text.astro";
+
+// Homepage "Meet Our Dental Experts": wide photo of the dentists with a tab on its top edge, and a navy
+// card per dentist (name, short bio, bio button) overlapping the bottom of the photo. Cards stack on phones.
+const {
+  id = "",
+  tabText = "",
+  imageSource = "",
+  imageAlt = "",
+  dentists = [],
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section class:list={["meet-the-dentists", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    <figure>
+      {tabText && <figcaption data-prop="tabText">{tabText}</figcaption>}
+      <Image
+        source={imageSource}
+        alt={imageAlt}
+        sizes="100vw"
+        widths={[800, 1200, 1600, 2280]}
+        data-prop-src="imageSource"
+        data-prop-alt="imageAlt"
+      />
+    </figure>
+    <ul class="no-check">
+      {
+        dentists.map((dentist: any) => (
+          <li style={`background-image: url(${bgTriangles.src})`}>
+            <h3>{dentist.name}</h3>
+            <Text text={dentist.bio} />
+            {dentist.buttonText && dentist.link && (
+              <Button
+                text={dentist.buttonText}
+                link={dentist.link}
+                variant="primary"
+                borderRadius="none"
+                uppercase={true}
+                editable={false}
+              />
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  figure {
+    margin: 0;
+    position: relative;
+  }
+
+  figure :global(img) {
+    aspect-ratio: 6 / 5;
+    display: block;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  /* "Meet Our Dental Experts" tab hanging from the top of the photo (desktop only, as in the design) */
+  figcaption {
+    display: none;
+  }
+
+  /* The starter's list styles left-align every list in main */
+  ul {
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+  }
+
+  li {
+    align-items: center;
+    background-color: var(--color-bg-dark);
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 0 5px;
+    padding: 40px 20px 45px;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    color: #fff;
+    font-size: 22px;
+    margin: 0 0 10px;
+  }
+
+  li :global(.text) {
+    margin: 0 auto;
+    max-width: 600px;
+    text-align: inherit;
+  }
+
+  li :global(.text p) {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.75;
+  }
+
+  li :global(.button) {
+    font-size: 17px;
+    justify-content: center;
+    margin-top: 30px;
+    min-width: 275px;
+    padding: 15px 20px;
+  }
+
+  @media (min-width: 1025px) {
+    figure :global(img) {
+      aspect-ratio: auto;
+      height: 780px;
+      max-height: none;
+    }
+
+    figcaption {
+      background-color: var(--color-bg-dark);
+      border-radius: 0 0 10px 10px;
+      color: #fff;
+      display: block;
+      font-family: var(--font-accent);
+      font-size: 16px;
+      font-weight: 600;
+      left: 50%;
+      letter-spacing: 0.1em;
+      padding: 10px 35px;
+      position: absolute;
+      text-transform: uppercase;
+      top: 0;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    /* Cards start 255px above the bottom of the photo */
+    ul {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin: -255px auto 0;
+      max-width: 1190px;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    li {
+      flex: 0 1 570px;
+      margin: 0;
+      min-height: 385px;
+      padding: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+    }
+
+    li :global(.text) {
+      max-width: 490px;
+    }
+
+    li :global(.text p) {
+      font-size: 19px;
+      line-height: 1.6;
+    }
+  }
+</style>

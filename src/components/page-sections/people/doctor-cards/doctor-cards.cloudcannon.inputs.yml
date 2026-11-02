@@ -1,0 +1,30 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+doctors:
+  type: array
+  comment: One card per doctor.
+  options:
+    preview:
+      text:
+        - key: name
+      image:
+        - key: imageSource
+"doctors[*].name":
+  type: text
+  comment: e.g. "Dr. Manpreet Dev".
+"doctors[*].imageSource":
+  type: image
+  comment: Headshot (portrait).
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+"doctors[*].imageAlt":
+  type: text
+"doctors[*].link":
+  type: url
+  comment: The doctor's bio page.
+"doctors[*].buttonText":
+  type: text
+  comment: e.g. "Read Bio". Leave empty to hide.

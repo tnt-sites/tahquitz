@@ -148,6 +148,8 @@ const siteInfoFooterScripts = uniqueScripts([
 ]);
 const footerScripts = pageFooterScripts.length > 0 ? pageFooterScripts : siteInfoFooterScripts;
 
+const gtmId = "GTM-N8BZVS4Q";
+
 const globalModals = [
   ...getModalArray(props.modals),
   ...getModalArray(props.globalModals),
@@ -163,6 +165,20 @@ const globalModals = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Google Tag Manager -->
+    <script is:inline define:vars={{ gtmId }}>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", gtmId);
+    </script>
+    <!-- End Google Tag Manager -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <style is:inline>
@@ -176,26 +192,20 @@ const globalModals = [
       }
     </script>
 
+    <!-- astro-seo writes the canonical tag itself; social sites need an absolute image URL -->
     <SEO
       title={formattedTitle}
       description={pageDescription}
+      canonical={props.canonical || Astro.url.href}
       openGraph={{
         basic: {
           title: formattedTitle,
           type: "website",
-          image: pageImage,
+          image: new URL(pageImage, Astro.site ?? Astro.url).href,
         },
         optional: {
           description: pageDescription,
         },
-      }}
-      extend={{
-        link: [
-          {
-            rel: "canonical",
-            href: props.canonical || Astro.url.href,
-          },
-        ],
       }}
     />
 
@@ -212,6 +222,15 @@ const globalModals = [
     {headScripts.map((script: string) => <script is:inline set:html={script} />)}
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
     <Fragment>
       <slot />
     </Fragment>

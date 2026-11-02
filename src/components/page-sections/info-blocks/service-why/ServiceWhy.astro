@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import toothIcon from "@assets/images/tooth-icon.png";
+
+// Light blue "Why choose Tahquitz Dental Group for ...?" band with three reasons.
+const { id = "", heading = "", items = [], class: className, _component, ...htmlAttributes } =
+  Astro.props;
+---
+
+<section class:list={["service-why", className]} id={id || undefined} {...htmlAttributes}>
+  {heading && <h2 data-prop="heading">{heading}</h2>}
+  <ul class="no-check block text-center lg:flex justify-around">
+    {
+      items.map((item: string) => (
+        <li>
+          <Image src={toothIcon} alt="" width={35} height={35} />
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .service-why {
+    padding: 25px 20px 30px;
+    background-color: var(--color-brand);
+    text-align: center;
+  }
+
+  h2 {
+    margin: 0 0 15px;
+    font-family: var(--font-accent);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+  }
+
+  ul {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    max-width: 360px;
+    margin: 0 auto 20px;
+  }
+
+  li img {
+    display: block;
+    margin: 0 auto 5px;
+    filter: brightness(0);
+  }
+
+  span {
+    font-family: var(--font-accent);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 1024px) {
+    li {
+      margin: 0;
+    }
+
+    span {
+      font-size: 22px;
+    }
+  }
+</style>

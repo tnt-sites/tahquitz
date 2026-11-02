@@ -1,0 +1,61 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: Small label above the panels (e.g. "A Stress-Free Payment Experience").
+divider:
+  type: switch
+  comment: Thin line above the section to separate it from the one before.
+financing:
+  type: object
+  comment: Light blue panel on the left.
+financing.heading:
+  type: textarea
+  comment: e.g. "Flexible Financing Options". Press Enter where the line should break.
+financing.text:
+  type: markdown
+  options:
+    bold: true
+    italic: true
+    link: true
+financing.buttonSections:
+  type: array
+  comment: Stacked buttons. In this panel, Tertiary shows as a navy outline and Secondary as solid navy.
+  options:
+    structures: _structures.buttonSections
+logos:
+  type: array
+  comment: Financing company logos shown under the light blue panel.
+  options:
+    preview:
+      text:
+        - key: imageAlt
+      image:
+        - key: imageSource
+"logos[*].imageSource":
+  type: image
+  comment: Logo (SVG works best). Shown at its own size, so export logos to scale with each other.
+  options:
+    paths:
+      uploads: src/assets/images/financing
+      static: ""
+"logos[*].imageAlt":
+  type: text
+  comment: Company name.
+membership:
+  type: object
+  comment: Navy panel on the right.
+membership.heading:
+  type: textarea
+  comment: e.g. "Join Our Coachella Smile Club". Press Enter where the line should break.
+membership.text:
+  type: markdown
+  options:
+    bold: true
+    italic: true
+    link: true
+membership.buttonSections:
+  type: array
+  options:
+    structures: _structures.buttonSections

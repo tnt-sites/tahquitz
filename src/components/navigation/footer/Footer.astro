@@ -1,508 +1,519 @@
 ---
-import CustomSection from "@builders/custom-section/CustomSection.astro";
-import Button from "@core-elements/button/Button.astro";
-import Divider from "@core-elements/divider/Divider.astro";
-import Image from "@core-elements/image/Image.astro";
+import toothLogo from "@assets/images/tooth-logo-white.svg";
+import { externalLinkAttrs } from "@component-utils/externalLink";
+import Icon from "@core-elements/icon/Icon.astro";
 import siteInfoData from "@data/siteInfo.json";
-import ButtonGroup from "@wrappers/button-group/ButtonGroup.astro";
+import { Icon as AstroIcon } from "astro-icon/components";
 
+// Site footer: navy band with the tooth logo in a circle on its top edge, the "Ask Us a Question" form,
+// then Contact Us | Office Hours; white legal bar underneath. Contact details come from siteInfo.json,
+// the headings, form and legal links from footer.json.
 const {
-  links = [],
   socials = [],
   siteName = "",
   offices = [],
   legalLinks = [],
   contactTitle = "Contact Us",
-  phoneText = "",
-  phoneHref = "",
-  addressHref = "",
-  addressLines = [],
-  emailHref = "",
-  emailText = [],
   officeHoursTitle = "Office Hours",
-  officeHours = [],
-  officeHoursNote = "",
-  officeHoursNotes = [],
-  mapEmbedUrl = "",
-  legalBlurb = "",
-  addressLinkColor = "",
-  addressLinkHoverColor = "",
-  phoneLinkColor = "",
-  phoneLinkHoverColor = "",
+  formHeading = "Ask Us a Question",
+  formAction = "",
+  consentText = "",
+  // Older footer.json fields this design doesn't show
   logoSource,
   logoAlt,
+  links,
   _component,
   ...htmlAttributes
 } = Astro.props;
 
-const hasLegacyOffice = (Array.isArray(addressLines) && addressLines.length > 0) || !!phoneText;
-
 const resolvedOffices =
-  Array.isArray(offices) && offices.length > 0
-    ? offices
-    : hasLegacyOffice
-      ? [
-          {
-            name: "",
-            addresses:
-              Array.isArray(addressLines) && addressLines.length > 0
-                ? [
-                    {
-                      lines: addressLines,
-                      mapUrl: addressHref || "",
-                    },
-                  ]
-                : [],
-            phones: phoneText
-              ? [
-                  {
-                    display: phoneText,
-                    href: phoneHref || "",
-                  },
-                ]
-              : [],
-            officeHours,
-            officeHoursNote,
-            officeHoursNotes,
-            socials,
-          },
-        ]
-      : ((siteInfoData as any).offices ?? []);
-
+  Array.isArray(offices) && offices.length > 0 ? offices : ((siteInfoData as any).offices ?? []);
 const displaySiteName = siteName || (siteInfoData as any).siteName || "";
 const sharedSocials =
-  Array.isArray(socials) && socials.length > 0
-    ? socials
-    : Array.isArray(resolvedOffices[0]?.socials)
-      ? resolvedOffices[0].socials
-      : ((siteInfoData as any).socials ?? []);
+  Array.isArray(socials) && socials.length > 0 ? socials : ((siteInfoData as any).socials ?? []);
 
 const formatAddressLines = (address: any) => {
-  const lineItems = Array.isArray(address?.lines) ? address.lines : [];
   const stateAndPostal = [address?.state, address?.postalCode].filter(Boolean).join(" ");
   const cityStatePostal = [address?.city, stateAndPostal].filter(Boolean).join(", ");
-  const locationLine = [cityStatePostal, address?.country].filter(Boolean).join(", ");
-
-  return [...lineItems, locationLine].filter(
-    (line) => typeof line === "string" && line.trim().length > 0
-  );
-};
-
-const getOfficeHoursGeneralNotes = (office: any) => {
-  const notes = [
-    office?.officeHoursNote,
-    office?.["office-hours-note"],
-    ...(Array.isArray(office?.officeHoursNotes) ? office.officeHoursNotes : []),
-    ...(Array.isArray(office?.["office-hours-notes"]) ? office["office-hours-notes"] : []),
-  ];
-
-  return notes.filter((note) => typeof note === "string" && note.trim().length > 0);
+  return [...(address?.lines ?? []), cityStatePostal].filter(Boolean);
 };
 
 const copyYear = new Date().getFullYear();
-const embedSrc = typeof mapEmbedUrl === "string" ? mapEmbedUrl.trim() : "";
-const blurb = typeof legalBlurb === "string" ? legalBlurb.trim() : "";
-const getColorValue = (value: any) => {
-  const raw = typeof value === "string" ? value : (value?.id ?? value?.value ?? value?.name);
-
-  if (typeof raw !== "string") return "";
-
-  const normalized = raw.trim();
-
-  return normalized && normalized !== "none" ? normalized : "";
-};
-const footerStyle = [
-  getColorValue(addressLinkColor)
-    ? `--footer-address-link-color: ${getColorValue(addressLinkColor)}`
-    : "",
-  getColorValue(addressLinkHoverColor)
-    ? `--footer-address-link-hover-color: ${getColorValue(addressLinkHoverColor)}`
-    : "",
-  getColorValue(phoneLinkColor)
-    ? `--footer-phone-link-color: ${getColorValue(phoneLinkColor)}`
-    : "",
-  getColorValue(phoneLinkHoverColor)
-    ? `--footer-phone-link-hover-color: ${getColorValue(phoneLinkHoverColor)}`
-    : "",
-]
-  .filter(Boolean)
-  .join("; ");
 ---
 
-<footer class="footer" style={footerStyle || undefined} {...htmlAttributes}>
-  <CustomSection maxContentWidth="2xl" paddingHorizontal="md" paddingVertical="2xl">
-    <div class="footer-content">
-      <div class="content-container">
-        <a href="/">
-          <Image source={logoSource} alt={logoAlt} class="footer-logo" editable={false} />
-        </a>
-      </div>
-      <!-- <div class="content-container">
-        <Bar navData={links} />
-      </div> -->
-    </div>
+<footer class="footer" {...htmlAttributes}>
+  <section class="main">
+    <a class="badge" href="/" aria-label={`${displaySiteName} home`}>
+      <img src={toothLogo.src} alt="" width="150" height="145" loading="lazy" />
+    </a>
 
-    <div id="fo-content" class="fo-content block lg:flex justify-around items-start text-center">
-      <div class="fo-info">
-        <span class="fo-title">{contactTitle}</span>
+    <div class="ask">
+      <h2>{formHeading}</h2>
+      <form action={formAction} method="post">
+        <div class="fields block lg:flex">
+          <label>
+            <span class="sr-only">Name</span>
+            <input type="text" name="name" placeholder="Name" required />
+          </label>
+          <label>
+            <span class="sr-only">Email</span>
+            <input type="email" name="email" placeholder="Email" required />
+          </label>
+          <label>
+            <span class="sr-only">Phone</span>
+            <input type="tel" name="phone" placeholder="Phone" />
+          </label>
+        </div>
+        <label>
+          <span class="sr-only">Message</span>
+          <textarea name="message" placeholder="Message" rows="4"></textarea>
+        </label>
         {
-          resolvedOffices.map((office: any) => (
-            <div class="office-block">
-              {office?.name && <span class="office-name">{office.name}</span>}
-              {Array.isArray(office?.phones) &&
-                office.phones.map((phone: any) =>
-                  phone?.display ? (
-                    <a href={phone?.href || "#"} class="pho">
-                      {phone?.label ? `${phone.label}: ` : ""}
-                      {phone.display}
-                    </a>
-                  ) : null
-                )}
-              {Array.isArray(office?.emails) &&
-                office.emails.map((email: any) =>
-                  email?.display ? (
-                    <a href={email?.href || "#"} class="pho">
-                      {email?.label ? `${email.label}: ` : ""}
-                      {email.display}
-                    </a>
-                  ) : null
-                )}
-              {Array.isArray(office?.addresses) &&
-                office.addresses.map((address: any) => {
-                  const formattedLines = formatAddressLines(address);
-
-                  return formattedLines.length > 0 ? (
-                    <a
-                      href={address?.mapUrl || "#"}
-                      class="phy"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {formattedLines.map((line: string, index: number) => (
-                        <>
-                          {line}
-                          {index < formattedLines.length - 1 && <br />}
-                        </>
-                      ))}
-                    </a>
-                  ) : null;
-                })}
-            </div>
-          ))
-        }
-
-        {
-          sharedSocials.length > 0 && (
-            <div class="social">
-              <ButtonGroup alignX="center">
-                {sharedSocials.map((social: any) => (
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    iconName={social.icon}
-                    link={social.link}
-                    hideText="true"
-                    aria-label={`Visit our ${social.icon} page`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />
-                ))}
-              </ButtonGroup>
-            </div>
+          consentText && (
+            <label class="consent">
+              <input type="checkbox" name="consent" value="yes" required />
+              <span>{consentText}</span>
+            </label>
           )
         }
-      </div>
-
-      <div class="fo-hours">
-        <span class="fo-title">{officeHoursTitle}</span>
-        {
-          resolvedOffices.map((office: any) => (
-            <div class="office-hours">
-              {/* {office?.name && <span class="office-name">{office.name}</span>} */}
-              <div class="office-hours-list">
-                {(office?.officeHours || []).map((item: any) => (
-                  <div class="office-hours-row">
-                    <div class="office-hours-line">
-                      <span class="office-hours-day">{item.day || ""}</span>
-                      <span class="office-hours-time">{item.hours || ""}</span>
-                    </div>
-                    {(item?.note || item?.hoursNote || item?.["hours-note"]) && (
-                      <small class="office-hours-note">
-                        {item?.note || item?.hoursNote || item?.["hours-note"]}
-                      </small>
-                    )}
-                  </div>
-                ))}
-              </div>
-              {getOfficeHoursGeneralNotes(office).length > 0 && (
-                <div class="office-hours-general-notes">
-                  {getOfficeHoursGeneralNotes(office).map((note: string) => (
-                    <small class="office-hours-general-note">{note}</small>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))
-        }
-      </div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
 
-    {
-      embedSrc && (
-        <div class="footer-map-embed" aria-label="Map location">
-          <iframe
-            src={embedSrc}
-            title="Office location map"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen
-          />
-        </div>
-      )
-    }
-
-    <Divider />
-
-    <div class="footer-content">
-      <div class="content-container">
-        <div class="footer-legal-text" id="copy">
-          <span class="footer-legal-line footer-legal-line--primary">
-            &copy;<span class="inline" id="copyDate">{copyYear}</span>
-            {displaySiteName}
-          </span>
-          {
-            legalLinks.length > 0 && (
-              <span class="footer-legal-separator" aria-hidden="true">
-                |
-              </span>
-            )
-          }
-          {
-            legalLinks.length > 0 && (
-              <span class="footer-legal-line footer-legal-line--links">
-                {legalLinks.map((item: any, index: number) => (
+    <div class="info block lg:flex justify-center">
+      {
+        resolvedOffices.map((office: any) => (
+          <article class="contact">
+            <h3>{contactTitle}</h3>
+            {office?.phones?.map((phone: any) => (
+              <a class="phone" href={phone.href}>
+                {phone.display}
+              </a>
+            ))}
+            {office?.addresses?.map((address: any) => (
+              <a class="address" href={address.mapUrl} {...externalLinkAttrs(address.mapUrl)}>
+                {formatAddressLines(address).map((line: string, index: number) => (
                   <>
-                    <a href={item.path || "#"}>{item.name || "Link"}</a>
-                    {index < legalLinks.length - 1 && <span class="mx-2">|</span>}
+                    {index > 0 && <br />}
+                    {line}
                   </>
                 ))}
-              </span>
-            )
-          }
-          <span class="footer-legal-separator" aria-hidden="true">|</span>
-          <span class="footer-legal-line footer-legal-line--credit">
-            Site designed and maintained by{" "}
-            <a href="https://www.tntdental.com" target="_blank" rel="noopener noreferrer">
-              TNT Dental
-            </a>
-          </span>
-        </div>
-        {blurb && <p class="footer-legal-blurb">{blurb}</p>}
-      </div>
+              </a>
+            ))}
+            {sharedSocials.length > 0 && (
+              <ul class="socials no-check">
+                {sharedSocials.map((social: any) => (
+                  <li>
+                    <a
+                      href={social.link}
+                      aria-label={social.label || social.icon}
+                      {...externalLinkAttrs(social.link)}
+                    >
+                      <Icon name={social.icon} size="none" aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))
+      }
+      {
+        resolvedOffices.map((office: any) => (
+          <article class="hours">
+            <h3>{officeHoursTitle}</h3>
+            <dl>
+              {(office?.officeHours ?? []).map((item: any) => (
+                <div>
+                  <dt>{item.day}</dt>
+                  {/* Text like "By Appointment Only" is italic, times are not */}
+                  <dd class:list={{ "no-time": !/\d/.test(item.hours ?? "") }}>{item.hours}</dd>
+                </div>
+              ))}
+            </dl>
+            {office?.officeHoursNote && <p class="note">{office.officeHoursNote}</p>}
+          </article>
+        ))
+      }
     </div>
-  </CustomSection>
+  </section>
+
+  <div class="legal block lg:flex justify-between items-center">
+    <p>
+      &copy;{copyYear}
+      {displaySiteName}
+      <span class="links">
+        {
+          legalLinks.map((item: any) => (
+            <>
+              <span class="separator" aria-hidden="true">
+                |
+              </span>
+              <a href={item.path} {...externalLinkAttrs(item.path)}>
+                {item.name}
+              </a>
+            </>
+          ))
+        }
+      </span>
+    </p>
+    <p class="credit">
+      Site designed &amp; maintained by
+      <a
+        href="https://www.tntdental.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="TNT Dental"
+      >
+        <AstroIcon name="brands/tnt" aria-hidden="true" />
+      </a>
+    </p>
+  </div>
 </footer>
 
-<style lang="pcss" is:global>
-  @layer page-sections {
-    .footer {
-      container-type: inline-size;
+<style>
+  /* Room for the fixed mobile tabs */
+  @media (max-width: 1024px) {
+    .footer[data-fixed-tabs-active="true"] {
+      padding-bottom: 70px;
+    }
+  }
 
-      &[data-fixed-tabs-active="true"] {
-        @media (max-width: 1024px) {
-          padding-bottom: calc(72px + env(safe-area-inset-bottom));
-        }
-      }
+  /* Extra room at the bottom of the last page section so the logo circle doesn't cover its content */
+  :global(
+    main > section:last-child::after,
+    main > editable-array > editable-array-item:last-child > section::after
+  ) {
+    content: "";
+    display: block;
+    height: 55px;
+  }
 
-      .button-group {
-        &.align-end {
-          @container (max-width: 599px) {
-            justify-content: center;
-          }
-        }
+  .main {
+    background: var(--color-bg-dark) url("../../../assets/images/bg-triangles.webp") center / cover;
+    color: #fff;
+    padding: 110px 20px 50px;
+    position: relative;
+  }
 
+  /* Navy circle half above the band, holding the tooth logo */
+  .badge {
+    align-items: flex-start;
+    background-color: var(--color-bg-dark);
+    border-radius: 50%;
+    display: flex;
+    height: 160px;
+    justify-content: center;
+    left: 50%;
+    padding-top: 30px;
+    position: absolute;
+    top: -55px;
+    transform: translateX(-50%);
+    width: 160px;
+  }
 
-      }
+  .badge img {
+    display: block;
+    height: auto;
+    width: 100px;
+  }
 
-      .footer-content {
-        @container (min-width: 600px) {
-          align-items: center;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-        }
+  .ask {
+    margin: 0 auto;
+    max-width: 950px;
+    text-align: center;
+  }
 
-        .content-container {
-          flex: 1;
+  h2 {
+    color: #fff;
+    font-size: 34px;
+    letter-spacing: 0.1em;
+    margin: 0 0 30px;
+  }
 
-          > a {
-            display: block;
-            text-align: center;
-          }
-        }
-      }
+  .fields {
+    gap: 15px;
+  }
 
-      .footer-map-embed {
-        margin-block: var(--spacing-lg);
+  .fields label {
+    display: block;
+    flex: 1;
+  }
 
-        iframe {
-          aspect-ratio: 16 / 9;
-          border: 0;
-          border-radius: var(--radius-md);
-          display: block;
-          width: 100%;
-        }
-      }
+  input:not([type="checkbox"]),
+  textarea {
+    background-color: transparent;
+    border: 1px solid rgb(255 255 255 / 40%);
+    border-radius: 0;
+    color: #fff;
+    display: block;
+    font-family: var(--font-body);
+    font-size: 17px;
+    margin: 0 0 15px;
+    padding: 10px 20px;
+    width: 100%;
+  }
 
-      .footer-legal-text {
-        color: var(--color-text-muted);
-        text-align: center;
-        @container (min-width: 600px) {
-          text-align: start;
-        }
-      }
+  input::placeholder,
+  textarea::placeholder {
+    color: rgb(255 255 255 / 50%);
+  }
 
-      .footer-legal-blurb {
-        color: var(--color-text-muted);
-        font-size: var(--font-size-sm);
-        line-height: var(--line-height-relaxed);
-        margin-top: var(--spacing-sm);
-        text-align: center;
+  input:focus,
+  textarea:focus {
+    border-color: var(--color-brand);
+    outline: none;
+  }
 
-        @container (min-width: 600px) {
-          text-align: start;
-        }
-      }
+  textarea {
+    min-height: 135px;
+    resize: vertical;
+  }
 
-      .footer-logo {
-        flex-shrink: 0;
-        margin-top: 0 !important;
+  .consent {
+    align-items: flex-start;
+    color: rgb(255 255 255 / 50%);
+    display: flex;
+    font-size: 13px;
+    font-style: italic;
+    gap: 15px;
+    justify-content: center;
+    line-height: 1.5;
+    margin: 10px auto 0;
+    max-width: 700px;
+    text-align: center;
+  }
 
-        img {
-          margin: 0 auto 30px;
-          width: auto;
-        }
-      }
+  .consent input {
+    flex: 0 0 auto;
+    margin-top: 3px;
+  }
 
-      .bar .bar-list {
-        flex-flow: column wrap;
-        @container (min-width: 600px) {
-          flex-direction: row;
-          justify-content: end;
-        }
-      }
+  button {
+    background-color: var(--color-brand);
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    font-family: var(--font-accent);
+    font-size: 17px;
+    letter-spacing: 0.05em;
+    margin-top: 25px;
+    padding: 15px 0;
+    text-transform: uppercase;
+    transition: background-color var(--animation-normal) ease-in-out;
+    width: 275px;
+  }
 
-      .fo-content {
-        margin-block: var(--spacing-lg);
+  button:hover {
+    background-color: var(--color-brand-muted);
+  }
 
-        @container (min-width: 700px) {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+  .info {
+    margin: 50px auto 0;
+    max-width: 1150px;
+    text-align: center;
+  }
 
-        .fo-title {
-          color: var(--color-text-strong);
-          display: block;
-          font-weight: var(--font-weight-semibold);
-          margin-bottom: var(--spacing-sm);
-          text-align: center;
-        }
+  .info article {
+    margin-bottom: 40px;
+  }
 
-        .office-block,
-        .office-hours-block {
-          margin-bottom: var(--spacing-md);
-        }
+  h3 {
+    color: #fff;
+    font-size: 22px;
+    margin: 0 0 15px;
+  }
 
-        .office-name {
-          color: var(--color-text-strong);
-          display: block;
-          font-weight: var(--font-weight-semibold);
-          margin-bottom: var(--spacing-xs);
-        }
+  .phone {
+    color: #fff;
+    display: block;
+    font-family: var(--font-accent);
+    font-size: 30px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  }
 
-        .pho,
-        .phy {
-          color: var(--color-text);
-          display: block;
-          margin-bottom: var(--spacing-sm);
-          text-decoration: none;
+  .address {
+    color: #fff;
+    display: block;
+    font-size: 17px;
+    line-height: 1.4;
+    margin-top: 10px;
+    text-decoration: none;
+  }
 
-          &:hover,
-          &:focus-visible {
-            color: var(--color-link-hover);
-          }
-        }
+  .phone:hover,
+  .address:hover {
+    color: var(--color-brand);
+  }
 
-        .pho {
-          color: var(--footer-phone-link-color, var(--color-text));
+  .socials {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin: 20px 0 0;
+  }
 
-          &:hover,
-          &:focus-visible {
-            color: var(--footer-phone-link-hover-color, var(--color-link-hover));
-          }
-        }
+  .socials a {
+    align-items: center;
+    background-color: var(--color-brand);
+    border-radius: 50%;
+    color: var(--color-text);
+    display: flex;
+    height: 45px;
+    justify-content: center;
+    transition: background-color var(--animation-normal) ease-in-out;
+    width: 45px;
+  }
 
-        .phy {
-          color: var(--footer-address-link-color, var(--color-text));
+  .socials a:hover {
+    background-color: var(--color-brand-muted);
+  }
 
-          &:hover,
-          &:focus-visible {
-            color: var(--footer-address-link-hover-color, var(--color-link-hover));
-          }
-        }
+  .socials :global(.icon) {
+    width: 20px;
+  }
 
-        .office-hours {
-          display: table;
-          margin: 10px auto;
-          text-align: left;
+  dl {
+    display: inline-block;
+    margin: 0;
+    text-align: left;
+  }
 
-          .fo-title { text-align: center; }
-        }
+  dl div {
+    display: flex;
+    gap: 15px;
+    line-height: 1.55;
+  }
 
-        .social {
-          margin-top: var(--spacing-sm); 
+  dt {
+    flex: 0 0 100px;
+    font-weight: 700;
+  }
 
-          .button{min-width: auto;}
-        }
-      }
+  /* Keep each day's hours on one line; the list is only as wide as its longest row */
+  dd {
+    flex-shrink: 0;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .no-time {
+    font-style: italic;
+  }
+
+  .note {
+    font-size: 15px;
+    margin: 10px 0 0;
+  }
+
+  .legal {
+    background-color: #fff;
+    font-size: 16px;
+    margin: 0 auto;
+    max-width: 1150px;
+    padding: 25px 20px;
+    text-align: center;
+  }
+
+  .legal p {
+    margin: 0;
+  }
+
+  .legal p + p {
+    margin-top: 15px;
+  }
+
+  .separator {
+    margin: 0 10px;
+  }
+
+  /* Phones: links on their own line under the copyright */
+  .links {
+    display: block;
+    margin-top: 5px;
+  }
+
+  .links .separator:first-child {
+    display: none;
+  }
+
+  .legal a {
+    color: var(--color-brand-muted);
+  }
+
+  .credit {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .credit a {
+    color: #e2521d;
+    display: block;
+  }
+
+  .credit :global(svg) {
+    display: block;
+    height: 45px;
+    width: 80px;
+  }
+
+  @media (min-width: 1025px) {
+    :global(
+      main > section:last-child::after,
+      main > editable-array > editable-array-item:last-child > section::after
+    ) {
+      height: 80px;
     }
 
-    #copy {
-      font-size: var(--font-size-sm);
-      line-height: 1.5;
-      padding: var(--spacing-md) var(--spacing-sm);
-      text-align: center;
+    .main {
+      padding: 190px 20px 70px;
+    }
 
-      .footer-legal-line {
-        display: inline;
-      }
+    .badge {
+      height: 245px;
+      padding-top: 55px;
+      top: -80px;
+      width: 245px;
+    }
 
-      .footer-legal-separator {
-        display: inline;
-        margin: 0 0.5rem;
-      }
+    .badge img {
+      width: 170px;
+    }
 
-      a {
-        color: var(--color-link);
+    h2 {
+      font-size: 55px;
+      margin-bottom: 35px;
+    }
 
-        &:hover,
-        &:focus-visible {
-          color: var(--color-link-hover);
-        }
-      }
+    .info {
+      margin-top: 55px;
+    }
 
-      @media (max-width: 1024px) {
-        .footer-legal-line {
-          display: block;
-        }
+    .info article {
+      flex: 1;
+      margin: 0;
+      padding: 30px 0;
+    }
 
-        .footer-legal-line + .footer-legal-line {
-          margin-top: 0.25rem;
-        }
+    /* Thin line between the two columns */
+    .hours {
+      border-left: 1px solid rgb(255 255 255 / 30%);
+    }
 
-        .footer-legal-separator {
-          display: none;
-        }
-      }
+    .legal p + p {
+      margin-top: 0;
+    }
+
+    .links {
+      display: inline;
+      margin: 0;
+    }
+
+    .links .separator:first-child {
+      display: inline;
     }
   }
 </style>

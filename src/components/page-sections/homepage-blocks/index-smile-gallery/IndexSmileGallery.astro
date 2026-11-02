@@ -1,0 +1,142 @@
+---
+import Image from "@core-elements/image/Image.astro";
+import Text from "@core-elements/text/Text.astro";
+import ButtonGroup from "@wrappers/button-group/ButtonGroup.astro";
+
+// Homepage smile gallery: heading and intro, a row of before & after cases (before photo on top of the
+// after photo), then a button to the full gallery. Cases stack on phones.
+const {
+  id = "",
+  heading = "",
+  text = "",
+  cases = [],
+  buttonSections = [],
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section class:list={["index-smile-gallery", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    <Text text={text} data-prop="text" />
+    <ul class="no-check">
+      {
+        cases.map((item: any) => (
+          <li>
+            <figure>
+              <Image
+                source={item.beforeImage}
+                alt={item.name ? `${item.name} before treatment` : "Before treatment"}
+                sizes="(min-width: 1025px) 380px, 100vw"
+              />
+              <Image
+                source={item.afterImage}
+                alt={item.name ? `${item.name} after treatment` : "After treatment"}
+                sizes="(min-width: 1025px) 380px, 100vw"
+              />
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      buttonSections.length > 0 && (
+        <ButtonGroup buttonSections={buttonSections} width="content" alignX="center" />
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .index-smile-gallery {
+    padding: 70px 20px;
+  }
+
+  .index-smile-gallery > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  h2 {
+    font-size: 40px;
+    line-height: 1.1;
+    margin: 0 auto 25px;
+    max-width: 680px;
+  }
+
+  div > :global(.text) {
+    margin: 0 auto;
+    max-width: 1060px;
+    text-align: inherit;
+  }
+
+  div > :global(.text p) {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.75;
+  }
+
+  /* The starter's list styles left-align every list in main */
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 35px 0 0;
+    padding: 0;
+    text-align: inherit;
+  }
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin: 0;
+  }
+
+  figure :global(img) {
+    aspect-ratio: 377 / 215;
+    display: block;
+    height: auto;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  div > :global(.button-group) {
+    margin: 35px auto 0;
+  }
+
+  div > :global(.button-group .button) {
+    font-size: 17px;
+    justify-content: center;
+    min-width: 275px;
+    padding: 15px 20px;
+  }
+
+  @media (min-width: 1025px) {
+    .index-smile-gallery {
+      padding: 95px 20px 50px;
+    }
+
+    h2 {
+      font-size: 55px;
+      margin-bottom: 30px;
+    }
+
+    div > :global(.text p) {
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    ul {
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 45px;
+    }
+
+    li {
+      flex: 0 1 377px;
+    }
+  }
+</style>

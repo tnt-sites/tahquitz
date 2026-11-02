@@ -1,0 +1,14 @@
+label: Smile Gallery
+icon: photo_library
+description: Before & after slider, one photo per slide, with an optional caption.
+value:
+  _component: page-sections/info-blocks/smile-gallery
+  id: ""
+  heading: ""
+  text: ""
+  slides:
+    - imageSource: ""
+      imageAlt: ""
+      caption: ""
+_inputs_from_glob:
+  - /src/components/page-sections/info-blocks/smile-gallery/smile-gallery.cloudcannon.inputs.yml

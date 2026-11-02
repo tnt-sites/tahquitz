@@ -1,0 +1,90 @@
+---
+import Image from "@core-elements/image/Image.astro";
+
+// Meet the Dentists: a headshot card per doctor, each linking to that doctor's bio page.
+const { id = "", doctors = [], class: className, _component, ...htmlAttributes } = Astro.props;
+---
+
+<section class:list={["doctor-cards", className]} id={id || undefined} {...htmlAttributes}>
+  <ul class="block lg:flex justify-center no-check">
+    {
+      doctors.map((doctor: any) => (
+        <li>
+          <a href={doctor.link}>
+            <figure>
+              <Image source={doctor.imageSource} alt={doctor.imageAlt} />
+              <figcaption>
+                <span class="name">{doctor.name}</span>
+                {doctor.buttonText && <span class="more">{doctor.buttonText}</span>}
+              </figcaption>
+            </figure>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .doctor-cards {
+    padding: 60px 20px;
+  }
+
+  li {
+    margin: 0 auto 40px;
+    max-width: 380px;
+  }
+
+  a {
+    color: var(--color-text);
+    display: block;
+    text-decoration: none;
+  }
+
+  figure {
+    margin: 0;
+    text-align: center;
+  }
+
+  figure :global(img) {
+    aspect-ratio: 7 / 8;
+    display: block;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .name {
+    display: block;
+    font-family: var(--font-accent);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+
+  .more {
+    background-color: var(--color-brand);
+    display: inline-block;
+    font-family: var(--font-accent);
+    font-size: 16px;
+    margin-top: 15px;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    transition: background-color var(--animation-normal) ease-in-out;
+  }
+
+  a:hover .more {
+    background-color: var(--color-brand-muted);
+  }
+
+  @media (min-width: 1025px) {
+    .doctor-cards {
+      padding: 80px 20px;
+    }
+
+    li {
+      margin: 0 25px;
+    }
+  }
+</style>

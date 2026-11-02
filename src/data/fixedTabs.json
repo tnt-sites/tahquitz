@@ -3,7 +3,7 @@
     {
       "itemClass": "ra",
       "enabled": true,
-      "href": "request-an-appointment.html",
+      "href": "/contact-us/request-an-appointment/",
       "icon": "calendar-days",
       "textMobile": "Request",
       "textStrong": " an Appointment"
@@ -11,15 +11,15 @@
     {
       "itemClass": "call",
       "enabled": true,
-      "href": "#modal-contact",
+      "href": "tel:+17603256480",
       "icon": "phone",
-      "textMobile": "Offices",
+      "textMobile": "Call",
       "textStrong": null
     },
     {
       "itemClass": "map",
       "enabled": true,
-      "href": "https://maps.app.goo.gl/K2MQJEnBWLAWSDU7A",
+      "href": "https://maps.app.goo.gl/KPtLrwZPzfEXaVrv5",
       "target": "_blank",
       "icon": "map-pin",
       "textStrong": "View ",
@@ -27,7 +27,7 @@
     },
     {
       "itemClass": "fr",
-      "enabled": true,
+      "enabled": false,
       "href": "for-patients.html#forms",
       "icon": "document-arrow-down",
       "textMobile": "Download ",
@@ -36,7 +36,7 @@
     {
       "itemClass": "fb",
       "enabled": true,
-      "href": "https://www.facebook.com/Ishaya.DDS/photos/?locale=ms_MY",
+      "href": "https://www.facebook.com/tahquitzdentalgroup/",
       "target": "_blank",
       "icon": "social/facebook",
       "textStrong": "Follow ",
@@ -45,7 +45,7 @@
     {
       "itemClass": "gg",
       "enabled": true,
-      "href": "https://maps.app.goo.gl/K2MQJEnBWLAWSDU7A",
+      "href": "https://maps.app.goo.gl/KPtLrwZPzfEXaVrv5",
       "target": "_blank",
       "icon": "social/google",
       "textMobile": "Read",

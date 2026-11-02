@@ -1,4 +1,5 @@
 ---
+import { isExternalLink } from "@component-utils/externalLink";
 import CustomSection from "@builders/custom-section/CustomSection.astro";
 import Heading from "@core-elements/heading/Heading.astro";
 import mainNavData from "@data/mainNav.json";
@@ -52,7 +53,9 @@ const escapeHtml = (value: string) =>
     .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
-const ensureTrailingSlash = (path: string) => (path === "/" ? "/" : `${path.replace(/\/+$/, "")}/`);
+// Links to an anchor (e.g. /for-patients/#financing) are left as they are
+const ensureTrailingSlash = (path: string) =>
+  path === "/" || path.includes("#") ? path : `${path.replace(/\/+$/, "")}/`;
 
 // Build a map of normalized path → page title from all content collections
 const routeTitleMap = new Map<string, string>();
@@ -145,7 +148,7 @@ const renderNodes = (nodes: SitemapNode[]): string => {
     .map((node) => {
       const label = escapeHtml(node.title);
       const link = node.path
-        ? `<a href="${escapeHtml(node.path)}" title="${label}">${label}</a>`
+        ? `<a href="${escapeHtml(node.path)}" title="${label}"${isExternalLink(node.path) ? ' target="_blank" rel="noopener noreferrer"' : ""}>${label}</a>`
         : `<span>${label}</span>`;
       return `<li>${link}${renderNodes(node.children)}</li>`;
     })

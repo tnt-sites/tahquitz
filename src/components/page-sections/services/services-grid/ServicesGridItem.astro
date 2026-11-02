@@ -35,9 +35,10 @@ const normalizedLinks = Array.isArray(links)
 ---
 
 <div class:list={["services-grid-item", isTrue(wide) && "is-wide", className]} {...htmlAttributes}>
-  {
-    imageSource && (
-      <figure class="services-grid-figure">
+  <!-- Icon sits in a gap in the card's top border (the border lines are the figure's ::before/::after) -->
+  <figure class="services-grid-figure">
+    {
+      imageSource && (
         <Image
           source={imageSource}
           alt={imageAlt}
@@ -46,9 +47,9 @@ const normalizedLinks = Array.isArray(links)
           data-prop-src={editable ? "imageSource" : undefined}
           data-prop-alt={editable ? "imageAlt" : undefined}
         />
-      </figure>
-    )
-  }
+      )
+    }
+  </figure>
 
   <article class="services-grid-content">
     <h3 class="services-grid-title">

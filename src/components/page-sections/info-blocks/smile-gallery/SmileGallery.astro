@@ -1,0 +1,193 @@
+---
+import Image from "@core-elements/image/Image.astro";
+import Text from "@core-elements/text/Text.astro";
+import Carousel from "@wrappers/carousel/Carousel.astro";
+import CarouselSlide from "@wrappers/carousel/CarouselSlide.astro";
+
+// Before & after slider (styleguide "Smile Gallery"): dots on top, one before & after photo per slide,
+// optional italic caption, outlined arrows either side.
+const {
+  id = "",
+  heading = "",
+  text = "",
+  slides = [],
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section class:list={["smile-gallery", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    {text && <Text text={text} data-prop="text" />}
+    <Carousel label={heading || "Smile gallery"} editable={false}>
+      {
+        slides.map((slide: any, index: number) => (
+          <CarouselSlide aria-label={`Slide ${index + 1} of ${slides.length}`}>
+            <figure>
+              <Image source={slide.imageSource} alt={slide.imageAlt} />
+              {slide.caption && <figcaption>{slide.caption}</figcaption>}
+            </figure>
+          </CarouselSlide>
+        ))
+      }
+      <svg slot="prev-arrow" viewBox="0 0 70 56" aria-hidden="true">
+        <rect x="38" y="2" width="27" height="52"></rect>
+        <path d="M2 28h53M13 17L2 28l11 11"></path>
+      </svg>
+      <svg slot="next-arrow" viewBox="0 0 70 56" aria-hidden="true">
+        <rect x="5" y="2" width="27" height="52"></rect>
+        <path d="M15 28h53M57 17l11 11-11 11"></path>
+      </svg>
+    </Carousel>
+  </div>
+</section>
+
+<style>
+  .smile-gallery {
+    padding: 60px 20px;
+  }
+
+  .smile-gallery > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  h2 {
+    font-size: 32px;
+    margin: 0 0 20px;
+  }
+
+  div > :global(.text) {
+    margin: 0 auto 30px;
+    max-width: 800px;
+    text-align: inherit;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  figure :global(.image) {
+    margin: 0 auto;
+    max-width: 420px;
+  }
+
+  figure :global(img) {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+
+  figcaption {
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.4;
+    margin: 30px auto 0;
+    max-width: 540px;
+  }
+
+  /* Carousel controls: dots, and outlined arrows */
+  .smile-gallery :global(.carousel) {
+    margin: 0;
+  }
+
+  .smile-gallery :global(.carousel > .controls-wrapper) {
+    gap: 20px;
+    margin: 25px 0 0;
+  }
+
+  .smile-gallery :global(.carousel > .controls-wrapper > .prev),
+  .smile-gallery :global(.carousel > .controls-wrapper > .next) {
+    border-radius: 0;
+    padding: 0;
+  }
+
+  /* The carousel flips its default prev arrow; ours is already drawn pointing left */
+  .smile-gallery :global(.carousel > .controls-wrapper > .prev svg) {
+    transform: none;
+  }
+
+  .smile-gallery :global(.carousel > .controls-wrapper svg) {
+    display: block;
+    height: 45px;
+    width: 55px;
+  }
+
+  .smile-gallery :global(.carousel > .controls-wrapper svg rect) {
+    fill: none;
+    stroke: #8a8a8a;
+    stroke-width: 1.5;
+    transition: stroke var(--animation-normal) ease-in-out;
+  }
+
+  .smile-gallery :global(.carousel > .controls-wrapper svg path) {
+    fill: none;
+    stroke: var(--color-text);
+    stroke-width: 2;
+  }
+
+  .smile-gallery :global(.carousel > .controls-wrapper button:hover svg rect) {
+    stroke: var(--color-brand-muted);
+  }
+
+  .smile-gallery :global(.carousel .indicators) {
+    display: flex;
+    gap: 10px;
+  }
+
+  .smile-gallery :global(.carousel .indicator) {
+    background-color: transparent;
+    border: 1px solid var(--color-text);
+    border-radius: 50%;
+    height: 8px;
+    padding: 0;
+    width: 8px;
+  }
+
+  .smile-gallery :global(.carousel .indicator[data-selected="true"]) {
+    background-color: var(--color-text);
+    transform: none;
+  }
+
+  @media (min-width: 1025px) {
+    .smile-gallery {
+      padding: 80px 20px;
+    }
+
+    h2 {
+      font-size: 55px;
+    }
+
+    /* Desktop: dots above the photo, arrows either side of it */
+    .smile-gallery :global(.carousel) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .smile-gallery :global(.carousel > .controls-wrapper) {
+      margin: 0 0 40px;
+      order: -1;
+    }
+
+    .smile-gallery :global(.carousel > .controls-wrapper > .prev),
+    .smile-gallery :global(.carousel > .controls-wrapper > .next) {
+      position: absolute;
+      top: 295px;
+    }
+
+    .smile-gallery :global(.carousel > .controls-wrapper > .prev) {
+      left: 0;
+    }
+
+    .smile-gallery :global(.carousel > .controls-wrapper > .next) {
+      right: 0;
+    }
+
+    .smile-gallery :global(.carousel > .controls-wrapper svg) {
+      height: 55px;
+      width: 70px;
+    }
+  }
+</style>

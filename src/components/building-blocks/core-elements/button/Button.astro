@@ -1,4 +1,5 @@
 ---
+import { externalLinkAttrs } from "@component-utils/externalLink";
 import Icon from "@core-elements/icon/Icon.astro";
 // @ts-ignore
 import MarkdownIt from "markdown-it";
@@ -114,7 +115,7 @@ const tagProps = normalizedModalTarget
       "aria-controls": normalizedModalTarget,
     }
   : Tag === "a" && link
-    ? { href: link }
+    ? { href: link, ...externalLinkAttrs(link) }
     : Tag === "button"
       ? { type: "button" }
       : {};
@@ -165,6 +166,7 @@ if (!_component && !hasText && !hasSlotContent && !hasIcon) return;
       color: var(--color-text-strong);
       display: inline-flex;
       flex-shrink: 0;
+      font-family: var(--font-accent);
       font-weight: var(--font-weight-semibold);
       gap: 0.15em;
       justify-content: center;

@@ -45,6 +45,9 @@ ctaCard.heading:
 ctaCard.buttonText:
   type: text
   comment: Button-style label shown inside the CTA tile.
+ctaCard.iconName:
+  type: text
+  comment: Optional icon before the button text (e.g. calendar-days).
 ctaCard.wide:
   type: switch
   comment: Make the CTA tile span two grid columns on larger screens.
@@ -57,6 +60,8 @@ backgroundColor:
         name: None
       - id: base
         name: Base
+      - id: brand
+        name: Brand (light blue)
       - id: surface
         name: Surface
       - id: accent

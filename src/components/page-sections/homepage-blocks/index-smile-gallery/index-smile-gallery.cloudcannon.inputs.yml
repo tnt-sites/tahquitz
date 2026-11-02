@@ -1,0 +1,45 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: e.g. "Restoring Confidence One Smile at a Time".
+text:
+  type: markdown
+  comment: Intro below the heading.
+  options:
+    bold: true
+    italic: true
+    link: true
+cases:
+  type: array
+  comment: Before & after cases. Three fit in a row on desktop.
+  options:
+    preview:
+      text:
+        - key: name
+        - Before & After
+      image:
+        - key: afterImage
+"cases[*].name":
+  type: text
+  comment: Optional, used only in the photos' alt text (e.g. "Patient with dental implants").
+"cases[*].beforeImage":
+  type: image
+  comment: Before photo (shown on top). Landscape, about 7:4.
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+"cases[*].afterImage":
+  type: image
+  comment: After photo (shown underneath). Same size as the before photo.
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+buttonSections:
+  type: array
+  comment: Button below the photos (e.g. "View Our Smile Gallery").
+  options:
+    structures: _structures.buttonSections

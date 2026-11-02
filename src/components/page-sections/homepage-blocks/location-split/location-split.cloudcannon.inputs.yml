@@ -1,0 +1,20 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section (e.g. "find" so links to /#find scroll here).
+heading:
+  type: text
+  comment: e.g. "Located on Tahquitz Canyon Way".
+text:
+  type: markdown
+  comment: Bulleted list of nearby landmarks (shown with check marks).
+  options:
+    bold: true
+    italic: true
+    link: true
+    bulletedlist: true
+mapEmbedUrl:
+  type: text
+  comment: Optional Google Maps embed URL. Leave empty to use the one in Site Info. The map shows on desktop only.
+mapTitle:
+  type: text
+  comment: Optional title for the map, read by screen readers.

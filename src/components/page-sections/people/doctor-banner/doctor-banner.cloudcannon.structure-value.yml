@@ -1,0 +1,17 @@
+label: Doctor Banner
+icon: person
+description: Doctor bio banner with a photo and play button on the left and the H1, name and intro on a navy panel.
+value:
+  _component: page-sections/people/doctor-banner
+  id: ""
+  eyebrow: Experienced Dentist in Palm Springs
+  heading: Get to Know Dr. Name
+  text: Intro text.
+  imageSource: ""
+  imageAlt: ""
+  videoAction: modal
+  youtubeId: ""
+  videoTitle: ""
+  scrollTarget: award-video
+_inputs_from_glob:
+  - /src/components/page-sections/people/doctor-banner/doctor-banner.cloudcannon.inputs.yml

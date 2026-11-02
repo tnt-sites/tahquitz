@@ -1,0 +1,214 @@
+---
+import Image from "@core-elements/image/Image.astro";
+import Text from "@core-elements/text/Text.astro";
+
+// Implant Smiles (NPG) lead capture: magazine image + "the guide will show you" list beside the embedded
+// form or survey. form_embed.js sizes the iframe, so it must run as a real script (the core Embed block can't).
+const {
+  id = "",
+  embedType = "form",
+  embedId = "",
+  embedTitle = "",
+  heading = "",
+  text = "",
+  phone = "",
+  imageSource = "",
+  imageAlt = "",
+  reverse = false,
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+
+const embedHost = "https://view.implantsmiles.co";
+const phoneHref = phone ? `tel:${phone.replace(/[^\d+]/g, "")}` : "";
+const hasGuide = imageSource || heading || text || phone;
+---
+
+<section class:list={["lead-capture", className]} id={id || undefined} {...htmlAttributes}>
+  <div
+    class:list={[
+      "block text-center lg:text-left lg:flex justify-between items-center",
+      { "lg:flex-row-reverse": reverse },
+    ]}
+  >
+    {
+      hasGuide && (
+        <figure>
+          {imageSource && (
+            <Image
+              source={imageSource}
+              alt={imageAlt}
+              data-prop-src="imageSource"
+              data-prop-alt="imageAlt"
+            />
+          )}
+          <figcaption>
+            {heading && <h2 data-prop="heading">{heading}</h2>}
+            <Text text={text} data-prop="text" />
+            {phone && (
+              <a class="phone" href={phoneHref} data-prop="phone">
+                {phone}
+              </a>
+            )}
+          </figcaption>
+        </figure>
+      )
+    }
+    <article>
+      {
+        embedId && embedType === "survey" && (
+          <iframe
+            src={`${embedHost}/widget/survey/${embedId}`}
+            style="border:none;width:100%;"
+            scrolling="no"
+            id={embedId}
+            title={embedTitle || "survey"}
+            data-cookie-consent="true"
+            data-cookie-consent-provider="auto"
+          />
+        )
+      }
+      {
+        embedId && embedType === "form" && (
+          <div class="form">
+            <iframe
+              src={`${embedHost}/widget/form/${embedId}`}
+              style="border:none;border-radius:15px;height:100%;width:100%"
+              id={`inline-${embedId}`}
+              data-layout="{'id':'INLINE'}"
+              data-trigger-type="alwaysShow"
+              data-trigger-value=""
+              data-activation-type="alwaysActivated"
+              data-activation-value=""
+              data-deactivation-type="neverDeactivate"
+              data-deactivation-value=""
+              data-form-name={embedTitle}
+              data-height="758"
+              data-layout-iframe-id={`inline-${embedId}`}
+              data-form-id={embedId}
+              data-cookie-consent="true"
+              data-cookie-consent-provider="auto"
+              title={embedTitle}
+            />
+          </div>
+        )
+      }
+    </article>
+  </div>
+</section>
+
+<!-- Load form_embed.js once even when the form and survey are both on the page -->
+<script is:inline define:vars={{ embedHost }}>
+  var src = embedHost + "/js/form_embed.js";
+  if (!document.querySelector('script[src="' + src + '"]')) {
+    var s = document.createElement("script");
+    s.src = src;
+    document.body.appendChild(s);
+  }
+</script>
+
+<style>
+  .lead-capture {
+    padding: 60px 20px;
+  }
+
+  .lead-capture > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  figure {
+    margin: 0 auto 40px;
+    max-width: 535px;
+  }
+
+  figure :global(img) {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+
+  figcaption {
+    display: inline-block;
+    margin-top: 40px;
+    text-align: left;
+  }
+
+  /* Centered on phones, left-aligned with the list on desktop */
+  h2 {
+    font-family: var(--font-accent);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    margin: 0 0 15px;
+    text-align: center;
+  }
+
+  figcaption :global(.text) {
+    margin: 0;
+  }
+
+  figcaption :global(.text ul) {
+    margin: 0;
+  }
+
+  figcaption :global(.text li) {
+    font-size: 21px;
+    line-height: 1.45;
+    margin: 0 0 5px;
+    padding-left: 35px;
+  }
+
+  /* Light blue check marks (fontello icon-ok-1) in place of the site's default bullets */
+  figcaption :global(.text li::before) {
+    color: var(--color-brand);
+    content: "\e832";
+    font-family: fontello, sans-serif;
+    font-size: 18px;
+    line-height: 1;
+    top: 5px;
+  }
+
+  .phone {
+    color: var(--color-text);
+    display: inline-block;
+    font-family: var(--font-accent);
+    font-size: 24px;
+    letter-spacing: 0.05em;
+    margin-top: 20px;
+    text-decoration: none;
+  }
+
+  article {
+    margin: 0 auto;
+    max-width: 590px;
+    width: 100%;
+  }
+
+  .form {
+    height: 760px;
+  }
+
+  @media (min-width: 1024px) {
+    .lead-capture {
+      padding: 80px 20px;
+    }
+
+    figure {
+      flex: 0 0 535px;
+      margin: 0;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 28px;
+      text-align: left;
+    }
+
+    article {
+      margin: 0;
+    }
+  }
+</style>

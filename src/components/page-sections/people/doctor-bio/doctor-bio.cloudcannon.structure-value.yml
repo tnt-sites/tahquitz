@@ -1,0 +1,16 @@
+label: Doctor Bio
+icon: subject
+description: Doctor bio paragraphs followed by an optional heading and video.
+value:
+  _component: page-sections/people/doctor-bio
+  id: ""
+  text: Bio text.
+  heading: Recognized for Award-Winning Care
+  videoType: mp4
+  videoSource: ""
+  youtubeId: ""
+  videoPoster: ""
+  videoTitle: ""
+  videoAnchor: award-video
+_inputs_from_glob:
+  - /src/components/page-sections/people/doctor-bio/doctor-bio.cloudcannon.inputs.yml

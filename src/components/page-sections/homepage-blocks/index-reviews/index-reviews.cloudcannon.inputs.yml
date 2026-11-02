@@ -1,104 +1,35 @@
 id:
   type: text
-  comment: Optional HTML id attribute for this component.
+  comment: Optional HTML id attribute for this section.
 heading:
-  type: markdown
-  comment: Main heading text for the component. Supports inline span wrappers/classes for highlighted words.
-  options:
-    blockquote: false
-    bold: true
-    format: p
-    italic: true
-    link: true
-    strike: false
-    subscript: true
-    superscript: true
-    underline: false
-    bulletedlist: false
-    numberedlist: false
-    styles: /.cloudcannon/styles/editor.css
+  type: text
+  comment: e.g. "Read What Our Patients Are Saying".
 reviews:
   type: array
-  label: Reviews
-  comment: Written reviews displayed in the carousel.
-  options:
-    structures: _structures.reviewItems
-showQuoteIcon:
-  type: checkbox
-  comment: Show a large decorative opening quote mark on each review slide.
-backgroundColor:
-  type: select
-  comment: Background color used behind the section.
-  options:
-    values:
-      - id: none
-        name: None
-      - id: base
-        name: Base
-      - id: surface
-        name: Surface
-      - id: accent
-        name: Accent
-      - id: highlight
-        name: Highlight
-      - id: dark
-        name: Dark
-      - id: black
-        name: Black
-backgroundColorHex:
-  type: color
-  comment: Optional custom hex color that overrides the background color above. Leave blank to use the theme color.
-backgroundGradient:
-  type: textarea
-  comment: Optional CSS gradient applied behind the section content.
-backgroundImage:
-  type: object
-  comment: Background image configuration for the section.
+  comment: One slide per review. Arrows and dots only show with two or more.
   options:
     preview:
-      icon: image
       text:
-        - key: alt
-        - Background Image
+        - key: authorName
       subtext:
-        - key: source
-        - Add an image source
+        - key: text
       image:
-        - key: source
-backgroundImage.source:
-  comment: URL or path to the background image.
+        - key: reviewerImage
+"reviews[*].text":
+  type: textarea
+  comment: The review.
+"reviews[*].authorName":
+  type: text
+  comment: Reviewer's first name (e.g. "Vincent").
+"reviews[*].reviewerImage":
   type: image
+  comment: Optional small round photo of the reviewer.
   options:
     paths:
       uploads: src/assets/images
       static: ""
-backgroundImage.alt:
-  comment: Alt text for the background image.
-  type: textarea
-backgroundImage.positionVertical:
-  comment: Vertical position of the background image.
-  type: select
+buttonSections:
+  type: array
+  comment: Button below the slider (e.g. "View More Reviews").
   options:
-    values:
-      - id: top
-        name: Top
-      - id: center
-        name: Center
-      - id: bottom
-        name: Bottom
-backgroundImage.positionHorizontal:
-  comment: Horizontal position of the background image.
-  type: select
-  options:
-    values:
-      - id: left
-        name: Left
-      - id: center
-        name: Center
-      - id: right
-        name: Right
-# Add your other component inputs here
-# Example:
-# text:
-#   type: text
-#   comment: The text content for the component.
+    structures: _structures.buttonSections

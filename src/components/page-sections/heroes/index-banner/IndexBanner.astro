@@ -1,0 +1,329 @@
+---
+import Image from "@core-elements/image/Image.astro";
+import Text from "@core-elements/text/Text.astro";
+
+// Homepage banner: full-width photo (or looping video on phones) with the H1 eyebrow, heading and intro
+// on the right, and a navy "Special Offers" bar along the bottom.
+const {
+  id = "",
+  eyebrow = "",
+  heading = "",
+  text = "",
+  imageSource = "",
+  imageAlt = "",
+  videoSource = "",
+  videoPoster = "",
+  offersHeading = "Special Offers",
+  offers = [],
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section class:list={["index-banner", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    <figure>
+      <Image
+        source={imageSource}
+        alt={imageAlt}
+        priority={true}
+        sizes="100vw"
+        widths={[800, 1200, 1600, 2400]}
+        data-prop-src="imageSource"
+        data-prop-alt="imageAlt"
+      />
+      {
+        videoSource && (
+          <video
+            data-src={videoSource}
+            poster={videoPoster || undefined}
+            muted
+            loop
+            playsinline
+            preload="none"
+            aria-hidden="true"
+          />
+        )
+      }
+    </figure>
+    <article>
+      {eyebrow && <h1 data-prop="eyebrow">{eyebrow}</h1>}
+      {heading && <h2 data-prop="heading">{heading}</h2>}
+      <Text text={text} data-prop="text" />
+    </article>
+  </div>
+
+  {
+    offers.length > 0 && (
+      <aside class="offers">
+        <p class="tab">{offersHeading}</p>
+        <ul class="no-check">
+          {offers.map((offer: any) => (
+            <li>
+              <a href={offer.link}>
+                <strong>{offer.text}</strong>
+                <span>
+                  {offer.linkText || "View Offer"}
+                  <svg viewBox="0 0 35 12" aria-hidden="true">
+                    <path d="M0 6h33M28 1l5 5-5 5" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    )
+  }
+</section>
+
+<script>
+  // The loop video only plays on phones and tablets (the desktop design uses the photo), and never
+  // for visitors who've asked for reduced motion. It isn't downloaded at all on desktop.
+  const mobile = window.matchMedia("(max-width: 1024px)");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  document.querySelectorAll<HTMLVideoElement>(".index-banner video[data-src]").forEach((video) => {
+    const update = () => {
+      if (mobile.matches && !reducedMotion.matches) {
+        if (!video.src) video.src = video.dataset.src || "";
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    };
+    update();
+    mobile.addEventListener("change", update);
+  });
+</script>
+
+<style>
+  .index-banner {
+    background-color: var(--color-bg-dark);
+    color: #fff;
+  }
+
+  .index-banner > div {
+    min-height: 630px;
+    position: relative;
+  }
+
+  /* Photo and video fill the banner behind the text, dimmed so the white text reads */
+  figure {
+    background-color: #000;
+    inset: 0;
+    margin: 0;
+    position: absolute;
+  }
+
+  figure :global(img),
+  video {
+    height: 100%;
+    inset: 0;
+    object-fit: cover;
+    opacity: 0.6;
+    position: absolute;
+    width: 100%;
+  }
+
+  article {
+    margin: 0 auto;
+    max-width: 560px;
+    padding: 90px 20px 60px;
+    position: relative;
+  }
+
+  h1 {
+    color: #fff;
+    font-family: var(--font-accent);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    margin: 0 0 15px;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    margin: 0;
+  }
+
+  article :global(.text) {
+    margin: 25px 0 0;
+    text-align: inherit;
+  }
+
+  article :global(.text p) {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.75;
+  }
+
+  article :global(.text a) {
+    color: var(--color-brand);
+    text-decoration: underline;
+  }
+
+  article :global(.text a:hover) {
+    color: #fff;
+  }
+
+  /* Special Offers bar */
+  .offers {
+    padding: 0 20px 30px;
+    position: relative;
+    text-align: center;
+  }
+
+  .tab {
+    color: #fff;
+    font-family: var(--font-accent);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    margin: 0;
+    padding: 25px 0 10px;
+    text-transform: uppercase;
+  }
+
+  /* The starter's list styles left-align every list in main */
+  .offers ul {
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+  }
+
+  .offers li {
+    margin: 15px 0 0;
+  }
+
+  .offers a {
+    display: block;
+    text-decoration: none;
+  }
+
+  .offers strong {
+    color: #fff;
+    display: block;
+    font-family: var(--font-accent);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .offers span {
+    align-items: center;
+    color: var(--color-brand);
+    display: inline-flex;
+    font-family: var(--font-accent);
+    font-size: 14px;
+    gap: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .offers svg {
+    fill: none;
+    height: 12px;
+    stroke: currentcolor;
+    stroke-width: 1.5;
+    transition: transform var(--animation-normal) ease-in-out;
+    width: 35px;
+  }
+
+  .offers a:hover span {
+    color: #fff;
+  }
+
+  .offers a:hover svg {
+    transform: translateX(5px);
+  }
+
+  @media (min-width: 1025px) {
+    /* Tailwind's lg starts at 1024px on this site, so the desktop layout is set here to switch at 1025px
+       with the rest of this file and the video script */
+    .index-banner > div {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      min-height: 625px;
+      text-align: left;
+    }
+
+    /* The design uses the photo on desktop */
+    video {
+      display: none;
+    }
+
+    article {
+      margin: 0;
+      max-width: none;
+      padding: 60px 20px;
+      width: 45%;
+    }
+
+    h1 {
+      font-size: 16px;
+    }
+
+    h2 {
+      font-size: 55px;
+      line-height: 1;
+    }
+
+    article :global(.text) {
+      max-width: 510px;
+    }
+
+    article :global(.text p) {
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    /* Tab with "Special Offers" sits on the top edge of the bar, over the photo */
+    .offers {
+      padding: 10px 20px 15px;
+    }
+
+    .tab {
+      background-color: var(--color-bg-dark);
+      left: 50%;
+      padding: 12px 30px;
+      position: absolute;
+      top: -40px;
+      transform: translateX(-50%);
+    }
+
+    .offers ul {
+      display: flex;
+      gap: 20px;
+      justify-content: space-around;
+    }
+
+    .offers strong {
+      font-size: 16px;
+    }
+
+    .offers li {
+      margin: 0;
+    }
+  }
+
+  /* Full heading and offer sizes once there's room */
+  @media (min-width: 1280px) {
+    h2 {
+      font-size: 70px;
+    }
+
+    .offers strong {
+      font-size: 18px;
+    }
+  }
+</style>

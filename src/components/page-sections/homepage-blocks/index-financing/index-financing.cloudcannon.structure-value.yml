@@ -1,0 +1,28 @@
+label: Index Financing
+icon: payments
+description: For the homepage. Light blue financing panel with logos beside a navy membership panel.
+value:
+  _component: page-sections/homepage-blocks/index-financing
+  id: ""
+  heading: A Stress-Free Payment Experience
+  divider: true
+  financing:
+    heading: Flexible Financing Options
+    text: ""
+    buttonSections: []
+  logos: []
+  membership:
+    heading: ""
+    text: ""
+    buttonSections: []
+preview:
+  text:
+    - Index Financing
+  subtext:
+    - key: heading
+  icon: payments
+picker_preview:
+  text: Index Financing
+  subtext: Financing and membership panels.
+_inputs_from_glob:
+  - /src/components/page-sections/homepage-blocks/index-financing/index-financing.cloudcannon.inputs.yml

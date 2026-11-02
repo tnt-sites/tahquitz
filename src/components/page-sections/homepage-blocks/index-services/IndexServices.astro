@@ -1,0 +1,199 @@
+---
+import bgTriangles from "@assets/images/bg-triangles.webp";
+import Image from "@core-elements/image/Image.astro";
+import Text from "@core-elements/text/Text.astro";
+import ButtonGroup from "@wrappers/button-group/ButtonGroup.astro";
+
+// Homepage services: navy triangle background, heading and intro, a row of tall photo tiles (each links to
+// a service page, label under the photo), then a button. Two tiles per row on phones and tablets.
+const {
+  id = "",
+  heading = "",
+  text = "",
+  services = [],
+  buttonSections = [],
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section
+  class:list={["index-services", className]}
+  id={id || undefined}
+  style={`background-image: url(${bgTriangles.src})`}
+  {...htmlAttributes}
+>
+  <div class="block text-center">
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    <Text text={text} data-prop="text" />
+    <ul class="no-check">
+      {
+        services.map((service: any) => (
+          <li>
+            <a href={service.link}>
+              <figure>
+                <Image
+                  source={service.imageSource}
+                  alt={service.imageAlt}
+                  widths={[300, 606]}
+                  sizes="(min-width: 1025px) 305px, 50vw"
+                />
+                <figcaption>{service.title}</figcaption>
+              </figure>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      buttonSections.length > 0 && (
+        <ButtonGroup buttonSections={buttonSections} width="content" alignX="center" />
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .index-services {
+    background-color: var(--color-bg-dark);
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+    padding: 70px 20px;
+  }
+
+  .index-services > div {
+    margin: 0 auto;
+    max-width: 1240px;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: 40px;
+    line-height: 1.1;
+    margin: 0 auto 25px;
+    max-width: 720px;
+  }
+
+  div > :global(.text) {
+    margin: 0 auto;
+    max-width: 980px;
+    text-align: inherit;
+  }
+
+  div > :global(.text p) {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.75;
+  }
+
+  /* The starter's list styles left-align every list in main */
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px 5px;
+    justify-content: center;
+    margin: 40px 0 0;
+    padding: 0;
+    text-align: inherit;
+  }
+
+  li {
+    flex: 0 1 175px;
+  }
+
+  a {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  figure :global(img) {
+    aspect-ratio: 303 / 427;
+    display: block;
+    height: auto;
+    object-fit: cover;
+    transition: opacity var(--animation-normal) ease-in-out;
+    width: 100%;
+  }
+
+  figcaption {
+    font-family: var(--font-accent);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.25;
+    margin-top: 15px;
+    text-transform: uppercase;
+    transition: color var(--animation-normal) ease-in-out;
+  }
+
+  a:hover figcaption {
+    color: var(--color-brand);
+  }
+
+  a:hover :global(img) {
+    opacity: 0.85;
+  }
+
+  div > :global(.button-group) {
+    margin: 40px auto 0;
+  }
+
+  div > :global(.button-group .button) {
+    font-size: 17px;
+    justify-content: center;
+    min-width: 275px;
+    padding: 15px 20px;
+  }
+
+  @media (min-width: 1025px) {
+    .index-services {
+      padding: 85px 20px 80px;
+    }
+
+    h2 {
+      font-size: 55px;
+      margin-bottom: 30px;
+    }
+
+    div > :global(.text p) {
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    ul {
+      flex-wrap: nowrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    li {
+      flex: 0 1 305px;
+    }
+
+    /* Labels stay on one line on desktop; smaller until the tiles reach full width */
+    figcaption {
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    div > :global(.button-group) {
+      margin-top: 30px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    figcaption {
+      font-size: 17px;
+      letter-spacing: 0.1em;
+    }
+  }
+</style>

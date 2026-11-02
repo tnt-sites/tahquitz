@@ -1,0 +1,31 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+eyebrow:
+  type: text
+  comment: Small line above the heading. This is the page's H1 (e.g. "Dental Cleanings Palm Springs").
+heading:
+  type: text
+  comment: Large heading in the navy panel.
+text:
+  type: markdown
+  comment: Intro text below the heading.
+  options:
+    bold: true
+    italic: true
+    link: true
+imageSource:
+  type: image
+  comment: Photo on the left.
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+imageAlt:
+  type: text
+  comment: Alt text for the photo.
+buttonSections:
+  type: array
+  comment: Optional buttons below the intro (e.g. Book Online). Leave empty on service pages.
+  options:
+    structures: _structures.buttonSections

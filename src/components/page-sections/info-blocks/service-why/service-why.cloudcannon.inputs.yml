@@ -1,0 +1,11 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: e.g. "Why Choose Tahquitz Dental Group for Dental Implants?"
+items:
+  type: array
+  comment: The three reasons shown in the band.
+"items[*]":
+  type: text

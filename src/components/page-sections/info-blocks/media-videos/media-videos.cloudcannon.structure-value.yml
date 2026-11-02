@@ -1,0 +1,16 @@
+label: Media Videos
+icon: smart_display
+description: Heading and text with a row of YouTube, Vimeo or MP4 videos.
+value:
+  _component: page-sections/info-blocks/media-videos
+  id: ""
+  heading: Media Coverage
+  text: ""
+  videos:
+    - type: youtube
+      videoId: ""
+      source: ""
+      poster: ""
+      title: ""
+_inputs_from_glob:
+  - /src/components/page-sections/info-blocks/media-videos/media-videos.cloudcannon.inputs.yml

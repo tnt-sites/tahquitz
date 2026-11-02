@@ -23,6 +23,24 @@
       text-wrap: balance;
     }
 
+    /* Main headings: Nunito ExtraLight, uppercase. Smaller headings: Josefin Sans SemiBold, uppercase. */
+    h1,
+    h2 {
+      font-weight: var(--font-weight-light);
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+    }
+
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-accent);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
     h1 {
       font-size: var(--font-size-heading-2xl);
       line-height: 1.2;
@@ -36,12 +54,6 @@
     h3 {
       font-size: var(--font-size-heading-lg);
       line-height: 1.3;
-    }
-
-    h4,
-    h5,
-    h6 {
-      font-weight: normal;
     }
 
     h4 {
@@ -101,6 +113,7 @@
 
   .eyebrow {
     color: var(--color-text-muted);
+    font-family: var(--font-accent);
     font-size: var(--font-size-sm);
     font-weight: 600;
     letter-spacing: 0.08em;

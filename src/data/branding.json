@@ -1,20 +1,25 @@
 {
-  "colorBrand": "green",
-  "colorBrandSecondary": "yellow",
-  "colorBrandTertiary": "#ff00ff",
-  "colorBrandSubtle": "",
-  "colorBrandOn": "",
-  "colorTextOnBrand": "#ffffff",
-  "colorLink": "blue",
-  "colorLinkHover": "darkblue",
-  "extraColors": [],
+  "colorBrand": "#7ED9FF",
+  "colorBrandSecondary": "#519BB9",
+  "colorBrandTertiary": "#2AC0FF",
+  "colorBrandSubtle": "#519BB9",
+  "colorBrandOn": "#101D26",
+  "colorTextOnBrand": "#101D26",
+  "colorLink": "#2EA1D1",
+  "colorLinkHover": "#101D26",
+  "extraColors": [
+    { "variable": "--color-text", "value": "#101D26" },
+    { "variable": "--color-text-strong", "value": "#101D26" },
+    { "variable": "--color-bg-dark", "value": "#101D26" },
+    { "variable": "--color-bg-inverse", "value": "#101D26" }
+  ],
   "bodyFont": {
-    "fontFamily": "\"Roboto\", sans-serif"
+    "fontFamily": "\"Nunito\", sans-serif"
   },
   "headingsFont": {
-    "fontFamily": "\"Playfair Display\", serif"
+    "fontFamily": "\"Nunito\", sans-serif"
   },
   "fontLinks": [
-    "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    "https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600&family=Nunito:ital,wght@0,200..900;1,200..900&display=swap"
   ]
 }

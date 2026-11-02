@@ -1,0 +1,31 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: Small label above the badges, e.g. "Awards & Recognition".
+awards:
+  type: array
+  comment: Award badges, shown in a row (two per row on phones).
+  options:
+    preview:
+      text:
+        - key: imageAlt
+      image:
+        - key: imageSource
+"awards[*].imageSource":
+  type: image
+  comment: Badge image (PNG or WebP with a transparent background works best).
+  options:
+    paths:
+      uploads: src/assets/images/awards
+      static: ""
+"awards[*].imageAlt":
+  type: text
+  comment: Name of the award, e.g. "Best of Coachella Valley 2024–2025".
+"awards[*].link":
+  type: url
+  comment: Optional link for the badge. Outside sites open in a new tab.
+divider:
+  type: switch
+  comment: Thin line under the badges to separate them from the next section.

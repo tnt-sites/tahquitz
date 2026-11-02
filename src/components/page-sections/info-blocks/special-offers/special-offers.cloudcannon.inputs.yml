@@ -1,0 +1,33 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section (e.g. "specials" so other pages can link to it).
+heading:
+  type: text
+  comment: e.g. "Specials".
+formText:
+  type: textarea
+  comment: Short line above each offer's form in the popup.
+formAction:
+  type: text
+  comment: Form address every offer's form posts to, unless an offer sets its own below.
+offers:
+  type: array
+  comment: One card per offer. Each Redeem button opens a popup with that offer's own form.
+  options:
+    preview:
+      text:
+        - key: amount
+      subtext:
+        - key: treatment
+"offers[*].amount":
+  type: text
+  comment: e.g. "$600 Off".
+"offers[*].treatment":
+  type: text
+  comment: e.g. "Dental Implants". Sent with the form so the office knows which offer was redeemed.
+"offers[*].buttonText":
+  type: text
+  comment: e.g. "Redeem Offer". Leave empty to hide the button.
+"offers[*].formAction":
+  type: text
+  comment: Optional form address for this offer only. Leave empty to use the section's form address.

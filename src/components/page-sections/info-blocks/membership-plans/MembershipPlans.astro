@@ -1,0 +1,262 @@
+---
+import Text from "@core-elements/text/Text.astro";
+import { externalLinkAttrs } from "@component-utils/externalLink";
+
+// In-house membership plan cards (styleguide "Membership Plan"): coloured header with the plan name and
+// monthly price, "Includes" check list, short note, and a Sign Up button sitting on the bottom border.
+const {
+  id = "",
+  heading = "",
+  plans = [],
+  footnote = "",
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<section class:list={["membership-plans", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    <div class="plans block lg:flex justify-center">
+      {
+        plans.map((plan: any) => (
+          <article class:list={["plan", plan.theme === "dark" ? "dark" : "light"]}>
+            <header>
+              <div class="name">
+                <h3>{plan.name}</h3>
+                {plan.subtitle && <span class="subtitle">{plan.subtitle}</span>}
+              </div>
+              <div class="price">
+                <strong>{plan.price}</strong>
+                <span>/mo.</span>
+              </div>
+            </header>
+            <h4>Includes</h4>
+            <ul class="no-check">
+              {plan.items?.map((item: string) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            {plan.note && <p class="note">{plan.note}</p>}
+            {plan.buttonText && (
+              <a class="sign-up" href={plan.buttonLink} {...externalLinkAttrs(plan.buttonLink)}>
+                {plan.buttonText}
+              </a>
+            )}
+          </article>
+        ))
+      }
+    </div>
+    {footnote && <Text text={footnote} class="footnote" data-prop="footnote" />}
+  </div>
+</section>
+
+<style>
+  .membership-plans {
+    padding: 60px 20px;
+  }
+
+  .membership-plans > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  h2 {
+    font-size: 32px;
+    margin: 0 0 40px;
+  }
+
+  .plan {
+    border: 1px solid #a5a5a5;
+    border-radius: 15px;
+    margin: 0 auto 60px;
+    max-width: 530px;
+    padding-bottom: 50px;
+    position: relative;
+  }
+
+  header {
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .name {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    padding: 25px 15px;
+  }
+
+  h3 {
+    font-family: var(--font-accent);
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .subtitle {
+    font-family: var(--font-accent);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  .price {
+    align-items: center;
+    color: #fff;
+    display: flex;
+    flex: 0 0 110px;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .price strong {
+    font-size: 40px;
+    font-weight: 700;
+  }
+
+  .price span {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .light .name {
+    background-color: var(--color-brand);
+    color: var(--color-text);
+  }
+
+  .light .price {
+    background-color: var(--color-brand-secondary);
+  }
+
+  .dark .name {
+    background-color: var(--color-bg-dark);
+    color: #fff;
+  }
+
+  .dark h3 {
+    color: #fff;
+  }
+
+  .dark .price {
+    background-color: #000;
+  }
+
+  h4 {
+    font-size: 26px;
+    letter-spacing: 0.1em;
+    margin: 35px 0 25px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0 25px;
+    text-align: left;
+  }
+
+  li {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 15px;
+    padding-left: 35px;
+    position: relative;
+  }
+
+  /* Light blue check mark (fontello icon-ok-1) */
+  li::before {
+    color: var(--color-brand);
+    content: "\e832";
+    font-family: fontello, sans-serif;
+    font-size: 18px;
+    left: 0;
+    line-height: 1;
+    position: absolute;
+    top: 2px;
+  }
+
+  .note {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 25px auto 0;
+    max-width: 380px;
+    padding: 0 20px;
+  }
+
+  /* Sits on the card's bottom border */
+  .sign-up {
+    background-color: var(--color-brand);
+    border: 2px solid var(--color-text);
+    bottom: -25px;
+    color: var(--color-text);
+    font-family: var(--font-accent);
+    font-size: 16px;
+    left: 50%;
+    padding: 12px 0;
+    position: absolute;
+    text-decoration: none;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    transition: background-color var(--animation-normal) ease-in-out;
+    width: 275px;
+  }
+
+  .sign-up:hover {
+    background-color: var(--color-brand-muted);
+  }
+
+  div > :global(.footnote) {
+    font-size: 14px;
+    margin: 0;
+    text-align: inherit;
+  }
+
+  @media (min-width: 1025px) {
+    .membership-plans {
+      padding: 80px 20px;
+    }
+
+    h2 {
+      font-size: 55px;
+      margin-bottom: 70px;
+    }
+
+    .plans {
+      gap: 85px;
+    }
+
+    .plan {
+      flex: 0 1 530px;
+      margin: 0 0 60px;
+    }
+
+    h3 {
+      font-size: 31px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+    }
+
+    .price {
+      flex-basis: 145px;
+    }
+
+    .price strong {
+      font-size: 48px;
+    }
+
+    h4 {
+      font-size: 28px;
+    }
+  }
+</style>

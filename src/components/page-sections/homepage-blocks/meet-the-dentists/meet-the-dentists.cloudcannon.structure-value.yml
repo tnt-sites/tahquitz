@@ -1,0 +1,21 @@
+label: Meet the Dentists
+icon: groups
+description: For the homepage. Wide photo of the dentists with a navy card per dentist overlapping its bottom edge.
+value:
+  _component: page-sections/homepage-blocks/meet-the-dentists
+  id: ""
+  tabText: Meet Our Dental Experts
+  imageSource: ""
+  imageAlt: ""
+  dentists: []
+preview:
+  text:
+    - Meet the Dentists
+  subtext:
+    - key: tabText
+  icon: groups
+picker_preview:
+  text: Meet the Dentists
+  subtext: Photo of the dentists with a bio card for each.
+_inputs_from_glob:
+  - /src/components/page-sections/homepage-blocks/meet-the-dentists/meet-the-dentists.cloudcannon.inputs.yml

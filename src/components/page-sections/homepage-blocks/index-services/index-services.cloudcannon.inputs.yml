@@ -1,0 +1,43 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: e.g. "Everything Your Smile Needs Is Right Here".
+text:
+  type: markdown
+  comment: Intro below the heading.
+  options:
+    bold: true
+    italic: true
+    link: true
+services:
+  type: array
+  comment: Photo tiles, each linking to a service page. Four fit in a row on desktop.
+  options:
+    preview:
+      text:
+        - key: title
+      image:
+        - key: imageSource
+"services[*].title":
+  type: text
+  comment: Label under the photo (e.g. "Teeth Whitening").
+"services[*].link":
+  type: url
+  comment: The service page.
+"services[*].imageSource":
+  type: image
+  comment: Tall photo (portrait, about 3:4).
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+"services[*].imageAlt":
+  type: text
+  comment: Alt text for the photo.
+buttonSections:
+  type: array
+  comment: Button below the tiles (e.g. "View All Treatments").
+  options:
+    structures: _structures.buttonSections

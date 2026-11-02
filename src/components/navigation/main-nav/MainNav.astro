@@ -1,232 +1,111 @@
 ---
-import CustomSection from "@builders/custom-section/CustomSection.astro";
+import { externalLinkAttrs } from "@component-utils/externalLink";
 import Bar from "@components/navigation/bar/Bar.astro";
 import Mobile from "@components/navigation/mobile/Mobile.astro";
+import Icon from "@core-elements/icon/Icon.astro";
 import Image from "@core-elements/image/Image.astro";
-import ButtonGroup from "@wrappers/button-group/ButtonGroup.astro";
 import siteInfoData from "@data/siteInfo.json";
 
+// Site header: phone + address | logo | Book Online + Virtual Consultation, with the menu bar underneath.
+// Shrinks to the condensed header (no address or virtual consult) once the page is scrolled.
 const {
   logoSource,
   logoAlt = "logo",
   navData = [],
-  buttonSections = [],
   pageButtons = [],
   socials = [],
-  class: className,
   offices = [],
-  legalLinks = [],
-  phoneText = "",
-  phoneHref = "",
-  addressHref = "",
-  addressLines = [],
-  emailHref = "",
-  emailText = [],
-  officeHoursTitle = "Office Hours",
-  officeHours = [],
-  officeHoursNote = "",
-  officeHoursNotes = [],
+  class: className,
   _component,
   ...htmlAttributes
 } = Astro.props;
 
-const defaultSearchButtonSections = [
-  {
-    _component: "building-blocks/core-elements/button",
-    text: "Search",
-    hideText: true,
-    link: "/search/",
-    iconName: "magnifying-glass",
-    iconPosition: "before",
-    variant: "ghost",
-    size: "lg",
-    width: "xs",
-  },
-];
+const resolvedOffices =
+  Array.isArray(offices) && offices.length > 0 ? offices : ((siteInfoData as any).offices ?? []);
+const office = resolvedOffices[0] ?? {};
+const phone = office.phones?.[0];
+const address = office.addresses?.[0];
+const addressText = address
+  ? [
+      ...(address.lines ?? []),
+      address.city,
+      [address.state, address.postalCode].filter(Boolean).join(" "),
+    ]
+      .filter(Boolean)
+      .join(", ")
+  : "";
 
-const resolvedSearchButtonSections =
-  Array.isArray(buttonSections) && buttonSections.length > 0
-    ? buttonSections
-    : defaultSearchButtonSections;
-
-const sanitizeButtonSection = (button: any) => ({
-  ...button,
-  text: typeof button?.text === "string" ? button.text : "",
-});
-
-const searchButtons = resolvedSearchButtonSections.map((button: any) =>
-  sanitizeButtonSection(button)
-);
-
-const buttons = pageButtons.map((button: any) => sanitizeButtonSection(button));
-
+const sharedSocials = socials.length > 0 ? socials : ((siteInfoData as any).socials ?? []);
+const [bookButton, virtualButton] = pageButtons;
 const mobileNavData = [
   ...navData,
-  ...searchButtons.map((button: any) => ({
-    name: button.text || "Button",
-    path: button.link || button.href || "#",
-    children: [],
-  })),
-  ...buttons.map((button: any) => ({
-    name: button.text || "Button",
-    path: button.link || button.href || "#",
-    children: [],
-  })),
+  ...pageButtons.map((button: any) => ({ name: button.text, path: button.link, children: [] })),
 ];
-
-const hasLegacyOffice = (Array.isArray(addressLines) && addressLines.length > 0) || !!phoneText;
-
-const resolvedOffices =
-  Array.isArray(offices) && offices.length > 0
-    ? offices
-    : hasLegacyOffice
-      ? [
-          {
-            name: "",
-            addresses:
-              Array.isArray(addressLines) && addressLines.length > 0
-                ? [
-                    {
-                      lines: addressLines,
-                      mapUrl: addressHref || "",
-                    },
-                  ]
-                : [],
-            phones: phoneText
-              ? [
-                  {
-                    display: phoneText,
-                    href: phoneHref || "",
-                  },
-                ]
-              : [],
-            officeHours,
-            officeHoursNote,
-            officeHoursNotes,
-            socials,
-          },
-        ]
-      : ((siteInfoData as any).offices ?? []);
-
-const sharedSocials =
-  Array.isArray(socials) && socials.length > 0
-    ? socials
-    : Array.isArray(resolvedOffices[0]?.socials)
-      ? resolvedOffices[0].socials
-      : ((siteInfoData as any).socials ?? []);
-
-const formatAddressLines = (address: any) => {
-  const lineItems = Array.isArray(address?.lines) ? address.lines : [];
-  const stateAndPostal = [address?.state, address?.postalCode].filter(Boolean).join(" ");
-  const cityStatePostal = [address?.city, stateAndPostal].filter(Boolean).join(", ");
-  const locationLine = [cityStatePostal, address?.country].filter(Boolean).join(", ");
-
-  return [...lineItems, locationLine].filter(
-    (line) => typeof line === "string" && line.trim().length > 0
-  );
-};
 ---
 
-<CustomSection
-  maxContentWidth="2xl"
-  paddingHorizontal="lg"
-  paddingVertical="none"
-  class:list={["main-nav", className]}
-  {...htmlAttributes}
->
-  <div class="hd-content">
-    <a class="logo-link" href="/">
-      <Image source={logoSource} class="main-nav-logo" alt={logoAlt} editable={false} />
-    </a>
-    <!-- Desktop Nav -->
-    <div class="hd-right">
-      <!-- Phone and Address -->
-      <div class="hd-info">
-        {
-          resolvedOffices.map((office: any) => (
-            <>
-              <div>
-                {Array.isArray(office?.phones) &&
-                  office.phones.map((phone: any) =>
-                    phone?.display ? (
-                      <a href={phone?.href || "#"} class="pho">
-                        {phone?.label ? `${phone.label}: ` : ""}
-                        {phone.display}
-                      </a>
-                    ) : null
-                  )}
-
-                {Array.isArray(office?.addresses) &&
-                  office.addresses.map((address: any) => {
-                    const formattedLines = formatAddressLines(address);
-
-                    return formattedLines.length > 0 ? (
-                      <a
-                        href={address?.mapUrl || "#"}
-                        class="phy"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {formattedLines.map((line: string, index: number) => (
-                          <>
-                            {line}
-                            {index < formattedLines.length - 1 && <br />}
-                          </>
-                        ))}
-                      </a>
-                    ) : null;
-                  })}
-              </div>
-            </>
-          ))
-        }
-      </div>
+<header class:list={["main-nav", className]} {...htmlAttributes}>
+  <div class="top block lg:flex justify-between items-center">
+    <div class="contact">
       {
-        buttons.length > 0 && (
-          <div class="hd-btns page-buttons">
-            <ButtonGroup
-              direction="row"
-              align="center"
-              class="desktop-button-group"
-              buttonSections={buttons}
-              editable={false}
-            />
-          </div>
+        phone && (
+          <a class="phone" href={phone.href}>
+            <Icon name="device-phone-mobile" size="none" aria-hidden="true" />
+            {phone.display}
+          </a>
         )
       }
-      <div class="hd-nav">
-        <div class="nav-end">
-          <Bar navData={navData} class="desktop-main-nav" />
-
-          <ButtonGroup
-            direction="row"
-            align="center"
-            class="desktop-button-group"
-            buttonSections={searchButtons}
-            editable={false}
-          />
-        </div>
-      </div>
-      <!-- End Desktop Nav -->
+      {
+        addressText && (
+          <a class="address" href={address.mapUrl} target="_blank" rel="noopener noreferrer">
+            {addressText}
+          </a>
+        )
+      }
     </div>
+    <a class="logo" href="/">
+      <Image source={logoSource} alt={logoAlt} editable={false} priority={true} />
+    </a>
+    <div class="actions">
+      {
+        bookButton && (
+          <a class="book" href={bookButton.link} {...externalLinkAttrs(bookButton.link)}>
+            {bookButton.iconName && (
+              <Icon name={bookButton.iconName} size="none" aria-hidden="true" />
+            )}
+            {bookButton.text}
+          </a>
+        )
+      }
+      {
+        virtualButton && (
+          <a class="virtual" href={virtualButton.link} {...externalLinkAttrs(virtualButton.link)}>
+            {virtualButton.iconName && (
+              <Icon name={virtualButton.iconName} size="none" aria-hidden="true" />
+            )}
+            {virtualButton.text}
+          </a>
+        )
+      }
+    </div>
+    <Mobile
+      logoSource={logoSource}
+      logoAlt={logoAlt}
+      navData={mobileNavData}
+      class="mobile-main-nav"
+      offices={resolvedOffices}
+      sharedSocials={sharedSocials}
+    />
   </div>
-  <!-- Mobile Nav -->
-  <Mobile
-    logoSource={logoSource}
-    logoAlt={logoAlt}
-    navData={mobileNavData}
-    class="mobile-main-nav"
-    offices={resolvedOffices}
-    sharedSocials={sharedSocials}
-  />
-  <!-- End Mobile Nav -->
-</CustomSection>
+  <div class="menu">
+    <Bar navData={navData} class="desktop-main-nav" />
+  </div>
+</header>
 
-<!-- Adds --site-header-height CSS variable based on header height. Works with multiple screen sizes. -->
+<!-- Sets --site-header-height and toggles the condensed header on scroll -->
 <script>
-  const initMainNavHeaderHeight = () => {
-    document.querySelectorAll(".main-nav").forEach((mainNav) => {
-      if (mainNav.getAttribute("data-header-height-initialized") === "true") return;
+  const initMainNav = () => {
+    document.querySelectorAll<HTMLElement>(".main-nav").forEach((mainNav) => {
+      if (mainNav.dataset.initialized === "true") return;
 
       const syncHeaderHeight = () => {
         document.documentElement.style.setProperty(
@@ -235,168 +114,222 @@ const formatAddressLines = (address: any) => {
         );
       };
 
+      // Separate on/off points so the header doesn't flicker while it changes height
+      const syncCondensed = () => {
+        if (window.scrollY > 200) mainNav.classList.add("condensed");
+        else if (window.scrollY < 50) mainNav.classList.remove("condensed");
+      };
+
       syncHeaderHeight();
+      syncCondensed();
+      window.addEventListener("scroll", syncCondensed, { passive: true });
 
       if (typeof ResizeObserver !== "undefined") {
-        const resizeObserver = new ResizeObserver(syncHeaderHeight);
-        resizeObserver.observe(mainNav);
+        new ResizeObserver(syncHeaderHeight).observe(mainNav);
       }
 
-      mainNav.setAttribute("data-header-height-initialized", "true");
+      mainNav.dataset.initialized = "true";
     });
   };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initMainNavHeaderHeight);
+    document.addEventListener("DOMContentLoaded", initMainNav);
   } else {
-    initMainNavHeaderHeight();
+    initMainNav();
   }
 </script>
 
-<style lang="pcss" is:global>
-  @layer page-sections {
-    .main-nav {
-      z-index: var(--layer-2);
-      background-color: var(--color-bg); 
-      padding-block: var(--spacing-md);
-      position: sticky; 
-      top: 0;
-
-      .desktop-main-nav.bar,
-      .desktop-button-group.button-group {
-        @media (max-width: 1024px) {
-          display: none;
-        }
-      }
-
-      .main-nav-logo {
-        margin-top: 0 !important;
-      }
-
-      .nav-hamburger.mobile-button {
-        @media (min-width: 1025px) {
-          display: none;
-        }
-      }
-
-      > .outer-content .hd-content {
-        align-items: center;
-        container-type: inline-size;
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--spacing-md);
-
-        > a > .image img {
-          height: 1.8em;
-          max-width: min(20em, 100%);
-          width: auto;
-        }
-
-        .button-group {
-          margin-top: 0;
-        }
-      }
-
-      > .outer-content .hd-content .hd-right {
-        display: flex;
-        flex: 0 1 700px;
-        flex-direction: column;
-        gap: var(--spacing-sm);
-        margin-left: auto;
-        align-items: end;
-        margin-right: 20px;
-      }
-
-      > .outer-content .hd-content .hd-actions {
-        align-items: center;
-        display: flex;
-        gap: var(--spacing-sm);
-        justify-content: flex-end;
-      }
-
-      > .outer-content .hd-content .nav-end {
-        align-items: center;
-        display: inline-flex;
-        flex: 0 0 auto;
-        gap: var(--spacing-xs);
-        justify-content: flex-end;
-      }
-
-      > .outer-content .hd-content .nav-end > .desktop-main-nav.bar {
-        flex: 0 1 auto;
-      }
-
-      > .outer-content .hd-content .nav-end > .desktop-button-group.button-group {
-        flex: 0 0 30px;
-        margin-top: 0;
-        width: auto;
-      }
-
-      > .outer-content .hd-content .page-buttons {
-        flex: 0 0 auto;
-
-        > .button-group {
-          container-type: normal;
-          margin-left: 0;
-        }
-      }
-    }
-
-    .hd-info{display: flex; justify-content: space-between; align-items: center;}
-    .main-nav .phy{display: block; text-transform: uppercase; letter-spacing: 2px; color: var(--color-text); line-height: 1; transition: .3s;}
-      .main-nav .pho{font-weight: var(--font-weight-bold); color: var(--color-brand); font-size: var(--font-size-2xl); line-height: 1; transition: .3s; display: block; margin: 0 auto 5px;}
-
-    .main-nav .pho:hover, .main-nav .phy:hover{color: var(--color-brand-secondary)}
-
-    .mobile-nav-button{min-width: 10px;border-radius: 0; border: none; height: 70px; width: 70px; background-color: var(--color-brand); color: var(--color-text-on-brand); display: flex; align-items: center; justify-content: center;}
-    .nav-hamburger .mobile-nav-button .icon {
-      font-size: var(--font-size-4xl);
-    }
-
-    .nav-hamburger .mobile-nav-button .icon svg path {
-      stroke-width: 2.25;
-    }
-
-    .mobile-close .mobile-nav-button .icon {
-      font-size: var(--font-size-4xl);
-    }
-
-    .mobile-close .mobile-nav-button .icon svg path {
-      stroke-width: 2.25;
-    }
-
-    .mobile-nav-close {}
-
-
-    @media (max-width: 1024px) {
-      .main-nav{padding: 0;}
-      .main-nav > .outer-content > .content {
-        align-items: center;
-        display: flex;
-        gap: var(--spacing-sm);
-        justify-content: space-between;
-        padding-right: 0;
-      }
-
-      .main-nav > .outer-content .hd-content {
-        align-items: center;
-        display: flex;
-        flex: 1 1 auto;
-        min-width: 0;
-      }
-
-      .main-nav > .outer-content .hd-content .logo-link {
-        display: block;
-        flex: 0 0 auto;
-      }
-
-      .main-nav > .outer-content .hd-content .logo-link .image img {
-        display: block;
-      }
-
-      .hd-info, .top-bar{display: none;}
-      .main-nav > .outer-content .hd-content .hd-right {display: none;}
-    }
+<style>
+  .main-nav {
+    position: sticky;
+    top: 0;
+    z-index: var(--layer-2);
+    background-color: var(--color-bg-dark);
+    color: #ffffff;
   }
 
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 15px;
+  }
+
+  .contact,
+  .actions,
+  .menu {
+    display: none;
+  }
+
+  .logo {
+    display: block;
+    padding: 10px 0;
+  }
+
+  .logo :global(img) {
+    display: block;
+    width: 200px;
+    height: auto;
+  }
+
+  .phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 25px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-family: var(--font-accent);
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .phone :global(.icon) {
+    width: 20px;
+    height: 25px;
+  }
+
+  .address {
+    display: block;
+    margin-top: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .phone:hover,
+  .address:hover {
+    color: var(--color-brand);
+  }
+
+  .book,
+  .virtual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--color-text);
+    font-family: var(--font-accent);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color var(--animation-normal) ease-in-out;
+  }
+
+  .book {
+    padding: 10px 35px;
+    background-color: var(--color-brand);
+    font-size: 20px;
+  }
+
+  .book :global(.icon) {
+    width: 25px;
+  }
+
+  .virtual {
+    margin-top: 5px;
+    padding: 5px 20px;
+    background-color: #ffffff;
+    font-size: 12px;
+  }
+
+  .virtual :global(.icon) {
+    width: 15px;
+  }
+
+  .book:hover,
+  .virtual:hover {
+    background-color: var(--color-brand-muted);
+    color: var(--color-text);
+  }
+
+  /* Mobile slide-out panel: navy top bar so the white logo shows */
+  :global(.mobile-main-nav .mobile-header) {
+    background-color: var(--color-bg-dark);
+  }
+
+  :global(.mobile-nav-button) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 10px;
+    border: none;
+    border-radius: 0;
+    background-color: var(--color-brand);
+    color: var(--color-text);
+  }
+
+  :global(.mobile-nav-button .icon) {
+    font-size: 30px;
+  }
+
+  :global(.nav-hamburger .mobile-nav-button) {
+    flex-direction: column;
+    gap: 0;
+    height: 65px;
+    width: 65px;
+  }
+
+  :global(.nav-hamburger .mobile-nav-button::after) {
+    content: "Menu";
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  @media (min-width: 1024px) {
+    .top {
+      padding: 15px 20px;
+    }
+
+    .contact {
+      display: block;
+      text-align: center;
+    }
+
+    .actions {
+      display: block;
+    }
+
+    .logo {
+      padding: 0;
+    }
+
+    .logo :global(img) {
+      width: 300px;
+    }
+
+    .menu {
+      display: block;
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    :global(.nav-hamburger) {
+      display: none;
+    }
+
+    .condensed .top {
+      padding-block: 5px;
+    }
+
+    .condensed .address,
+    .condensed .virtual {
+      display: none;
+    }
+
+    .condensed .phone {
+      padding-block: 5px;
+      font-size: 16px;
+    }
+
+    .condensed .logo :global(img) {
+      width: 200px;
+    }
+
+    .condensed .book {
+      padding: 5px 25px;
+      font-size: 16px;
+    }
+  }
 </style>

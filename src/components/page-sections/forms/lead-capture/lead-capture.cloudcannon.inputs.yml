@@ -1,0 +1,43 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+embedType:
+  type: select
+  comment: Which Implant Smiles embed to show.
+  options:
+    values:
+      - id: form
+        name: Lead Capture Form
+      - id: survey
+        name: Lead Capture Survey
+embedId:
+  type: text
+  comment: The form or survey ID from the Implant Smiles embed code (e.g. PiiN03ihA0jr8ApX3tER).
+embedTitle:
+  type: text
+  comment: Form name from the embed code (data-form-name / title).
+heading:
+  type: text
+  comment: Heading under the magazine image (e.g. "The Guide Will Show You").
+text:
+  type: markdown
+  comment: Checklist under the heading. Each bullet shows as a light blue check.
+  options:
+    bold: true
+    bulletedlist: true
+phone:
+  type: text
+  comment: Tracking phone number supplied by Implant Smiles.
+imageSource:
+  type: image
+  comment: Magazine image.
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+imageAlt:
+  type: text
+  comment: Alt text for the magazine image.
+reverse:
+  type: switch
+  comment: Put the magazine on the right and the form on the left on desktop.

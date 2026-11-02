@@ -1,4 +1,5 @@
 ---
+import { externalLinkAttrs } from "@component-utils/externalLink";
 import Button from "@core-elements/button/Button.astro";
 import Icon from "@core-elements/icon/Icon.astro";
 import Image from "@core-elements/image/Image.astro";
@@ -135,7 +136,11 @@ const getOfficeHoursGeneralNotes = (office: any) => {
           if (!itemData.hasChildren) {
             return (
               <li class="nav-item">
-                <a href={itemData.path} aria-current={itemData.isCurrent ? "page" : undefined}>
+                <a
+                  href={itemData.path}
+                  {...externalLinkAttrs(itemData.path)}
+                  aria-current={itemData.isCurrent ? "page" : undefined}
+                >
                   {itemData.name}
                 </a>
               </li>
@@ -154,7 +159,11 @@ const getOfficeHoursGeneralNotes = (office: any) => {
                 autocomplete="off"
                 checked={itemData.hasCurrent}
               />
-              <a href={itemData.path} aria-current={itemData.isCurrent ? "page" : undefined}>
+              <a
+                href={itemData.path}
+                {...externalLinkAttrs(itemData.path)}
+                aria-current={itemData.isCurrent ? "page" : undefined}
+              >
                 {itemData.name}
               </a>
               <label
@@ -185,6 +194,7 @@ const getOfficeHoursGeneralNotes = (office: any) => {
                         <li class="nav-item">
                           <a
                             href={childData.path}
+                            {...externalLinkAttrs(childData.path)}
                             aria-current={childData.isCurrent ? "page" : undefined}
                           >
                             {childData.name}
@@ -207,6 +217,7 @@ const getOfficeHoursGeneralNotes = (office: any) => {
                         />
                         <a
                           href={childData.path}
+                          {...externalLinkAttrs(childData.path)}
                           aria-current={childData.isCurrent ? "page" : undefined}
                         >
                           {childData.name}
@@ -242,6 +253,7 @@ const getOfficeHoursGeneralNotes = (office: any) => {
                                 <li class="nav-item">
                                   <a
                                     href={grandChildData.path}
+                                    {...externalLinkAttrs(grandChildData.path)}
                                     aria-current={grandChildData.isCurrent ? "page" : undefined}
                                   >
                                     {grandChildData.name}

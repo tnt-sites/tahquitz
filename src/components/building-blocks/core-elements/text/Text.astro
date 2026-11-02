@@ -2,7 +2,22 @@
 // @ts-ignore
 import markdownit from "markdown-it";
 
+import { isExternalLink } from "@component-utils/externalLink";
+
 const md = markdownit({ html: true });
+
+// Links to other sites open in a new tab
+const defaultLinkOpen =
+  md.renderer.rules.link_open ||
+  ((tokens: any, idx: number, options: any, _env: any, self: any) =>
+    self.renderToken(tokens, idx, options));
+md.renderer.rules.link_open = (tokens: any, idx: number, options: any, env: any, self: any) => {
+  if (isExternalLink(tokens[idx].attrGet("href"))) {
+    tokens[idx].attrSet("target", "_blank");
+    tokens[idx].attrSet("rel", "noopener noreferrer");
+  }
+  return defaultLinkOpen(tokens, idx, options, env, self);
+};
 
 const {
   text = "",

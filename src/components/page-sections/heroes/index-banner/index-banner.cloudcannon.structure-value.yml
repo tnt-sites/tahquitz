@@ -1,0 +1,17 @@
+label: Index Banner
+icon: web_asset
+description: Homepage banner with a background photo or video, the H1, heading and intro, and a Special Offers bar.
+value:
+  _component: page-sections/heroes/index-banner
+  id: ""
+  eyebrow: Dentist in Palm Springs
+  heading: Banner heading
+  text: Intro text.
+  imageSource: ""
+  imageAlt: ""
+  videoSource: ""
+  videoPoster: ""
+  offersHeading: Special Offers
+  offers: []
+_inputs_from_glob:
+  - /src/components/page-sections/heroes/index-banner/index-banner.cloudcannon.inputs.yml

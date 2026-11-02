@@ -1,0 +1,296 @@
+---
+import bgTriangles from "@assets/images/bg-triangles.webp";
+import Image from "@core-elements/image/Image.astro";
+import Text from "@core-elements/text/Text.astro";
+import ButtonGroup from "@wrappers/button-group/ButtonGroup.astro";
+
+// Homepage financing: optional thin line on top, small label, then a light blue financing panel (with the
+// financing companies' logos under it) beside a navy membership panel. Panels stack on phones and tablets.
+const {
+  id = "",
+  heading = "",
+  divider = true,
+  financing = {},
+  logos = [],
+  membership = {},
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+
+// Each logo's own width becomes its flex basis, so logos show at their real size side by side and shrink
+// together when the row is too narrow
+const imageFiles = import.meta.glob("/src/assets/images/**/*", {
+  import: "default",
+  eager: true,
+}) as Record<string, any>;
+const logoWidth = (source: string) =>
+  imageFiles[Object.keys(imageFiles).find((key) => key.endsWith(source)) ?? ""]?.width ?? 200;
+
+// Headings keep the editor's line breaks (e.g. "Join Our" / "Coachella Smile Club" as in the design)
+const lines = (value: string = "") => value.split("\n").filter(Boolean);
+---
+
+<section class:list={["index-financing", className]} id={id || undefined} {...htmlAttributes}>
+  <div class="block text-center">
+    {divider && <hr />}
+    {heading && <h2 data-prop="heading">{heading}</h2>}
+    <div class="panels">
+      <div class="financing">
+        <article>
+          {
+            financing.heading && (
+              <h3>
+                {lines(financing.heading).map((line, index) => (
+                  <>
+                    {index > 0 && <br />}
+                    {line}
+                  </>
+                ))}
+              </h3>
+            )
+          }
+          <Text text={financing.text} />
+          {
+            financing.buttonSections?.length > 0 && (
+              <ButtonGroup
+                buttonSections={financing.buttonSections}
+                direction="column"
+                width="content"
+                alignX="center"
+              />
+            )
+          }
+        </article>
+        {
+          logos.length > 0 && (
+            <ul class="logos no-check">
+              {logos.map((logo: any) => (
+                <li style={`flex: 0 1 ${logoWidth(logo.imageSource)}px`}>
+                  <Image source={logo.imageSource} alt={logo.imageAlt} />
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+      <article class="membership" style={`background-image: url(${bgTriangles.src})`}>
+        {
+          membership.heading && (
+            <h3>
+              {lines(membership.heading).map((line, index) => (
+                <>
+                  {index > 0 && <br />}
+                  {line}
+                </>
+              ))}
+            </h3>
+          )
+        }
+        <Text text={membership.text} />
+        {
+          membership.buttonSections?.length > 0 && (
+            <ButtonGroup
+              buttonSections={membership.buttonSections}
+              width="content"
+              alignX="center"
+            />
+          )
+        }
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .index-financing {
+    padding: 40px 0 90px;
+  }
+
+  .index-financing > div {
+    margin: 0 auto;
+    max-width: 1150px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 0 0 60px;
+  }
+
+  h2 {
+    font-family: var(--font-accent);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    margin: 0 20px 30px;
+  }
+
+  .panels {
+    padding: 0 20px;
+  }
+
+  article {
+    padding: 50px 15px;
+  }
+
+  .financing article {
+    background-color: var(--color-brand);
+  }
+
+  .membership {
+    background-color: var(--color-bg-dark);
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+  }
+
+  /* Break only where the editor did, not where balanced wrapping would */
+  h3 {
+    font-size: 27px;
+    line-height: 1.25;
+    margin: 0 0 15px;
+    text-wrap: wrap;
+  }
+
+  .membership h3 {
+    color: #fff;
+  }
+
+  article :global(.text) {
+    margin: 0 auto;
+    max-width: 440px;
+    text-align: inherit;
+  }
+
+  article :global(.text p) {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.75;
+  }
+
+  .membership :global(.text p) {
+    color: #fff;
+  }
+
+  /* Button group shrinks to its buttons, so center the group itself */
+  article :global(.button-group) {
+    margin: 30px auto 0;
+  }
+
+  article :global(.button-group > editable-array) {
+    gap: 10px;
+  }
+
+  article :global(.button) {
+    font-size: 17px;
+    justify-content: center;
+    min-width: 275px;
+    padding: 15px 20px;
+  }
+
+  /* In this section Tertiary is the navy outline and Secondary is solid navy, as in the design */
+  article :global(.button.variant-tertiary) {
+    background-color: transparent;
+    border: 2px solid var(--color-bg-dark);
+    color: var(--color-text);
+    padding-block: 13px;
+  }
+
+  article :global(.button.variant-tertiary:hover) {
+    background-color: var(--color-bg-dark);
+    color: #fff;
+  }
+
+  article :global(.button.variant-secondary) {
+    background-color: var(--color-bg-dark);
+    color: #fff;
+  }
+
+  article :global(.button.variant-secondary:hover) {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .logos {
+    align-items: center;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin: 20px 0 30px;
+    padding: 0;
+  }
+
+  /* Each item's flex basis is its logo's width (set inline) */
+  .logos li {
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .logos :global(img) {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .logos {
+      gap: 20px;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .index-financing {
+      padding: 40px 20px 150px;
+    }
+
+    hr {
+      margin-bottom: 95px;
+    }
+
+    h2 {
+      margin: 0 0 15px;
+    }
+
+    /* Two equal panels, always the same height; the logos hang below the financing panel
+       (the section's bottom padding leaves room for them) */
+    .panels {
+      display: flex;
+      padding: 0;
+    }
+
+    .financing,
+    .membership {
+      flex: 0 0 50%;
+    }
+
+    .financing {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .financing article {
+      flex: 1;
+    }
+
+    article {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 410px;
+      padding: 50px 40px;
+    }
+
+    .logos {
+      left: 0;
+      margin: 15px 0 0;
+      position: absolute;
+      right: 0;
+      top: 100%;
+    }
+  }
+</style>

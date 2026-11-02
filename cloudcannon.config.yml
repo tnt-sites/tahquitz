@@ -253,6 +253,15 @@ collections_config:
     _enabled_editors:
       - data
     _inputs:
+      formHeading:
+        type: text
+        comment: Heading above the footer form (e.g. "Ask Us a Question").
+      formAction:
+        type: text
+        comment: Form address the footer form posts to.
+      consentText:
+        type: textarea
+        comment: Text-message consent shown next to the required checkbox. Leave empty to hide the checkbox.
       logoSource:
         type: image
         options:

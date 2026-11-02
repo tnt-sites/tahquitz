@@ -1,0 +1,37 @@
+id:
+  type: text
+  comment: Optional HTML id attribute for this section.
+heading:
+  type: text
+  comment: e.g. "3 Easy Ways to Book Your Visit".
+ways:
+  type: array
+  comment: One outlined card per way to book. Three fit in a row on desktop.
+  options:
+    preview:
+      text:
+        - key: title
+      image:
+        - key: iconSource
+"ways[*].iconSource":
+  type: image
+  comment: Navy line icon (SVG works best), about 70px tall.
+  options:
+    paths:
+      uploads: src/assets/images
+      static: ""
+"ways[*].title":
+  type: text
+  comment: e.g. "Online".
+"ways[*].text":
+  type: markdown
+  options:
+    bold: true
+    italic: true
+    link: true
+"ways[*].buttonText":
+  type: text
+  comment: e.g. "Online Scheduling". Leave empty to hide the button.
+"ways[*].link":
+  type: url
+  comment: Where the button goes. For a phone number use tel:+17603256480.
