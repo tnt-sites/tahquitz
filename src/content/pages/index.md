@@ -19,15 +19,20 @@ pageSections:
     videoPoster: /images/home/banner-loop-poster.webp
     offersHeading: Special Offers
     offers:
-      - text: $600 Off Dental Implants
-        link: /promotions/#specials-offer-1
+      - amount: $600 Off
+        treatment: Dental Implants
         linkText: View Offer
-      - text: $3,000 Off All-on-4 Implants
-        link: /promotions/#specials-offer-2
+        formAction: ""
+      - amount: $3,000 Off
+        treatment: All-on-4 Implants
         linkText: View Offer
-      - text: $2,000 Off Clear Aligners
-        link: /promotions/#specials-offer-3
+        formAction: ""
+      - amount: $2,000 Off
+        treatment: Clear Aligners
         linkText: View Offer
+        formAction: ""
+    formText: To take advantage of this promotion, kindly complete the form below.
+    formAction: ""
   - _component: page-sections/homepage-blocks/index-split
     id: ''
     heading: The Tahquitz Dental Experience

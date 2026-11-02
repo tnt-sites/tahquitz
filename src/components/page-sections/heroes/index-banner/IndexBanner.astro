@@ -1,9 +1,10 @@
 ---
 import Image from "@core-elements/image/Image.astro";
 import Text from "@core-elements/text/Text.astro";
+import OfferModal from "@page-sections/info-blocks/special-offers/OfferModal.astro";
 
 // Homepage banner: full-width photo (or looping video on phones) with the H1 eyebrow, heading and intro
-// on the right, and a navy "Special Offers" bar along the bottom.
+// on the right, and a navy "Special Offers" bar along the bottom. Each offer opens its own form in a popup.
 const {
   id = "",
   eyebrow = "",
@@ -15,10 +16,14 @@ const {
   videoPoster = "",
   offersHeading = "Special Offers",
   offers = [],
+  formText = "",
+  formAction = "",
   class: className,
   _component,
   ...htmlAttributes
 } = Astro.props;
+
+const offerId = (index: number) => `${id || "index-banner"}-offer-${index + 1}`;
 ---
 
 <section class:list={["index-banner", className]} id={id || undefined} {...htmlAttributes}>
@@ -59,22 +64,35 @@ const {
       <aside class="offers">
         <p class="tab">{offersHeading}</p>
         <ul class="no-check">
-          {offers.map((offer: any) => (
+          {offers.map((offer: any, index: number) => (
             <li>
-              <a href={offer.link}>
-                <strong>{offer.text}</strong>
+              <button type="button" data-offer-open={offerId(index)}>
+                <strong>
+                  {offer.amount} {offer.treatment}
+                </strong>
                 <span>
                   {offer.linkText || "View Offer"}
                   <svg viewBox="0 0 35 12" aria-hidden="true">
                     <path d="M0 6h33M28 1l5 5-5 5" />
                   </svg>
                 </span>
-              </a>
+              </button>
             </li>
           ))}
         </ul>
       </aside>
     )
+  }
+  {
+    offers.map((offer: any, index: number) => (
+      <OfferModal
+        id={offerId(index)}
+        amount={offer.amount}
+        treatment={offer.treatment}
+        formText={formText}
+        formAction={offer.formAction || formAction}
+      />
+    ))
   }
 </section>
 
@@ -203,9 +221,13 @@ const {
     margin: 15px 0 0;
   }
 
-  .offers a {
+  .offers button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
     display: block;
-    text-decoration: none;
+    margin: 0 auto;
+    padding: 0;
   }
 
   .offers strong {
@@ -238,11 +260,11 @@ const {
     width: 35px;
   }
 
-  .offers a:hover span {
+  .offers button:hover span {
     color: #fff;
   }
 
-  .offers a:hover svg {
+  .offers button:hover svg {
     transform: translateX(5px);
   }
 

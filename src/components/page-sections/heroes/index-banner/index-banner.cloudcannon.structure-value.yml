@@ -13,5 +13,7 @@ value:
   videoPoster: ""
   offersHeading: Special Offers
   offers: []
+  formText: ""
+  formAction: ""
 _inputs_from_glob:
   - /src/components/page-sections/heroes/index-banner/index-banner.cloudcannon.inputs.yml

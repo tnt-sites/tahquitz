@@ -43,17 +43,28 @@ offersHeading:
   comment: Label on the Special Offers bar.
 offers:
   type: array
-  comment: Offers along the bottom of the banner.
+  comment: Offers along the bottom of the banner. Each one opens a popup with its own form.
   options:
     preview:
       text:
-        - key: text
-"offers[*].text":
+        - key: amount
+      subtext:
+        - key: treatment
+"offers[*].amount":
   type: text
-  comment: The offer (e.g. "$600 Off Dental Implants").
-"offers[*].link":
-  type: url
-  comment: Where the link goes. /promotions/#specials-offer-1 opens the first offer's form on the Special Offers page, -offer-2 the second, and so on.
+  comment: e.g. "$600 Off".
+"offers[*].treatment":
+  type: text
+  comment: e.g. "Dental Implants". Sent with the form so the office knows which offer was redeemed.
 "offers[*].linkText":
   type: text
-  comment: Link text. Defaults to "View Offer".
+  comment: Text under the offer. Defaults to "View Offer".
+"offers[*].formAction":
+  type: text
+  comment: Optional form address for this offer only. Leave empty to use the form address below.
+formText:
+  type: textarea
+  comment: Short line above each offer's form in the popup.
+formAction:
+  type: text
+  comment: Form address every offer's form posts to, unless an offer sets its own.
