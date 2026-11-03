@@ -32,8 +32,8 @@ pageSections:
     heading: "Dental Implants with Tahquitz Dental Group"
     subtext: |-
       With the many advantages of dental implants, perhaps you are considering them for yourself or for a loved one. If so, give Tahquitz Dental Group in Palm Springs a call and set up a consultation appointment. We look forward to meeting you!
-    imageSource: ""
-    imageAlt: ""
+    imageSource: "/src/assets/images/services/why-choose-dental-implants-3.webp"
+    imageAlt: "Smiling woman checking her new teeth in a hand mirror at Tahquitz Dental Group"
     imageLeft: true
     compact: false
     background: white

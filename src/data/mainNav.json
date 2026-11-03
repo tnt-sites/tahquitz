@@ -281,13 +281,7 @@
     {
       "name": "Reviews",
       "path": "/about-us/testimonials/",
-      "children": [
-        {
-          "name": "Written Reviews",
-          "path": "/about-us/testimonials/",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "name": "Contact",

@@ -84,14 +84,15 @@ const hasVideo = videoType === "youtube" ? youtubeId : videoSource;
     margin: 0 0 30px;
   }
 
+  /* No wider than the 848px source video so the poster and playback aren't upscaled (blurry) */
   figure :global(.video) {
     height: auto;
     margin: 0 auto;
-    max-width: 980px;
+    max-width: 850px;
     width: 100%;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1025px) {
     .doctor-bio {
       padding-top: 60px;
     }

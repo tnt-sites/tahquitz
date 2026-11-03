@@ -61,10 +61,12 @@ const {
     margin: 0;
   }
 
+  /* Stacked photo: capped so it doesn't fill the whole screen on tablets */
   figure :global(img) {
     aspect-ratio: 4 / 3;
     display: block;
     height: 100%;
+    max-height: 500px;
     object-fit: cover;
     width: 100%;
   }
@@ -114,19 +116,22 @@ const {
     color: var(--color-brand);
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1025px) {
     figure {
       width: 50%;
     }
 
     figure :global(img) {
       aspect-ratio: auto;
+      max-height: none;
       min-height: 620px;
     }
 
+    /* Narrower desktops: smaller heading and padding so long words (e.g. "Transformational") fit the
+       half-width panel instead of breaking mid-word */
     article {
       max-width: 700px;
-      padding: 50px 50px 50px 70px;
+      padding: 50px 40px;
       width: 50%;
     }
 
@@ -134,6 +139,18 @@ const {
       font-size: 17px;
     }
 
+    h2 {
+      font-size: 40px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    h2 {
+      font-size: 48px;
+    }
+  }
+
+  @media (min-width: 1440px) {
     h2 {
       font-size: 55px;
     }

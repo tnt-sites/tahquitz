@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+/* lg: starts at 1025px so Tailwind layouts switch at the same point as the scoped
+   (min-width: 1025px) rules and the header's mobile menu (max-width: 1024px) */
+/* stylelint-disable-next-line at-rule-no-unknown -- Tailwind v4 directive */
+@theme {
+  --breakpoint-lg: 64.0625rem;
+}

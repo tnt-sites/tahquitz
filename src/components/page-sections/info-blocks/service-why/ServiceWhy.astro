@@ -3,56 +3,68 @@ import { Image } from "astro:assets";
 import toothIcon from "@assets/images/tooth-icon.png";
 
 // Light blue "Why choose Tahquitz Dental Group for ...?" band with three reasons.
+// An item written as "Title: details" shows only the title; the details pop up in a box under the
+// icon on hover (or tap/keyboard focus). Items without a colon show as-is.
 const { id = "", heading = "", items = [], class: className, _component, ...htmlAttributes } =
   Astro.props;
+
+const splitItem = (item: string) => {
+  const colon = item.indexOf(":");
+  if (colon === -1) return { title: item, detail: "" };
+  return { title: item.slice(0, colon).trim(), detail: item.slice(colon + 1).trim() };
+};
 ---
 
 <section class:list={["service-why", className]} id={id || undefined} {...htmlAttributes}>
   {heading && <h2 data-prop="heading">{heading}</h2>}
   <ul class="no-check block text-center lg:flex justify-around">
     {
-      items.map((item: string) => (
-        <li>
-          <Image src={toothIcon} alt="" width={35} height={35} />
-          <span>{item}</span>
-        </li>
-      ))
+      items.map((item: string) => {
+        const { title, detail } = splitItem(item);
+        return (
+          <li class:list={{ "has-detail": detail }} tabindex={detail ? 0 : undefined}>
+            <Image src={toothIcon} alt="" width={35} height={35} />
+            <span>{title}</span>
+            {detail && <p class="detail">{detail}</p>}
+          </li>
+        );
+      })
     }
   </ul>
 </section>
 
 <style>
   .service-why {
-    padding: 25px 20px 30px;
     background-color: var(--color-brand);
+    padding: 25px 20px 30px;
     text-align: center;
   }
 
   h2 {
-    margin: 0 0 15px;
     font-family: var(--font-accent);
     font-size: 17px;
     font-weight: 600;
     letter-spacing: 0.1em;
     line-height: 1.3;
+    margin: 0 0 15px;
   }
 
   ul {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0;
     list-style: none;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0;
   }
 
   li {
-    max-width: 360px;
     margin: 0 auto 20px;
+    max-width: 360px;
   }
 
   li img {
     display: block;
-    margin: 0 auto 5px;
     filter: brightness(0);
+    margin: 0 auto 5px;
   }
 
   span {
@@ -64,9 +76,75 @@ const { id = "", heading = "", items = [], class: className, _component, ...html
     text-transform: uppercase;
   }
 
-  @media (min-width: 1024px) {
+  /* Hover details: white box with a small pointer, hidden until the item is hovered or focused.
+     The site's base `main ul`/`li` styles set overflow: hidden, which would clip the popup. */
+  ul:has(.has-detail),
+  .has-detail {
+    overflow: visible;
+  }
+
+  .has-detail {
+    cursor: help;
+    position: relative;
+  }
+
+  .has-detail:focus {
+    outline: none;
+  }
+
+  .has-detail:focus-visible span {
+    text-decoration: underline;
+  }
+
+  .detail {
+    background-color: #fff;
+    box-shadow: 0 5px 20px rgb(0 0 0 / 20%);
+    color: var(--color-text);
+    font-size: 16px;
+    left: 50%;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 300px;
+    opacity: 0;
+    padding: 15px 20px;
+    pointer-events: none;
+    position: absolute;
+    top: 100%;
+    transform: translate(-50%, 10px);
+    transition:
+      opacity var(--animation-normal) ease-in-out,
+      visibility var(--animation-normal) ease-in-out;
+    visibility: hidden;
+    width: 300px;
+    z-index: var(--layer-1, 10);
+  }
+
+  .detail::before {
+    border: 10px solid transparent;
+    border-bottom-color: #fff;
+    border-top: 0;
+    content: "";
+    left: 50%;
+    position: absolute;
+    top: -10px;
+    transform: translateX(-50%);
+  }
+
+  .has-detail:hover .detail,
+  .has-detail:focus .detail,
+  .has-detail:focus-within .detail {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (min-width: 1025px) {
     li {
       margin: 0;
+    }
+
+    /* Short titles: equal-width columns so the row stays evenly spaced */
+    .has-detail {
+      flex: 0 1 300px;
     }
 
     span {

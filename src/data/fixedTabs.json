@@ -19,7 +19,7 @@
     {
       "itemClass": "map",
       "enabled": true,
-      "href": "https://maps.app.goo.gl/KPtLrwZPzfEXaVrv5",
+      "href": "https://maps.app.goo.gl/kAiriM1AxgeoKwEa6",
       "target": "_blank",
       "icon": "map-pin",
       "textStrong": "View ",
@@ -45,7 +45,7 @@
     {
       "itemClass": "gg",
       "enabled": true,
-      "href": "https://maps.app.goo.gl/KPtLrwZPzfEXaVrv5",
+      "href": "https://maps.app.goo.gl/kAiriM1AxgeoKwEa6",
       "target": "_blank",
       "icon": "social/google",
       "textMobile": "Read",

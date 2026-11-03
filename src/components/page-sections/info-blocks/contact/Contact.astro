@@ -240,13 +240,18 @@ const htmlAttributes = Object.fromEntries(
       }
     }
 
-    @media (max-width: 768px) {
+    /* Tablets and phones: office info stacked over the hours, both centered */
+    @media (max-width: 1024px) {
       .content {
         display: block;
         text-align: center;
         > div:first-child,
         .contact p {
           margin: 10px auto;
+        }
+        > div:last-child {
+          margin: 30px auto 0;
+          max-width: 100%;
         }
       }
     }

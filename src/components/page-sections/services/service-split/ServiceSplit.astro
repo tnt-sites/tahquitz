@@ -70,26 +70,26 @@ const HeadingTag = compact ? "h3" : "h2";
   }
 
   .service-split > div {
-    max-width: 1150px;
     margin: 0 auto;
+    max-width: 1150px;
   }
 
   figure {
-    max-width: 500px;
     margin: 0 auto 30px;
+    max-width: 500px;
   }
 
   figure :global(img) {
-    display: block;
-    width: 100%;
-    height: auto;
     aspect-ratio: 5 / 4;
+    display: block;
+    height: auto;
     object-fit: cover;
+    width: 100%;
   }
 
   article {
-    max-width: 590px;
     margin: 0 auto;
+    max-width: 590px;
   }
 
   .no-image article {
@@ -97,15 +97,15 @@ const HeadingTag = compact ? "h3" : "h2";
   }
 
   h2 {
-    margin: 0 0 20px;
     font-size: 36px;
     line-height: 1.1;
+    margin: 0 0 20px;
   }
 
   h3 {
-    margin: 0 0 15px;
     font-size: 22px;
     line-height: 1.25;
+    margin: 0 0 15px;
   }
 
   article :global(.text) {
@@ -127,8 +127,9 @@ const HeadingTag = compact ? "h3" : "h2";
     margin-bottom: 0;
   }
 
+  /* Centered under the centered text on phones and tablets */
   article :global(.button-group) {
-    margin-top: 25px;
+    margin: 25px auto 0;
   }
 
   article :global(.button-group > *) {
@@ -151,17 +152,23 @@ const HeadingTag = compact ? "h3" : "h2";
     max-width: 800px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1025px) {
     .service-split {
       padding: 100px 20px;
     }
 
+    /* Photo and text share the row and shrink together on narrower desktops, with a fixed gap between */
+    .service-split > div {
+      gap: 50px;
+    }
+
     figure {
-      flex: 0 0 500px;
+      flex: 0 1 500px;
       margin: 0;
     }
 
     article {
+      flex: 0 1 590px;
       margin: 0;
     }
 
@@ -173,6 +180,10 @@ const HeadingTag = compact ? "h3" : "h2";
       font-size: 29px;
     }
 
+    article :global(.button-group) {
+      margin-left: 0;
+    }
+
     article :global(.button-group > *) {
       justify-content: flex-start;
     }
@@ -181,17 +192,16 @@ const HeadingTag = compact ? "h3" : "h2";
       padding-block: 25px;
     }
 
+    .compact > div {
+      gap: 60px;
+    }
+
     .compact figure {
       flex: 0 0 300px;
     }
 
     .compact article {
       flex: 1;
-      margin-left: 60px;
-    }
-
-    .compact .lg\:flex-row-reverse article {
-      margin: 0 60px 0 0;
     }
   }
 </style>

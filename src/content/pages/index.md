@@ -15,8 +15,8 @@ pageSections:
       dentistry](/palm-springs-ca/cosmetic-dentistry/), we’re here for you.
     imageSource: /src/assets/images/home/banner.webp
     imageAlt: Tahquitz Dental Group front door with the dentists’ names on the glass
-    videoSource: /videos/home/banner-loop.mp4
-    videoPoster: /images/home/banner-loop-poster.webp
+    videoSource: ''
+    videoPoster: ''
     offersHeading: Special Offers
     offers:
       - amount: $600 Off
@@ -115,6 +115,24 @@ pageSections:
           the service has consistently been top-notch.
         authorName: Vincent
         reviewerImage: /src/assets/images/home/reviewer-vincent.webp
+      - text: >-
+          Tahquitz dental staff was very professional and transparent. Crown
+          procedure was quick and successful.
+        authorName: Eric D
+        reviewerImage: ''
+      - text: >-
+          Super friendly, super professional, super competent! I love the fact
+          that they’re local, but I love the fact more that they are really good
+          at what they do and they do it all with a smile.
+        authorName: Todd S
+        reviewerImage: ''
+      - text: >-
+          Dr. Fowobaja is very gentle and calm. Hygentist America explained
+          everything to me and left my teeth feeling amazing. Everyone I've
+          interacted with here has been lovely. Glad I found my new dentist
+          office!
+        authorName: Crystal W
+        reviewerImage: ''
     buttonSections:
       - _component: building-blocks/core-elements/button
         text: View More Reviews

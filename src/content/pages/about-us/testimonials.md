@@ -13,7 +13,7 @@ pageSections:
     buttonSections:
       - _component: building-blocks/core-elements/button
         text: "Read Our Google Reviews"
-        link: "https://maps.app.goo.gl/KPtLrwZPzfEXaVrv5"
+        link: "https://maps.app.goo.gl/kAiriM1AxgeoKwEa6"
         variant: primary
         size: md
         borderRadius: none
@@ -38,7 +38,7 @@ pageSections:
     buttonSections:
       - _component: building-blocks/core-elements/button
         text: "Leave Us a Google Review"
-        link: "https://maps.app.goo.gl/KPtLrwZPzfEXaVrv5"
+        link: "https://maps.app.goo.gl/kAiriM1AxgeoKwEa6"
         variant: primary
         size: md
         borderRadius: none
