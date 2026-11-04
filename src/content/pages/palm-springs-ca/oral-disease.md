@@ -14,7 +14,7 @@ pageSections:
     heading: "Why Choose Tahquitz Dental Group for Oral Disease Treatment?"
     items:
       - "Compassionate & Experienced Dentists"
-      - "We Offer Flexible Financing Through CareCredit & Cherry"
+      - "We Offer Flexible Financing Through Cherry & CareCredit"
       - "State-of-the-Art Technology for Diagnostic Precision"
   - _component: page-sections/services/service-split
     anchorName: "common-oral-diseases"

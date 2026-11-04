@@ -1,0 +1,55 @@
+<!-- CHERRY WIDGET BEGIN -->
+<!-- Builder's full-page snippet with the floating button merged in (one init per page), so the layout
+     skips floating-button.html on this page -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet" />
+<script>
+    (function (w, d, s, o, f, js, fjs) {
+        w[o] = w[o] || function () {
+            (w[o].q = w[o].q || []).push(arguments);
+        };
+        (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
+        js.id = o;
+        js.src = f;
+        js.async = 1;
+        fjs.parentNode.insertBefore(js, fjs);
+    })(window, document, "script", "_hw", "https://files.withcherry.com/widgets/widget.js");
+    _hw("init", {
+        debug: false,
+        variables: {
+            slug: "tahquitz-dental-group",
+            name: "Tahquitz Dental Group",
+            images: "none",
+            customLogo: "",
+            defaultPurchaseAmount: 2000,
+            customImage: "",
+            imageCategory: "dental",
+            language: "en",
+        },
+        styles: {
+            primaryColor: "#596FD4",
+            secondaryColor: "#596FD410",
+            fontFamily: "Montserrat",
+            headerFontFamily: "Montserrat",
+            floatingEstimator: {
+                position: "bottom-right",
+                offset: {
+                    x: "0px",
+                    y: "0px"
+                },
+                zIndex: 9999,
+                ctaFontFamily: "Montserrat",
+                bodyFontFamily: "Montserrat",
+                ctaColor: "#596FD4",
+                ctaTextColor: "#FFFFFF"
+            }
+        }
+    }, ["hero","calculator","howitworks","faq","floatingEstimator"]);
+</script>
+<div id="all"></div>
+<div id="hero"></div>
+<div id="calculator"></div>
+<div id="howitworks"></div>
+<div id="testimony"></div>
+<div id="faq"></div>
+<div id="floatingEstimator"></div>
+<!-- CHERRY WIDGET END -->

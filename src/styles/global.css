@@ -6,3 +6,12 @@
 @theme {
   --breakpoint-lg: 64.0625rem;
 }
+
+/* Cherry floating "Pay over time" button (src/data/cherry/floating-button.html). On tablet and mobile,
+   lift it above the fixed Request/Call/Map tabs and keep it under the slide-out menu (z-index 50). */
+@media (max-width: 1024px) {
+  [class*="floatingEstimator-floatingContainer"] {
+    transform: translateY(-45px);
+    z-index: 40 !important;
+  }
+}

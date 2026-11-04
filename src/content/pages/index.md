@@ -214,8 +214,8 @@ pageSections:
         below to apply.
       buttonSections:
         - _component: building-blocks/core-elements/button
-          text: Apply for Cherry
-          link: https://withcherry.com/consumers
+          text: Cherry Payment Plan
+          link: /for-patients/cherry-payment-plan/
           variant: tertiary
           size: md
           borderRadius: none
@@ -228,10 +228,10 @@ pageSections:
           borderRadius: none
           uppercase: true
     logos:
-      - imageSource: /src/assets/images/financing/carecredit.svg
-        imageAlt: CareCredit
       - imageSource: /src/assets/images/financing/cherry.svg
         imageAlt: Cherry
+      - imageSource: /src/assets/images/financing/carecredit.svg
+        imageAlt: CareCredit
     membership:
       heading: |-
         Join Our

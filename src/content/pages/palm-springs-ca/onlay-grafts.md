@@ -16,7 +16,7 @@ pageSections:
     heading: "Why Choose Tahquitz Dental Group for Onlay Bone Grafts?"
     items:
       - "Compassionate & Experienced Dentists"
-      - "We Offer Flexible Financing Through CareCredit & Cherry"
+      - "We Offer Flexible Financing Through Cherry & CareCredit"
       - "State-of-the-Art Technology for Treatment Precision"
   - _component: page-sections/services/service-split
     anchorName: "moving-bone-from-one-place-to-another"

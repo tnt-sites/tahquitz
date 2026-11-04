@@ -1,0 +1,8 @@
+label: Cherry Widget
+icon: payments
+description: Cherry payment plan widget. The embed code lives in src/data/cherry/full-page.html (ask a developer to change it).
+value:
+  _component: page-sections/info-blocks/cherry-widget
+  id: ""
+_inputs_from_glob:
+  - /src/components/page-sections/info-blocks/cherry-widget/cherry-widget.cloudcannon.inputs.yml

@@ -262,6 +262,11 @@
       "path": "/for-patients/",
       "children": [
         {
+          "name": "Cherry Payment Plan",
+          "path": "/for-patients/cherry-payment-plan/",
+          "children": []
+        },
+        {
           "name": "Dental Financing",
           "path": "/for-patients/#financing",
           "children": []

@@ -15,7 +15,7 @@ pageSections:
     items:
       - "Consecutive Winners of Best of Coachella Valley"
       - "2 Skilled Dentists with Extensive Training"
-      - "We Offer Flexible Financing Through CareCredit & Cherry"
+      - "We Offer Flexible Financing Through Cherry & CareCredit"
   - _component: page-sections/services/service-split
     anchorName: "veneers"
     heading: "Veneers"

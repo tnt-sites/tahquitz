@@ -1,0 +1,34 @@
+---
+import fullPageSnippet from "@data/cherry/full-page.html?raw";
+
+// Cherry payment plan widget (full page). The embed code comes from Cherry's Widget Builder and is pasted
+// into src/data/cherry/full-page.html; this section just drops it on the page.
+const { id = "", class: className, _component, ...htmlAttributes } = Astro.props;
+---
+
+{
+  fullPageSnippet.trim() && (
+    <section class:list={["cherry-widget", className]} id={id || undefined} {...htmlAttributes}>
+      <div class="block">
+        <Fragment set:html={fullPageSnippet} />
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .cherry-widget {
+    padding: 40px 20px;
+  }
+
+  .cherry-widget > div {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+
+  @media (min-width: 1025px) {
+    .cherry-widget {
+      padding: 60px 20px;
+    }
+  }
+</style>

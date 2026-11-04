@@ -3,6 +3,7 @@ import FixedTabs from "@components/navigation/fixed-tabs/FixedTabs.astro";
 import Footer from "@components/navigation/footer/Footer.astro";
 import MainNavigation from "@components/navigation/main-nav/MainNav.astro";
 import Components from "@components/utils/renderBlock.astro";
+import cherryFloatingButton from "@data/cherry/floating-button.html?raw";
 import fixedTabsData from "@data/fixedTabs.json";
 import footerData from "@data/footer.json";
 import mainNavData from "@data/mainNav.json";
@@ -49,6 +50,10 @@ const image = frontmatter?.image ?? imageProp;
 const canonical = frontmatter?.canonical ?? canonicalProp;
 const pageSections = frontmatter?.pageSections;
 const hasPageSections = pageSections && pageSections.length > 0;
+// The Cherry Widget section already loads the floating button, so don't load Cherry twice on that page
+const hasCherryWidget = (pageSections ?? []).some(
+  (section: any) => section?._component === "page-sections/info-blocks/cherry-widget"
+);
 const hasSlotContent = Astro.slots.has("default");
 const fixedTabItems = Array.isArray(fixedTabs?.tabs) ? fixedTabs.tabs : [];
 const hasActiveFixedTabs = fixedTabItems.some((tab: any) => tab?.enabled !== false);
@@ -90,4 +95,6 @@ const footerSiteName = (footer as any)?.siteName || (siteInfo as any)?.siteName;
     data-fixed-tabs-active={hasActiveFixedTabs ? "true" : undefined}
   />
   <FixedTabs {...fixedTabs} />
+  {/* Cherry floating button: embed code pasted from Cherry's Widget Builder */}
+  {!hasCherryWidget && cherryFloatingButton.trim() && <Fragment set:html={cherryFloatingButton} />}
 </Layout>

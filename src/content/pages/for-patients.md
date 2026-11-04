@@ -15,7 +15,7 @@ pageSections:
     anchorName: "financing"
     heading: "Dental Financing Available"
     subtext: |-
-      For our patients who are receiving care that isn’t covered by dental insurance or who are uninsured, we offer flexible monthly financing options through CareCredit and Cherry. All you need to do to learn whether you qualify is fill out an application using the links below. If you would like our team’s help, we’re happy to assist you during your appointment, or you can give us a call.
+      For our patients who are receiving care that isn’t covered by dental insurance or who are uninsured, we offer flexible monthly financing options through Cherry and CareCredit. All you need to do to learn whether you qualify is fill out an application using the links below. If you would like our team’s help, we’re happy to assist you during your appointment, or you can give us a call.
     imageSource: "/src/assets/images/pages/financing.webp"
     imageAlt: "Smiling patient"
     imageLeft: false
@@ -23,15 +23,15 @@ pageSections:
     background: tint
     buttonSections:
       - _component: building-blocks/core-elements/button
-        text: "Apply for CareCredit"
-        link: "https://www.carecredit.com/apply/"
+        text: "Cherry Payment Plan"
+        link: "/for-patients/cherry-payment-plan/"
         variant: primary
         size: md
         borderRadius: none
         uppercase: true
       - _component: building-blocks/core-elements/button
-        text: "Apply for Cherry"
-        link: "https://withcherry.com/consumers"
+        text: "Apply for CareCredit"
+        link: "https://www.carecredit.com/apply/"
         variant: primary
         size: md
         borderRadius: none

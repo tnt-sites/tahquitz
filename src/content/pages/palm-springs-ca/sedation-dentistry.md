@@ -14,7 +14,7 @@ pageSections:
     heading: "Why Choose Tahquitz Dental Group for Sedation Dentistry?"
     items:
       - "2 Skilled Dentists with Extensive Training"
-      - "We Offer Flexible Financing Through CareCredit & Cherry"
+      - "We Offer Flexible Financing Through Cherry & CareCredit"
       - "Compassionate & Judgement-Free Team"
   - _component: page-sections/services/service-split
     anchorName: "topical-pain-management"

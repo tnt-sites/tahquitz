@@ -13,7 +13,7 @@ pageSections:
   - _component: page-sections/info-blocks/service-why
     heading: "Why Choose Tahquitz Dental Group for Impacted Canine Treatment?"
     items:
-      - "We Offer Flexible Financing Through CareCredit & Cherry"
+      - "We Offer Flexible Financing Through Cherry & CareCredit"
       - "State-of-the-Art Technology for Treatment Precision"
       - "Consecutive Winners of Best of Coachella Valley"
   - _component: page-sections/services/service-split

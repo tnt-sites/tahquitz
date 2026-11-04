@@ -16,7 +16,7 @@ pageSections:
     heading: "Why Choose Tahquitz Dental Group for Teeth Whitening?"
     items:
       - "Made with Clinically Proven & Safe Ingredients"
-      - "We Offer Flexible Financing Through CareCredit & Cherry"
+      - "We Offer Flexible Financing Through Cherry & CareCredit"
       - "Consecutive Winners of Best of Coachella Valley"
   - _component: page-sections/services/service-split
     anchorName: "quick-and-easy-whitening-procedures"
