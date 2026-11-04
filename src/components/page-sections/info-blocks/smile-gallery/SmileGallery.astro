@@ -98,10 +98,14 @@ const {
     margin: 25px 0 0;
   }
 
+  /* Arrows sit above the slides so the full-width figure can never cover them */
   .smile-gallery :global(.carousel > .controls-wrapper > .prev),
   .smile-gallery :global(.carousel > .controls-wrapper > .next) {
     border-radius: 0;
+    cursor: pointer;
     padding: 0;
+    position: relative;
+    z-index: 2;
   }
 
   /* The carousel flips its default prev arrow; ours is already drawn pointing left */
