@@ -30,8 +30,8 @@ pageSections:
     heading: "Leave Us a Review"
     subtext: |-
       Whether you’ve been visiting us for some time or you just came in to see us for the first time today, we would love to hear about your experience. We would appreciate you taking the time to leave us a Google review to let us know how we did so we can continue providing you with top-tier service.
-    imageSource: ""
-    imageAlt: ""
+    imageSource: "/src/assets/images/pages/reviews-2.webp"
+    imageAlt: "Patient leaving a review on their phone"
     imageLeft: false
     compact: false
     background: tint
@@ -48,8 +48,8 @@ pageSections:
     heading: "Share Feedback with the CEO"
     subtext: |-
       Would you like to submit feedback about your experience? You can do so directly with our CEO, Dr. Dev. By clicking on the link below, you will be able to email our CEO to tell them more about your experience with us!
-    imageSource: ""
-    imageAlt: ""
+    imageSource: "/src/assets/images/pages/reviews-3.webp"
+    imageAlt: "Tahquitz Dental Group sign outside the Palm Springs office"
     imageLeft: true
     compact: false
     background: white
