@@ -23,11 +23,16 @@ const {
         ways.map((way: any, index: number) => (
           <li>
             <figure>
-              <Image source={way.iconSource} alt="" data-prop-src={`ways.${index}.iconSource`} />
+              <Image
+                source={way.iconSource}
+                alt={way.iconAlt}
+                data-prop-src={`ways.${index}.iconSource`}
+                data-prop-alt={`ways.${index}.iconAlt`}
+              />
             </figure>
             <article>
-              <h3>{way.title}</h3>
-              <Text text={way.text} />
+              <h3 data-prop={`ways.${index}.title`}>{way.title}</h3>
+              <Text text={way.text} data-prop={`ways.${index}.text`} />
             </article>
             {way.buttonText && way.link && (
               <Button

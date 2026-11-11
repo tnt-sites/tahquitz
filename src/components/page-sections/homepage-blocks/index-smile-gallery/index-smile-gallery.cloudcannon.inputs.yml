@@ -17,13 +17,11 @@ cases:
   options:
     preview:
       text:
-        - key: name
         - Before & After
+      subtext:
+        - key: afterImageAlt
       image:
         - key: afterImage
-"cases[*].name":
-  type: text
-  comment: Optional, used only in the photos' alt text (e.g. "Patient with dental implants").
 "cases[*].beforeImage":
   type: image
   comment: Before photo (shown on top). Landscape, about 7:4.
@@ -31,6 +29,9 @@ cases:
     paths:
       uploads: src/assets/images
       static: ""
+"cases[*].beforeImageAlt":
+  type: text
+  comment: Describes the before photo (e.g. "Patient's smile before dental implants").
 "cases[*].afterImage":
   type: image
   comment: After photo (shown underneath). Same size as the before photo.
@@ -38,6 +39,9 @@ cases:
     paths:
       uploads: src/assets/images
       static: ""
+"cases[*].afterImageAlt":
+  type: text
+  comment: Describes the after photo (e.g. "Patient's smile after dental implants").
 buttonSections:
   type: array
   comment: Button below the photos (e.g. "View Our Smile Gallery").

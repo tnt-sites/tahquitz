@@ -50,11 +50,12 @@ const lines = (value: string = "") => value.split("\n").filter(Boolean);
               </h3>
             )
           }
-          <Text text={financing.text} />
+          <Text text={financing.text} data-prop="financing.text" />
           {
             financing.buttonSections?.length > 0 && (
               <ButtonGroup
                 buttonSections={financing.buttonSections}
+                propName="financing.buttonSections"
                 direction="column"
                 width="content"
                 alignX="center"
@@ -92,11 +93,12 @@ const lines = (value: string = "") => value.split("\n").filter(Boolean);
             </h3>
           )
         }
-        <Text text={membership.text} />
+        <Text text={membership.text} data-prop="membership.text" />
         {
           membership.buttonSections?.length > 0 && (
             <ButtonGroup
               buttonSections={membership.buttonSections}
+              propName="membership.buttonSections"
               width="content"
               alignX="center"
             />

@@ -20,6 +20,9 @@ ways:
     paths:
       uploads: src/assets/images
       static: ""
+"ways[*].iconAlt":
+  type: text
+  comment: Usually leave empty, since the icon is decorative and the title says what it means.
 "ways[*].title":
   type: text
   comment: e.g. "Online".

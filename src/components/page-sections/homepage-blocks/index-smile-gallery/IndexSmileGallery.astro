@@ -29,13 +29,15 @@ const {
               <Image
                 source={item.beforeImage}
                 data-prop-src={`cases.${index}.beforeImage`}
-                alt={item.name ? `${item.name} before treatment` : "Before treatment"}
+                data-prop-alt={`cases.${index}.beforeImageAlt`}
+                alt={item.beforeImageAlt}
                 sizes="(min-width: 1025px) 380px, 100vw"
               />
               <Image
                 source={item.afterImage}
                 data-prop-src={`cases.${index}.afterImage`}
-                alt={item.name ? `${item.name} after treatment` : "After treatment"}
+                data-prop-alt={`cases.${index}.afterImageAlt`}
+                alt={item.afterImageAlt}
                 sizes="(min-width: 1025px) 380px, 100vw"
               />
             </figure>

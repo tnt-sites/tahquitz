@@ -115,17 +115,20 @@ pageSections:
           the service has consistently been top-notch.
         authorName: Vincent
         reviewerImage: /src/assets/images/home/reviewer-vincent.webp
+        reviewerImageAlt: ''
       - text: >-
           Tahquitz dental staff was very professional and transparent. Crown
           procedure was quick and successful.
         authorName: Eric D
         reviewerImage: ''
+        reviewerImageAlt: ''
       - text: >-
           Super friendly, super professional, super competent! I love the fact
           that they’re local, but I love the fact more that they are really good
           at what they do and they do it all with a smile.
         authorName: Todd S
         reviewerImage: ''
+        reviewerImageAlt: ''
       - text: >-
           Dr. Fowobaja is very gentle and calm. Hygentist America explained
           everything to me and left my teeth feeling amazing. Everyone I've
@@ -133,6 +136,7 @@ pageSections:
           office!
         authorName: Crystal W
         reviewerImage: ''
+        reviewerImageAlt: ''
     buttonSections:
       - _component: building-blocks/core-elements/button
         text: View More Reviews
@@ -183,15 +187,18 @@ pageSections:
       lives. We invite you to what our award-winning care can do for you by
       exploring our smile gallery.
     cases:
-      - name: ''
-        beforeImage: /src/assets/images/home/smile-gallery/smile-1-before.webp
+      - beforeImage: /src/assets/images/home/smile-gallery/smile-1-before.webp
+        beforeImageAlt: Before treatment
         afterImage: /src/assets/images/home/smile-gallery/smile-1-after.webp
-      - name: ''
-        beforeImage: /src/assets/images/home/smile-gallery/smile-2-before.webp
+        afterImageAlt: After treatment
+      - beforeImage: /src/assets/images/home/smile-gallery/smile-2-before.webp
+        beforeImageAlt: Before treatment
         afterImage: /src/assets/images/home/smile-gallery/smile-2-after.webp
-      - name: ''
-        beforeImage: /src/assets/images/home/smile-gallery/smile-3-before.webp
+        afterImageAlt: After treatment
+      - beforeImage: /src/assets/images/home/smile-gallery/smile-3-before.webp
+        beforeImageAlt: Before treatment
         afterImage: /src/assets/images/home/smile-gallery/smile-3-after.webp
+        afterImageAlt: After treatment
     buttonSections:
       - _component: building-blocks/core-elements/button
         text: View Our Smile Gallery
@@ -253,6 +260,7 @@ pageSections:
     heading: 3 Easy Ways to Book Your Visit
     ways:
       - iconSource: /src/assets/images/home/booking/book-online.svg
+        iconAlt: ''
         title: Online
         text: >-
           There’s no need to call. You can find the time and day that work best
@@ -260,6 +268,7 @@ pageSections:
         buttonText: Online Scheduling
         link: https://www.patientsreach.io/schedule/tahquitzdentalgroup/patient_types/?avoid_skipping_pages=true
       - iconSource: /src/assets/images/home/booking/virtual-consult.svg
+        iconAlt: ''
         title: Free Virtual Consult
         text: >-
           Gain a better understanding of your dental goals by requesting a free
@@ -267,6 +276,7 @@ pageSections:
         buttonText: Get Started
         link: /contact-us/virtual-consult/
       - iconSource: /src/assets/images/home/booking/call-us.svg
+        iconAlt: ''
         title: By Phone
         text: >-
           If you prefer to speak with us, don’t hesitate to give our team a call

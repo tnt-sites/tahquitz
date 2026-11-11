@@ -6,6 +6,7 @@ const {
   alignX = "start",
   width = "full",
   buttonSections,
+  propName = "buttonSections",
   editable = true,
   class: className,
   label,
@@ -52,7 +53,7 @@ if (!_component && !hasButtonSections && !hasSlotContent) return;
   <slot>
     {
       buttonSections && buttonSections.length > 0 && (
-        <Component contentSections={buttonSections} editable={editable} propName="buttonSections" />
+        <Component contentSections={buttonSections} editable={editable} propName={propName} />
       )
     }
   </slot>

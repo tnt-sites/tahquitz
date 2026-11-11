@@ -40,7 +40,8 @@ const starPath = "M10 1l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 14.5 4.6 17.5l1.2-6L1.3 7
                   <Image
                     source={review.reviewerImage}
                     data-prop-src={`reviews.${index}.reviewerImage`}
-                    alt=""
+                    data-prop-alt={`reviews.${index}.reviewerImageAlt`}
+                    alt={review.reviewerImageAlt}
                     widths={[80, 160]}
                     sizes="40px"
                   />

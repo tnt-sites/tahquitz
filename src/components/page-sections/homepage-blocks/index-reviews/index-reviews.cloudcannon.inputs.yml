@@ -28,6 +28,9 @@ reviews:
     paths:
       uploads: src/assets/images
       static: ""
+"reviews[*].reviewerImageAlt":
+  type: text
+  comment: Usually leave empty, since the reviewer's name is shown next to the photo.
 buttonSections:
   type: array
   comment: Button below the slider (e.g. "View More Reviews").

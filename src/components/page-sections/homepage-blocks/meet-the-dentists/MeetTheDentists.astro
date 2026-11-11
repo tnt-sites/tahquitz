@@ -33,10 +33,10 @@ const {
     </figure>
     <ul class="no-check">
       {
-        dentists.map((dentist: any) => (
+        dentists.map((dentist: any, index: number) => (
           <li style={`background-image: url(${bgTriangles.src})`}>
-            <h3>{dentist.name}</h3>
-            <Text text={dentist.bio} />
+            <h3 data-prop={`dentists.${index}.name`}>{dentist.name}</h3>
+            <Text text={dentist.bio} data-prop={`dentists.${index}.bio`} />
             {dentist.buttonText && dentist.link && (
               <Button
                 text={dentist.buttonText}
