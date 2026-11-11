@@ -65,9 +65,14 @@ const lines = (value: string = "") => value.split("\n").filter(Boolean);
         {
           logos.length > 0 && (
             <ul class="logos no-check">
-              {logos.map((logo: any) => (
+              {logos.map((logo: any, index: number) => (
                 <li style={`flex: 0 1 ${logoWidth(logo.imageSource)}px`}>
-                  <Image source={logo.imageSource} alt={logo.imageAlt} />
+                  <Image
+                    source={logo.imageSource}
+                    alt={logo.imageAlt}
+                    data-prop-src={`logos.${index}.imageSource`}
+                    data-prop-alt={`logos.${index}.imageAlt`}
+                  />
                 </li>
               ))}
             </ul>

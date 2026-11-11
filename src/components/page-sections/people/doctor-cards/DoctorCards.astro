@@ -8,11 +8,16 @@ const { id = "", doctors = [], class: className, _component, ...htmlAttributes }
 <section class:list={["doctor-cards", className]} id={id || undefined} {...htmlAttributes}>
   <ul class="block lg:flex justify-center no-check">
     {
-      doctors.map((doctor: any) => (
+      doctors.map((doctor: any, index: number) => (
         <li>
           <a href={doctor.link}>
             <figure>
-              <Image source={doctor.imageSource} alt={doctor.imageAlt} />
+              <Image
+                source={doctor.imageSource}
+                alt={doctor.imageAlt}
+                data-prop-src={`doctors.${index}.imageSource`}
+                data-prop-alt={`doctors.${index}.imageAlt`}
+              />
               <figcaption>
                 <span class="name">{doctor.name}</span>
                 {doctor.buttonText && <span class="more">{doctor.buttonText}</span>}

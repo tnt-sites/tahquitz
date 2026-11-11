@@ -26,7 +26,12 @@ const {
         slides.map((slide: any, index: number) => (
           <CarouselSlide aria-label={`Slide ${index + 1} of ${slides.length}`}>
             <figure>
-              <Image source={slide.imageSource} alt={slide.imageAlt} />
+              <Image
+                source={slide.imageSource}
+                alt={slide.imageAlt}
+                data-prop-src={`slides.${index}.imageSource`}
+                data-prop-alt={`slides.${index}.imageAlt`}
+              />
               {slide.caption && <figcaption>{slide.caption}</figcaption>}
             </figure>
           </CarouselSlide>

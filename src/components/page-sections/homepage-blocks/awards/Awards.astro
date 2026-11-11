@@ -20,14 +20,24 @@ const {
     {heading && <h2 data-prop="heading">{heading}</h2>}
     <ul class="no-check">
       {
-        awards.map((award: any) => (
+        awards.map((award: any, i: number) => (
           <li>
             {award.link ? (
               <a href={award.link} {...externalLinkAttrs(award.link)}>
-                <Image source={award.imageSource} alt={award.imageAlt} editable="false" />
+                <Image
+                  source={award.imageSource}
+                  alt={award.imageAlt}
+                  data-prop-src={`awards.${i}.imageSource`}
+                  data-prop-alt={`awards.${i}.imageAlt`}
+                />
               </a>
             ) : (
-              <Image source={award.imageSource} alt={award.imageAlt}  editable="false" />
+              <Image
+                source={award.imageSource}
+                alt={award.imageAlt}
+                data-prop-src={`awards.${i}.imageSource`}
+                data-prop-alt={`awards.${i}.imageAlt`}
+              />
             )}
           </li>
         ))

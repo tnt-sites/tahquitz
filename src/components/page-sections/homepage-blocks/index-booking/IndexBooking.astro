@@ -20,10 +20,10 @@ const {
     {heading && <h2 data-prop="heading">{heading}</h2>}
     <ul class="no-check">
       {
-        ways.map((way: any) => (
+        ways.map((way: any, index: number) => (
           <li>
             <figure>
-              <Image source={way.iconSource} alt="" />
+              <Image source={way.iconSource} alt="" data-prop-src={`ways.${index}.iconSource`} />
             </figure>
             <article>
               <h3>{way.title}</h3>

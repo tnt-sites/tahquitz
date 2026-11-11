@@ -23,16 +23,18 @@ const {
     <Text text={text} data-prop="text" />
     <ul class="no-check">
       {
-        cases.map((item: any) => (
+        cases.map((item: any, index: number) => (
           <li>
             <figure>
               <Image
                 source={item.beforeImage}
+                data-prop-src={`cases.${index}.beforeImage`}
                 alt={item.name ? `${item.name} before treatment` : "Before treatment"}
                 sizes="(min-width: 1025px) 380px, 100vw"
               />
               <Image
                 source={item.afterImage}
+                data-prop-src={`cases.${index}.afterImage`}
                 alt={item.name ? `${item.name} after treatment` : "After treatment"}
                 sizes="(min-width: 1025px) 380px, 100vw"
               />
