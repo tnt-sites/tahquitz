@@ -24,10 +24,10 @@ const {
           <li>
             {award.link ? (
               <a href={award.link} {...externalLinkAttrs(award.link)}>
-                <Image source={award.imageSource} alt={award.imageAlt} />
+                <Image source={award.imageSource} alt={award.imageAlt} editable="false" />
               </a>
             ) : (
-              <Image source={award.imageSource} alt={award.imageAlt} />
+              <Image source={award.imageSource} alt={award.imageAlt}  editable="false" />
             )}
           </li>
         ))
